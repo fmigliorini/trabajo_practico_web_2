@@ -3,38 +3,33 @@
 abstract class Model
 {
 
-    CONST DB_HOST = "";
-    CONST DB_NAME = "";
+    CONST DB_HOST = "192.168.10.10";
+    CONST DB_NAME = "tp_web";
     CONST DB_USER = "";
     CONST DB_PASSWORD = "";
 
     private $_db;
 
-    private function _connect()
-    {
-        $this->_db = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_HOST );
-    }
-
     /**
-    * Ejecuta una consulta en la base de datos y retorna información 
+    * Ejecuta una consulta en la base de datos y retorna información
     **/
     protected function query($query)
     {
-        
+
         $type = explode(" ", trim($query) );
         switch ( strtolower($type[0]) ){
             case 'select':
-                return $this->_select($query)
+                return $this->_select($query);  
                 break;
             case 'update':
                 return $this->_update($query);
                 break;
             case 'delete':
                 return $this->_delete($query);
-                break;                               
+                break;
         }
     }
-    
+
     /**
     * Si la consulta es un select, ejecuta la query y devuelve un array.
     * @param $query String
@@ -43,7 +38,7 @@ abstract class Model
     private function _select($query)
     {
         $res = $this->_execQuery($query);
-        
+
         if ( $res ) {
             while( $row = $res->fetch_object() ) {
                 $return[] = $row;
@@ -61,7 +56,7 @@ abstract class Model
     private function _insert($query)
     {
         $res = $this->_execQuery($query);
-        if( !$res ) 
+        if( !$res )
             return false;
 
         return $res->insert_id;
@@ -71,7 +66,7 @@ abstract class Model
     * Si la consulta es un delete, devuelvo verdadero o falso dependiendo la respuesta.
     * @param $query String
     * @return $res  Boolean
-    **/ 
+    **/
     private function _delete($query)
     {
         $res = $this->_execQuery($query);
@@ -82,19 +77,24 @@ abstract class Model
     }
 
     /**
-    * Ejecuto la query 
+    * Ejecuto la query
     * @param $query String
     * @return $res  Object
     **/
     private function _execQuery($query)
     {
-        $this->_connect();        
+        // SANITIZAR QUERY
+        $this->_connect();
         $res = $this->_db->query($query);
         $this->_close();
         return $res;
     }
 
-    
+    private function _connect()
+    {
+        $this->_db = mysqli_connect( self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_HOST );
+    }
+
     private function _close()
     {
         $this->_db->close();
