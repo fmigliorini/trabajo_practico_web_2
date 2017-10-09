@@ -44,7 +44,7 @@
                 <a href="#" class="btn btn-default btn-flat">Perfíl</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Cerrar sesión</a>
+                <a href="logout.php" class="btn btn-default btn-flat">Cerrar sesión</a>
               </div>
             </li>
           </ul>
