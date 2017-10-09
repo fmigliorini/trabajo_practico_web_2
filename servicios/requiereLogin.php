@@ -4,7 +4,7 @@ session_start();
 if ( !isset( $_SESSION['authenticate'] ) || $_SESSION['authenticate'] !== true ){
     // echo "LOGIN";
     header('Location: login.php');
-    echo "";exit;
+    exit;
 }else{
     // echo "ALL GOOD";
 }
