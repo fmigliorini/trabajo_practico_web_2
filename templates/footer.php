@@ -1,9 +1,4 @@
-</section>
-    <!-- /.content -->
-  </div>
-
-</div>
-<!-- ./wrapper -->
+</di><!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="public/js/jquery.min.js"></script>

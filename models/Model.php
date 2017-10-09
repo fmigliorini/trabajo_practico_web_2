@@ -12,11 +12,15 @@ abstract class Model
 
     /**
     * Ejecuta una consulta en la base de datos y retorna información
+    * Notas: 
+    * trim sive para limpiar espacios en blanco al principio y al final de la cadena ( String )
+    * strtolower sirve para pasar una cadena a minuscula
     **/
     protected function query($query)
     {
-
+        // AGARRO LA PRIMERA PALABRA DE LA LA QUERY: SELECT / UPDATE / DELETE
         $type = explode(" ", trim($query) );
+        // DEPENDE DE CUAL SEA LA PRIMERA PALABRA HAGO ALGO DISTINTO....
         switch ( strtolower($type[0]) ){
             case 'select':
                 return $this->_select($query);  
@@ -84,6 +88,8 @@ abstract class Model
     private function _execQuery($query)
     {
         // SANITIZAR QUERY
+        // https://diego.com.es/ataques-sql-injection-en-php  ----> explicacion de q trata injeccion SQL
+        // http://php.net/manual/en/filter.filters.sanitize.php --> posible solucion para limpiar la cadena! 
         $this->_connect();
         $res = $this->_db->query($query);
         $this->_close();
