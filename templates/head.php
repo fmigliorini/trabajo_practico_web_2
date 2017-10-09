@@ -19,5 +19,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition login-page">
-<div class="wrapper">
+<body class="hold-transition <?php echo (isset($autorize) && $autorize === true) ? 'skin-blue' : ''; ?> login-page">
+    <div class="wrapper">
