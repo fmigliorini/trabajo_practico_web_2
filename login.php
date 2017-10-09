@@ -1,21 +1,23 @@
 <?php
-    var_dump($_POST);
-    if($_SERVER['REQUEST_METHOD'] === "POST"){
-        if( isset($_POST['user']) && isset($_POST['pass'])){
 
-            require 'models/Usuario.php';
-            $usuario = new Usuario();;
-            if ( $usuario->login($_POST['user'], $_POST['pass']) ){
-                session_start();
-                $_SESSION['authenticate'] = true;
-                header('Location: home.php');
-                exit;
-            } else {
-                $error = "Usuario o clave invalidos";
-            }
+session_start();
+if ( isset( $_SESSION['authenticate'] ) || $_SESSION['authenticate'] === true ) {
+    header('Location: home.php');
+}
 
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if( isset($_POST['user']) && isset($_POST['pass']) ) {
+        require 'models/Usuario.php';
+        $usuario = new Usuario();;
+        if ( $usuario->login($_POST['user'], $_POST['pass']) ){
+            $_SESSION['authenticate'] = true;
+            header('Location: home.php');
+            exit;
+        } else {
+            $error = "Usuario o clave invalidos";
         }
     }
+}
 
 ?>
 
@@ -56,4 +58,8 @@
 </div>
 <!-- /.login-box -->
 
+<style>
+
+
+</
 <?php require_once "templates/footer.php"; ?>
