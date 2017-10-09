@@ -1,4 +1,5 @@
 <?php
+require 'Model.php';
 
 class Usuario extends Model
 {
@@ -6,35 +7,33 @@ class Usuario extends Model
     private $_id;
     private $_usuario;
     private $_password;
-    private $_nombre;
-    private $_apellido;
+    // private $_nombre;
+    // private $_apellido;
     //private $_idRol;
 
-    public function __construct($usuario ,$password, $nombre, $apellido, $id=null){
-
-    	$this->_usuario = $usuario;
-    	$this->_password = $password;
-        $this->_nombre = $nombre;
-        $this->_apellido = $apellido;
+    public function __construct(){
+        parent::__construct();
     }
 
     /**
-    * Esta función busca si existe un usuario y clave
+    * Esta función busca si existe un usuario por usuario y clave
+    * @param $usuario   String
+    * @param $clave     String
+    * @return   Boolean
     **/
-    static public function login ($usuario, $clave){
+    public function login ($usuario, $clave)
+    {
+        // hash password to md5??
+        $hashClave = md5($clave);
+        $buscarUsuario = "SELECT 1 FROM Usuario WHERE usuario = '$usuario' and password = '$hashClave'";
+        if ( parent::query($buscarUsuario) )
+            return true;
 
-
+        return false;
     }
 
-    public function save (){
 
-    	if( is_null($this->_id) {
-
-        }else{
-
-        }
-    }
-
+    // Creo que va a se mejor usar getters y setters porque sino se va a ser re vueltero todo :(
 }
 
 ?>

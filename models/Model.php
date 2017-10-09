@@ -4,15 +4,22 @@ abstract class Model
 {
 
     CONST DB_HOST = "192.168.10.10";
-    CONST DB_NAME = "tp_web";
-    CONST DB_USER = "";
-    CONST DB_PASSWORD = "";
+    CONST DB_NAME = "ViajesPepe";
+    CONST DB_USER = "fakux";
+    CONST DB_PASSWORD = "123";
 
-    private $_db;
+    protected $_db;
+
+
+    protected function __construct()
+    {
+        $this->_connect();
+    }
+
 
     /**
     * Ejecuta una consulta en la base de datos y retorna información
-    * Notas: 
+    * Notas:
     * trim sive para limpiar espacios en blanco al principio y al final de la cadena ( String )
     * strtolower sirve para pasar una cadena a minuscula
     **/
@@ -23,7 +30,7 @@ abstract class Model
         // DEPENDE DE CUAL SEA LA PRIMERA PALABRA HAGO ALGO DISTINTO....
         switch ( strtolower($type[0]) ){
             case 'select':
-                return $this->_select($query);  
+                return $this->_select($query);
                 break;
             case 'update':
                 return $this->_update($query);
@@ -41,12 +48,15 @@ abstract class Model
     **/
     private function _select($query)
     {
+        var_dump($query);
         $res = $this->_execQuery($query);
 
-        if ( $res ) {
-            while( $row = $res->fetch_object() ) {
-                $return[] = $row;
-            }
+        if ( !$res )
+            return false;
+
+
+        while( $row = $res->fetch_object() ) {
+            $return[] = $row;
         }
 
         return $return;
@@ -89,7 +99,7 @@ abstract class Model
     {
         // SANITIZAR QUERY
         // https://diego.com.es/ataques-sql-injection-en-php  ----> explicacion de q trata injeccion SQL
-        // http://php.net/manual/en/filter.filters.sanitize.php --> posible solucion para limpiar la cadena! 
+        // http://php.net/manual/en/filter.filters.sanitize.php --> posible solucion para limpiar la cadena!
         $this->_connect();
         $res = $this->_db->query($query);
         $this->_close();
@@ -98,7 +108,7 @@ abstract class Model
 
     private function _connect()
     {
-        $this->_db = mysqli_connect( self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_HOST );
+        $this->_db = mysqli_connect( self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME );
     }
 
     private function _close()
