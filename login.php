@@ -2,16 +2,16 @@
 
 session_start();
 if ( isset( $_SESSION['authenticate'] ) || $_SESSION['authenticate'] === true ) {
-    header('Location: home.php');
+    header('Location: index.php?page=home');
 }
 
 if($_SERVER['REQUEST_METHOD'] === "POST"){
     if( isset($_POST['user']) && isset($_POST['pass']) ) {
         require 'models/Usuario.php';
-        $usuario = new Usuario();;
+        $usuario = new Usuario();
         if ( $usuario->login($_POST['user'], $_POST['pass']) ){
             $_SESSION['authenticate'] = true;
-            header('Location: home.php');
+            header('Location: index.php?page=home');
             exit;
         } else {
             $error = "Usuario o clave invalidos";

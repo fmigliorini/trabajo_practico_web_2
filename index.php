@@ -1,10 +1,25 @@
-<?php require_once "templates/head.php"; ?>
-<?php require_once "templates/header.php"; ?>
-<?php require_once "templates/menu.php"; ?>
+<?php
+require_once 'servicios/requiereLogin.php';
+require_once "templates/head.php";
+require_once "templates/header.php";
+require_once "templates/menu.php";
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    
-</div>
+if(isset($_GET['page']) && !empty($_GET['page'])){
+    switch ($_GET['page']) {
+        case 'home':
+            require_once 'home.php';
+        break;
 
-<?php require_once "templates/footer.php"; ?>
+        default:
+            header('location: index.php?page=home');
+            die;
+        break;
+    }
+}
+else {
+    header('location: login.php');
+    die;
+}
+
+
+require_once "templates/footer.php";

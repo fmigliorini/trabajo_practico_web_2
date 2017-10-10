@@ -7,19 +7,13 @@
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
       <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Seccion 1</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Seccion 2</span></a></li>
-      <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Secciones</span>
-          <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="#">Seccion 3</a></li>
-          <li><a href="#">Seccion 4</a></li>
-        </ul>
-      </li>
+      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Viajes</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Empleados</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Clientes</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Roles</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Mantenimiento de Vehiculos</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>
