@@ -54,12 +54,12 @@ abstract class Model
         if ( !$res )
             return false;
 
-
-        while( $row = $res->fetch_object() ) {
-            $return[] = $row;
+        $rows = [];
+        while( $reg = $res->fetch_object() ) {
+            $rows[] = $reg;
         }
 
-        return $return;
+        return $rows;
     }
 
     /**
