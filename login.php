@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if ( isset( $_SESSION['authenticate'] ) || $_SESSION['authenticate'] === true ) {
+if ( isset( $_SESSION['authenticate'] ) && $_SESSION['authenticate'] === true ) {
     header('Location: index.php?page=home');
 }
 
