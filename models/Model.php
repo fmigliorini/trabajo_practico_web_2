@@ -3,10 +3,10 @@
 abstract class Model
 {
 
-    CONST DB_HOST = "192.168.10.10";
-    CONST DB_NAME = "ViajesPepe";
-    CONST DB_USER = "fakux";
-    CONST DB_PASSWORD = "123";
+    CONST DB_HOST = "192.168.10.10"; 
+    CONST DB_NAME = "ViajesPepe"; 
+    CONST DB_USER = "fakux";  
+    CONST DB_PASSWORD = "123"; 
 
     protected $_db;
 
@@ -31,6 +31,9 @@ abstract class Model
         switch ( strtolower($type[0]) ){
             case 'select':
                 return $this->_select($query);
+                break;
+            case 'insert':
+                return $this->_insert($query);
                 break;
             case 'update':
                 return $this->_update($query);
@@ -62,6 +65,16 @@ abstract class Model
         return $rows;
     }
 
+    private function _update($query)
+    {
+        $res = $this->_execQuery($query);
+
+        if( !$res )
+            return false;
+
+        return $res;
+    }
+
     /**
     * Si la consulta es un insert, guardo el campo y devuelvo el id del registro ingresado.
     * @param $query String
@@ -73,7 +86,7 @@ abstract class Model
         if( !$res )
             return false;
 
-        return $res->insert_id;
+        return $res;
     }
 
     /**

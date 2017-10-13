@@ -4,10 +4,15 @@ require_once "templates/head.php";
 require_once "templates/header.php";
 require_once "templates/menu.php";
 
-if(isset($_GET['page']) && !empty($_GET['page'])){
+if(isset($_GET['page']) && !empty($_GET['page']))
+{
     switch ($_GET['page']) {
         case 'home':
             require_once 'home.php';
+        break;
+
+        case 'roles':
+            require_once 'roles.php';
         break;
 
         default:

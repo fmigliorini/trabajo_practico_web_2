@@ -1,4 +1,4 @@
-</di><!-- ./wrapper -->
+</div><!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="public/js/jquery.min.js"></script>
@@ -6,6 +6,10 @@
 <script src="public/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="public/js/adminlte.min.js"></script>
+
+<script src="public/js/jquery.dataTables.min.js"></script>
+
+<script src="public/js/funciones.js"></script>
 
 </body>
 </html>
