@@ -8,16 +8,22 @@ if($_SERVER['REQUEST_METHOD'] === "POST") :
     if(isset($_POST['guardar']) && $descripcion != ''): 
 
         $rol = new Rol(null, $descripcion);
-        $rol->save();
+        $rs = $rol->save();
 
     endif;
 
     if(isset($_POST['editar']) && $descripcion != '') :
 
         $rol = new Rol($_POST['id'], $descripcion);
-        $rol->save();
+        $rs = $rol->save();
 
     endif;
+
+    if($rs)
+    {
+        header('location: index.php?page=roles');
+        die;
+    }
 
 endif;
 

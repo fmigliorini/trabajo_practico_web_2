@@ -27,13 +27,7 @@ class Rol extends Model implements ModelInterface
             $rs = parent::query($query);
         }
 
-        if($rs) 
-        {
-            echo '<script>
-                window.location.href = "index.php?page=roles";
-            </script>';
-            die;
-        }
+        return $rs;
         
     }
 
