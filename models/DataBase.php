@@ -1,17 +1,30 @@
 <?php
 
-abstract class Model
+class DataBase
 {
 
-    CONST DB_HOST = "192.168.10.10"; 
-    CONST DB_NAME = "ViajesPepe"; 
-    CONST DB_USER = "fakux";  
-    CONST DB_PASSWORD = "123"; 
+    CONST DB_HOST = "127.0.0.1";
+    CONST DB_NAME = "ViajesPepe";
+    CONST DB_USER = "root";
+    CONST DB_PASSWORD = "";
 
-    protected $_db;
+    private $_db;
 
 
-    protected function __construct()
+
+    /* SINGLETON */
+    private static $instancia;
+    public static function getInstance()
+    {
+        if (  !self::$instancia instanceof self) {
+            self::$instancia = new self;
+        }
+        return self::$instancia;
+    }
+    /* SINGLETON */
+
+
+    private function __construct()
     {
         $this->_connect();
     }
@@ -23,7 +36,7 @@ abstract class Model
     * trim sive para limpiar espacios en blanco al principio y al final de la cadena ( String )
     * strtolower sirve para pasar una cadena a minuscula
     **/
-    protected function query($query)
+    public function query($query)
     {
         // AGARRO LA PRIMERA PALABRA DE LA LA QUERY: SELECT / UPDATE / DELETE
         $type = explode(" ", trim($query) );

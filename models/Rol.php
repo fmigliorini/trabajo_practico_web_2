@@ -1,62 +1,59 @@
 <?php
 
-require_once('Model.php');
-require_once('ModelInterface.php');
+require_once 'DataBase.php';
+require_once 'ModelInterface.php';
 
-class Rol extends Model implements ModelInterface
+class Rol implements ModelInterface
 {
     private $_id;
     private $_descripcion;
+    private $_db;
 
     public function __construct($id = null,$descripcion = null)
     {
         $this->_id = $id;
         $this->_descripcion=$descripcion;
+        $this->_db = DataBase::getInstance();
     }
 
     public function save()
     {
-        if(is_null($this->_id))
-        {
+        if(is_null($this->_id)) {
             $query = "INSERT INTO rol(descripcion) VALUES ('$this->_descripcion');";
-            $rs = parent::query($query);
-        }
-        else
-        {
+        } else {
             $query = "UPDATE rol SET descripcion = '$this->_descripcion' WHERE id = $this->_id;";
-            $rs = parent::query($query);
         }
+        $rs = $this->_db->query($query);
 
         return $rs;
-        
+
     }
 
     public function getRol()
     {
         $query = "SELECT id,descripcion FROM rol WHERE id = $this->_id;";
-        $row = parent::query($query);
+        $row = $this->_db->query($query);
         return $row;
     }
 
     public function getRoles()
     {
         $query = "SELECT id,descripcion FROM rol;";
-        $rows = parent::query($query);
+        $rows = $this->_db->query($query);
         return $rows;
     }
 
     public function removeRol()
     {
         $query = "DELETE FROM rol WHERE id = $this->_id;";
-        $rs = parent::query($query);
+        $rs = $this->_db->query($query);
 
-        if($rs) 
-        {
+        if($rs) {
             header('location: index.php?page=roles');
             die;
         }
     }
-   
+
 }
 
 

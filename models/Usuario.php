@@ -1,7 +1,8 @@
 <?php
-require 'Model.php';
+require_once 'DataBase.php';
+require_once 'ModelInterface.php';
 
-class Usuario extends Model
+class Usuario implements ModelInterface
 {
 
     private $_id;
@@ -21,17 +22,23 @@ class Usuario extends Model
     * @param $clave     String
     * @return   Boolean
     **/
-    public function login ($usuario, $clave)
+    static public function login ($usuario, $clave)
     {
         // hash password to md5??
         $hashClave = md5($clave);
         $buscarUsuario = "SELECT 1 FROM Usuario WHERE usuario = '$usuario' and password = '$hashClave'";
-        if ( parent::query($buscarUsuario) )
+        $dataBase = DataBase::getInstance();
+
+        if ( $dataBase->query($buscarUsuario) )
             return true;
 
         return false;
     }
 
+    public function save()
+    {
+        
+    }
 
     // Creo que va a se mejor usar getters y setters porque sino se va a ser re vueltero todo :(
 }
