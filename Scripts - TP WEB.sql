@@ -1,34 +1,34 @@
-CREATE DATABASE VijesPepe;
+DROP DATABASE IF EXISTS ViajesPepe;
+
+CREATE DATABASE IF NOT EXISTS ViajesPepe;
+
+use ViajesPepe;
 
 CREATE TABLE Rol (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     descripcion varchar(50)
 );
 
-CREATE TABLE TipoDocumento (
+CREATE TABLE Empleado(
     id INT NOT NULL AUTO_INCREMENT primary key ,
-    descripcion varchar(50)
+    nombre varchar(50),
+    apellido varchar(80),
+    numeroDocumento varchar(15),
+    telefono varchar(50)
 );
 
+select * from Empleado;
 CREATE TABLE Usuario (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     usuario varchar (64),
     password varchar(225),
     id_rol int ,
-    foreign key(id_rol) references Rol(id)
+    id_empleado int,
+    foreign key(id_rol) references Rol(id),
+    foreign key(id_empleado) references Empleado(id)
 );
 
-CREATE TABLE Empleado(
-    id INT NOT NULL AUTO_INCREMENT primary key ,
-    id_usuario int,
-    nombre varchar(50),
-    apellido varchar(80),
-    id_tipoDoc int,
-    numDoc varchar(15),
-    telefono varchar(50),
-    foreign key(id_usuario) references Usuario(id),
-    foreign key(id_tipoDoc) references TipoDocumento(id)
-);
+
 
 CREATE TABLE VehiculoEstado (
     id INT NOT NULL AUTO_INCREMENT primary key ,
@@ -90,3 +90,17 @@ CREATE TABLE Mantenimiento (
     id_servicio int,
     foreign key(id_servicio) references Servicio(id)
 );
+
+
+CREATE TABLE ViajeLog (
+	id INT NOT NULL AUTO_INCREMENT primary key ,
+    fecha datetime,
+    descripción varchar(255),
+    precio DECIMAL(6,3),
+    id_viaje INT NOT NULL,
+    foreign key(id_viaje) references Viaje(id)
+);
+
+select * from Empleado;
+select * from Usuario;
+insert into Rol (descripcion) VALUES ('admin');
