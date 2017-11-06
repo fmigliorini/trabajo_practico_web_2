@@ -26,14 +26,14 @@ class Empleado implements ModelInterface
 	public function save()
     {
         if(is_null($this->_id)) {
-            $query = sprintf("INSERT INTO Empleado (nombre,apellido,dni,telefono) VALUES ('%s','%s','%s','%s')",
+            $query = sprintf("INSERT INTO Empleado (nombre,apellido,numeroDocumento,telefono) VALUES ('%s','%s','%s','%s')",
                             $this->_name,
                             $this->_surname,
                             $this->_dni,
 							$this->_phone
                         );
         } else {
-            $query = sprintf("UPDATE Usuario SET nombre = '%s, apellido = '%s', dni = '%s', telefono = '%s' WHERE id = '%s'",
+            $query = sprintf("UPDATE Usuario SET nombre = '%s, apellido = '%s', numeroDocumento = '%s', telefono = '%s' WHERE id = '%s'",
                             $this->_nombre,
                             $this->_apellido,
                             $this->_dni,

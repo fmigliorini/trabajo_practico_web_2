@@ -38,6 +38,8 @@ class DataBase
     **/
     public function query($query)
     {
+        $this->_connect();
+
         // AGARRO LA PRIMERA PALABRA DE LA LA QUERY: SELECT / UPDATE / DELETE
         $type = explode(" ", trim($query) );
         // DEPENDE DE CUAL SEA LA PRIMERA PALABRA HAGO ALGO DISTINTO....
@@ -55,6 +57,10 @@ class DataBase
                 return $this->_delete($query);
                 break;
         }
+
+        $this->_close();
+
+
     }
 
     /**
@@ -64,7 +70,6 @@ class DataBase
     **/
     private function _select($query)
     {
-        var_dump($query);
         $res = $this->_execQuery($query);
 
         if ( !$res )
@@ -99,7 +104,7 @@ class DataBase
         if( !$res )
             return false;
 
-        return $res;
+        return $this->_db->insert_id;
     }
 
     /**
@@ -126,9 +131,7 @@ class DataBase
         // SANITIZAR QUERY
         // https://diego.com.es/ataques-sql-injection-en-php  ----> explicacion de q trata injeccion SQL
         // http://php.net/manual/en/filter.filters.sanitize.php --> posible solucion para limpiar la cadena!
-        $this->_connect();
         $res = $this->_db->query($query);
-        $this->_close();
         return $res;
     }
 

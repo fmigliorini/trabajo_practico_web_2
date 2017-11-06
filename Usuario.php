@@ -1,16 +1,14 @@
+<div class="content-wrapper">
 <?php
 
 require_once "models/Usuario.php";
 require_once "models/Rol.php";
 require_once "models/Empleado.php";
 
-echo "METHOD : " . $_SERVER['REQUEST_METHOD'];
-exit;
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
     switch( $_POST["work"] ){
-        case 'save':
+        case 'create':
             // EMPLEADO DATA
-            $idEmployed = Helper::isPost('idEmployed');
             $name = Helper::isPost('name');
             $surname = Helper::isPost('surname');
             $phone = Helper::isPost('phone');
@@ -22,9 +20,10 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $password = Helper::isPost('password');
             $idRol = Helper::isPost('idRol');
 
-            $employed = new Empleado($idEmployed,$name,$surname,$dni,$phone);
-            $employed->save();
-            $user = new Usuario($idUser,$username,$password,$idEmployed,$idRol);
+            $employed = new Empleado(null,$name,$surname,$dni,$phone);
+            $idEmployed = $employed->save();
+            var_dump($idEmployed);
+            $user = new Usuario(null,$username,$password,$idEmployed,$idRol);
             $user->save();
             break;
         case 'delete':
@@ -65,8 +64,8 @@ $listaRoles = Rol::getAll();
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Usuario</h4>
                     </div>
-                    <form action="" method="POST">
-                        <input type="hidden" name="work" value="save">
+                    <form method="POST">
+                        <input type="hidden" name="work" value="create">
                         <div class="modal-body">
                             <legend>Datos Empleado</legend>
                             <div class="form-group">
@@ -98,7 +97,7 @@ $listaRoles = Rol::getAll();
                             </div>
                             <div class="form-group">
                                 <label for="rol">Rol</label>
-                                <select class="form-control" required>
+                                <select name="idRol" class="form-control" required>
                                     <option value=""> Seleccione un Rol </<option>
                                     <?php foreach( $listaRoles as $rol ) { ?>
                                         <option value="<?php echo $rol->id; ?>"><?php echo $rol->descripcion;?></option>

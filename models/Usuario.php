@@ -44,7 +44,7 @@ class Usuario implements ModelInterface
     public function save()
     {
         if(is_null($this->_id)) {
-            $query = sprintf("INSERT INTO Usuario (usuario, clave, idEmpleado, idRol) VALUES ('%s','%s','%s','%s')",
+            $query = sprintf("INSERT INTO Usuario (usuario, password, id_empleado, id_rol) VALUES ('%s','%s','%s','%s')",
                             $this->_usuario,
                             md5($this->_password),
                             $this->_idEmployed,
@@ -58,6 +58,7 @@ class Usuario implements ModelInterface
                             $this->_id
                         );
         }
+        echo $query;
         return  $this->_db->query($query);
 
     }
