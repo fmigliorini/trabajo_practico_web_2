@@ -1,4 +1,3 @@
-<div class="content-wrapper">
 <?php
 
 require_once "models/Usuario.php";
@@ -15,7 +14,6 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $dni = Helper::isPost('dni');
 
             // USUARIO DATA
-            $idUser = Helper::isPost('idUser');
             $username = Helper::isPost('username');
             $password = Helper::isPost('password');
             $idRol = Helper::isPost('idRol');
@@ -26,7 +24,27 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $user = new Usuario(null,$username,$password,$idEmployed,$idRol);
             $user->save();
             break;
-        case 'delete':
+        case 'edit':
+            // EMPLEADO DATA
+            $idEmpleado = Helper::isPost('idEmpleado');
+            $name = Helper::isPost('name');
+            $surname = Helper::isPost('surname');
+            $phone = Helper::isPost('phone');
+            $dni = Helper::isPost('dni');
+
+            // USUARIO DATA
+            $idUser = Helper::isPost('idUser');
+            $username = Helper::isPost('username');
+            $password = Helper::isPost('password');
+            $idRol = Helper::isPost('idRol');
+
+            $employed = new Empleado(null,$name,$surname,$dni,$phone);
+            $idEmployed = $employed->save();
+            var_dump($idEmployed);
+            $user = new Usuario(null,$username,$password,$idEmployed,$idRol);
+            $user->save();
+
+
             break;
         default:
             echo "EMPTY";
@@ -38,6 +56,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
 
 // obtener roles
 $listaRoles = Rol::getAll();
+$listUsuarios = Usuario::getAll();
 ?>
 
 <div class="content-wrapper">
@@ -119,58 +138,100 @@ $listaRoles = Rol::getAll();
 
             <thead>
                 <tr>
+                    <th>Usuario</th>
                     <th>Nombre</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Apellido</th>
+                    <th>Numero Documento</th>
+                    <th>teléfono</th>
+                    <th>Rol</th>
+                    <th>editar</th>
+                    <th>Borrar</th>
+
                 </tr>
             </thead>
 
             <tbody>
             <?php
 
-                foreach($listaRoles as $dato) { ?>
+                foreach($listUsuarios as $usuario) {  ?>
 
                     <tr>
-                        <td><?php echo $dato->descripcion ; ?></td>
+                        <td><?php echo $usuario->usuario ; ?></td>
+                        <td><?php echo $usuario->nombre ; ?></td>
+                        <td><?php echo $usuario->apellido ; ?></td>
+                        <td><?php echo $usuario->telefono ; ?></td>
+                        <td><?php echo $usuario->numeroDocumento ; ?></td>
+                        <td><?php echo $usuario->descripcion ; ?></td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $dato->id; ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $usuario->id; ?>">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" data-toggle="modal" data-target="#modalDeleteRol<?php echo $dato->id; ?>">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $usuario->id; ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
                             <div id="modalEditRol<?php echo $dato->id; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Editar Rol</h4>
-                                        </div>
-
-                                        <div class="modal-body">
-
-                                            <?php
-                                                $rol = new Rol($dato->id, null);
-                                                $row = $rol->getRol();
-                                                //echo json_encode($row[0]);
-                                            ?>
-
-                                            <form action="" method="POST">
-
-                                                <div class="form-group">
-                                                    <label for="rol">Nombre del rol:</label>
-                                                    <input type="text" name="rol" id="rol" class="form-control" value="<?php echo $row[0]->descripcion; ?>" required>
-                                                </div>
-
-                                                <div class="modal-footer">  <!-- Footer -->
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                    <input type="hidden" name="id" value="<?php echo $row[0]->id; ?>">
-                                                    <input type="submit" name="editar" class="btn btn-success" value="Editar">
-                                                </div>
-
-                                            </form>
-
-                                        </div> <!-- End modal-body -->
-
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Usuario</h4>
                                     </div>
+                                    <form method="POST">
+                                        <input type="hidden" name="work" value="create">
+                                        <div class="modal-body">
+                                            <legend>Datos Empleado</legend>
+                                            <div class="form-group">
+                                                <label for="name">Nombre</label>
+                                                <input type="text" name="name" id="name" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="surname">Apellido</label>
+                                                <input type="text" name="surname" id="surname" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone">Teléfono</label>
+                                                <input type="text" name="phone" id="phone" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dni">DNI</label>
+                                                <input type="text" name="dni" id="dni" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <legend>Datos Usuario</legend>
+                                            <div class="form-group">
+                                                <label for="username">Usuario</label>
+                                                <input type="text" name="username" id="username" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Clave</label>
+                                                <input type="text" name="password" id="password" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rol">Rol</label>
+                                                <select name="idRol" class="form-control" required>
+                                                    <option value=""> Seleccione un Rol </<option>
+                                                    <?php foreach( $listaRoles as $rol ) { ?>
+                                                        <option value="<?php echo $rol->id; ?>"><?php echo $rol->descripcion;?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">  <!-- Footer -->
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <input type="submit" name="guardar" class="btn btn-success">
+                                            </div>
+                                        </div> <!-- End modal-body -->
+                                    </form>
+
                                 </div>
                             </div>
 

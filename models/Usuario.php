@@ -71,6 +71,13 @@ class Usuario implements ModelInterface
 
     }
 
+
+    static public function getAll()
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT distinct * FROM Usuario u INNER JOIN Empleado e ON u.id_empleado = e.id INNER JOIN Rol r ON u.id_rol = r.id";
+        return $db->query($query);
+    }
     // Creo que va a se mejor usar getters y setters porque sino se va a ser re vueltero todo :(
 }
 
