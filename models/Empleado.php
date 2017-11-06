@@ -1,36 +1,48 @@
-<?php 
+<?php
 
-class Empleado extends model
+require_once 'ModelInterface.php';
+require_once 'Database.php';
+
+class Empleado implements ModelInterface
 {
+	private $_db;
+	private $_id;
+	private $_name;
+	private $_surname;
+	private $_dni;
+	private $_phone;
 
-private $_id;
-private $_nombre;
-private $_apellido;
-private $_tipoDocumento;
-private $_numeroDocumento;
-private $_telefono;
-//private $_idUsuario;
-
-public function __construct($nombre ,$apellido, $tipoDocumento,$numeroDocumento,$telefono ,$id=null){
-	
-	$this->_nombre=$nombre;
-	$this->_apellido=$apellido;
-	$this->_tipoDocumento=$tipoDocumento;
-	$this->_telefono=$telefono;
-}
-
-
-public function save (){
-	
-	if( is_null($this->_id)
+	public function __construct($id=null, $name, $surname, $dni, $phone )
 	{
-		insert();		
+		$this->_db = DataBase::getInstance();
+		$this->_id = $id;
+		$this->_name = $name;
+		$this->_surname = $surname;
+		$this->_dni = $dni;
+		$this->_phone = $phone;
 	}
-else
-	{
-	  update();
-	}
-}
+
+
+	public function save()
+    {
+        if(is_null($this->_id)) {
+            $query = sprintf("INSERT INTO Empleado (nombre,apellido,dni,telefono) VALUES ('%s','%s','%s','%s')",
+                            $this->_name,
+                            $this->_surname,
+                            $this->_dni,
+							$this->_phone
+                        );
+        } else {
+            $query = sprintf("UPDATE Usuario SET nombre = '%s, apellido = '%s', dni = '%s', telefono = '%s' WHERE id = '%s'",
+                            $this->_nombre,
+                            $this->_apellido,
+                            $this->_dni,
+							$this->_phone,
+							$this->_id
+                        );
+        }
+        return  $this->_db->query($query);
+    }
 
 }
 

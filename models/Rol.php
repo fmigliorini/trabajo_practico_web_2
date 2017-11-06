@@ -54,6 +54,14 @@ class Rol implements ModelInterface
         }
     }
 
+
+    static public function getAll()
+    {
+        $db = DataBase::getInstance();
+        $query = "select * from Rol";
+        return $db->query($query);
+    }
+
 }
 
 
