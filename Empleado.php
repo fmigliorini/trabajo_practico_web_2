@@ -5,21 +5,20 @@ require_once "models/Rol.php";
 require_once "models/Empleado.php";
 
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
-
-    $idUser = Helper::isPost('idUser');
-    $username = Helper::isPost('username');
-    $password = Helper::isPost('password');
-    $idRol = Helper::isPost('idRol');
-    $idEmpleado = Helper::isPost('idEmpleado');
-
     switch( $_POST["work"] ){
+        $idEmpleado = Helper::isPost('idEmpleado');
+        $name = Helper::isPost('name');
+        $surname = Helper::isPost('surname');
+        $phone = Helper::isPost('phone');
+        $dni = Helper::isPost('dni');
         case 'create':
             $user = new Usuario(null,$username,$password,$idEmployed,$idRol);
             $user->save();
             break;
         case 'edit':
-            $user = new Usuario($idUser,$username,$password,$idEmployed,$idRol);
-            $user->save();
+            // EMPLEADO DATA
+            $employed = new Empleado($idEmpleado,$name,$surname,$dni,$phone);
+            $idEmployed = $employed->save();
             break;
         default:
             echo "EMPTY";
@@ -30,8 +29,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
 
 
 // obtener roles
-$listaRoles = Rol::getAll();
-$listUsuarios = Usuario::getAll();
+$listEmpleado = Empledao::getAll();
 ?>
 
 <div class="content-wrapper">

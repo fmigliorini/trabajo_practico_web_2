@@ -1,7 +1,7 @@
 <?php
 
 require_once 'ModelInterface.php';
-require_once 'Database.php';
+require_once 'DataBase.php';
 
 class Empleado implements ModelInterface
 {
