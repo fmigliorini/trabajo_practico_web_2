@@ -11,6 +11,7 @@ class Usuario implements ModelInterface
     private $_idEmployed;
     private $_idRol;
     private $_db;
+    private $_estado;
 
     public function __construct( $id, $username, $password, $idEmployed, $idRol){
         $this->_db = DataBase::getInstance();
@@ -71,6 +72,23 @@ class Usuario implements ModelInterface
 
     }
 
+    static public function desactivar($id)
+    {
+        $db = DataBase::getInstance();
+        $query = sprintf("UPDATE Usuario SET estado = 'inactivo' WHERE id = '%s' "
+                        ,$id
+                    );
+        return  $db->query($query);
+    }
+
+    static public function activar($id)
+    {
+        $db = DataBase::getInstance();
+        $query = sprintf("UPDATE Usuario SET estado = 'activo' WHERE id = '%s' "
+                        ,$id
+                    );
+        return  $db->query($query);
+    }
 
     static public function getAll()
     {
