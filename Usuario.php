@@ -162,17 +162,7 @@ $listUsuarios = Usuario::getAll();
                         <td><?php echo $usuario->telefono ; ?></td>
                         <td><?php echo $usuario->numeroDocumento ; ?></td>
                         <td><?php echo $usuario->descripcion ; ?></td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $usuario->id; ?>">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#modalDeleteRol<?php echo $dato->id; ?>">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
-                        </td>
-
+                        
                         <td>
                             <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $usuario->id; ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
