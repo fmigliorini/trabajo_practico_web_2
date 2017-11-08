@@ -22,6 +22,7 @@ CREATE TABLE Usuario (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     usuario varchar (64),
     password varchar(225),
+    estado enum('activo','inactivo') default 'activo',
     id_rol int ,
     id_empleado int,
     foreign key(id_rol) references Rol(id),
@@ -104,3 +105,4 @@ CREATE TABLE ViajeLog (
 select * from Empleado;
 select * from Usuario;
 insert into Rol (descripcion) VALUES ('admin');
+insert into Usuario (usuario,password,id_rol) values ('admin','202cb962ac59075b964b07152d234b70','1');
