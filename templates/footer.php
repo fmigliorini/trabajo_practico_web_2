@@ -10,6 +10,7 @@
 <script src="public/js/jquery.dataTables.min.js"></script>
 
 <script src="public/js/funciones.js"></script>
+<script src="public/js/empleado.js"></script>
 
 </body>
 </html>

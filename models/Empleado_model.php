@@ -12,14 +12,9 @@ class Empleado implements ModelInterface
 	private $_dni;
 	private $_telefono;
 
-	public function __construct($nombre, $apellido, $dni, $telefono )
+	public function __construct()
 	{
 		$this->_db = DataBase::getInstance();
-		$this->_id = $id;
-		$this->_nombre = $nombre;
-		$this->_apellido = $apellido;
-		$this->_dni = $dni;
-		$this->_telefono = $telefono;
 	}
 
 
@@ -33,13 +28,14 @@ class Empleado implements ModelInterface
 							$this->_telefono
                         );
         } else {
-            $query = sprintf("UPDATE Usuario SET nombre = '%s, apellido = '%s', numeroDocumento = '%s', telefono = '%s' WHERE id = '%s'",
+            $query = sprintf("UPDATE Empleado SET nombre = '%s', apellido = '%s', numeroDocumento = '%s', telefono = '%s' WHERE id = '%s'",
                             $this->_nombre,
                             $this->_apellido,
                             $this->_dni,
 							$this->_telefono,
 							$this->_id
                         );
+
         }
         return  $this->_db->query($query);
     }
@@ -49,9 +45,18 @@ class Empleado implements ModelInterface
     {
         // buscar en db;
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM Empleaod WHERE id = '$id'";
+        $query = "SELECT * FROM Empleado WHERE id = '$id'";
         $res = $db->query($query);
-        return new Static();
+        if ( count($res) === 1 ) {
+            $empleado = new Empleado();
+            $empleado->setId($res[0]->id);
+            $empleado->setNombre($res[0]->nombre);
+            $empleado->setApellido($res[0]->apellido);
+            $empleado->setDni($res[0]->numeroDocumento);
+            $empleado->setTelefono($res[0]->telefono);
+            return $empleado;
+        }
+        return false;
     }
 
     static public function getAll()
@@ -59,32 +64,6 @@ class Empleado implements ModelInterface
         $db = DataBase::getInstance();
         $query = "SELECT * FROM Empleado";
         return $db->query($query);
-
-    }
-
-
-    /**
-     * Get the value of Db
-     *
-     * @return mixed
-     */
-    public function getDb()
-    {
-        return $this->_db;
-    }
-
-    /**
-     * Set the value of Db
-     *
-     * @param mixed _db
-     *
-     * @return self
-     */
-    public function setDb($_db)
-    {
-        $this->_db = $_db;
-
-        return $this;
     }
 
     /**

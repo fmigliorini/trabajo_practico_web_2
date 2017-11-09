@@ -3,10 +3,10 @@
 class DataBase
 {
 
-    CONST DB_HOST = "127.0.0.1";
+    CONST DB_HOST = "192.168.10.10";
     CONST DB_NAME = "ViajesPepe";
-    CONST DB_USER = "root";
-    CONST DB_PASSWORD = "";
+    CONST DB_USER = "fakux";
+    CONST DB_PASSWORD = "123";
 
     private $_db;
 
