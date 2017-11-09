@@ -19,9 +19,9 @@ class Rol implements ModelInterface
     public function save()
     {
         if(is_null($this->_id)) {
-            $query = "INSERT INTO rol(descripcion) VALUES ('$this->_descripcion');";
+            $query = "INSERT INTO Rol(descripcion) VALUES ('$this->_descripcion');";
         } else {
-            $query = "UPDATE rol SET descripcion = '$this->_descripcion' WHERE id = $this->_id;";
+            $query = "UPDATE Rol SET descripcion = '$this->_descripcion' WHERE id = $this->_id;";
         }
         $rs = $this->_db->query($query);
 
@@ -31,21 +31,21 @@ class Rol implements ModelInterface
 
     public function getRol()
     {
-        $query = "SELECT id,descripcion FROM rol WHERE id = $this->_id;";
+        $query = "SELECT id,descripcion FROM Rol WHERE id = $this->_id;";
         $row = $this->_db->query($query);
         return $row;
     }
 
     public function getRoles()
     {
-        $query = "SELECT id,descripcion FROM rol;";
+        $query = "SELECT id,descripcion FROM Rol;";
         $rows = $this->_db->query($query);
         return $rows;
     }
 
     public function removeRol()
     {
-        $query = "DELETE FROM rol WHERE id = $this->_id;";
+        $query = "DELETE FROM Rol WHERE id = $this->_id;";
         $rs = $this->_db->query($query);
 
         if($rs) {
