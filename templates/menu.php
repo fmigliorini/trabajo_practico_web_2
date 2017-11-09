@@ -8,7 +8,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <!-- Optionally, you can add icons to the links -->
       <li><a href="#"><i class="fa fa-link"></i> <span>Viajes</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Empleados</span></a></li>
+      <li><a href="index.php?page=empleado"><i class="fa fa-link"></i> <span>Empleados</span></a></li>
       <li><a href="#"><i class="fa fa-link"></i> <span>Clientes</span></a></li>
       <li><a href="#"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
       <li <?php echo ( Helper::isPage('usuario') ) ? 'class="active"' : '' ?>><a href="index.php?page=usuario"><i class="fa fa-link"></i> <span>Usuarios</span></a></li>
