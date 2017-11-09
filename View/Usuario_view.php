@@ -1,9 +1,5 @@
 <?php
 
-require_once "models/Usuario.php";
-require_once "models/Rol.php";
-require_once "models/Empleado.php";
-
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
 
     $idUser = Helper::isPost('idUser');

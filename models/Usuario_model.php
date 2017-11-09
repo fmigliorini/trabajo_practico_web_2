@@ -13,9 +13,8 @@ class Usuario implements ModelInterface
     private $_db;
     private $_estado;
 
-    public function __construct( $id, $username, $password, $idEmployed, $idRol){
+    public function __construct( $username, $password, $idEmployed, $idRol){
         $this->_db = DataBase::getInstance();
-        $this->_id = $id;
         $this->_usuario = $username;
         $this->_password = $password;
         $this->_idEmployed = $idEmployed;

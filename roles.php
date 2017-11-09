@@ -1,11 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
 
-<?php require_once "models/Rol.php";
+<?php require_once "models/Rol_model.php";
 if($_SERVER['REQUEST_METHOD'] === "POST") :
 
     $descripcion = trim($_POST['rol']);
 
-    if(isset($_POST['guardar']) && $descripcion != ''): 
+    if(isset($_POST['guardar']) && $descripcion != ''):
 
         $rol = new Rol(null, $descripcion);
         $rs = $rol->save();
@@ -49,9 +49,9 @@ endif;
 
     <!-- Main content -->
     <section class="content container-fluid">
-        
+
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRol">Agregar</button>
-        
+
         <div id="modalRol" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -63,21 +63,21 @@ endif;
                     </div>
 
                     <div class="modal-body">
-                        
+
                         <form action="" method="POST">
 
                             <div class="form-group">
                                 <label for="rol">Nombre del rol:</label>
                                 <input type="text" name="rol" id="rol" class="form-control" required>
                             </div>
-                    
+
                             <div class="modal-footer">  <!-- Footer -->
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 <input type="submit" name="guardar" class="btn btn-success">
                             </div>
 
                         </form>
-                      
+
                     </div> <!-- End modal-body -->
 
                 </div>
@@ -93,19 +93,19 @@ endif;
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            
+
             <tbody>
-            <?php 
+            <?php
                 $rol = new Rol();
                 $datos = $rol->getRoles();
 
                 foreach($datos as $dato) : ?>
-    
+
                     <tr>
                         <td><?php echo $dato->descripcion ; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#modalEditRol<?php echo $dato->id; ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            
+
                             <div id="modalEditRol<?php echo $dato->id; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
 
@@ -118,19 +118,19 @@ endif;
 
                                         <div class="modal-body">
 
-                                            <?php 
+                                            <?php
                                                 $rol = new Rol($dato->id, null);
                                                 $row = $rol->getRol();
                                                 //echo json_encode($row[0]);
                                             ?>
-                                            
+
                                             <form action="" method="POST">
-                                                
+
                                                 <div class="form-group">
                                                     <label for="rol">Nombre del rol:</label>
                                                     <input type="text" name="rol" id="rol" class="form-control" value="<?php echo $row[0]->descripcion; ?>" required>
                                                 </div>
-                                        
+
                                                 <div class="modal-footer">  <!-- Footer -->
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                     <input type="hidden" name="id" value="<?php echo $row[0]->id; ?>">
@@ -138,7 +138,7 @@ endif;
                                                 </div>
 
                                             </form>
-                                          
+
                                         </div> <!-- End modal-body -->
 
                                     </div>
@@ -152,7 +152,7 @@ endif;
 
                             <div id="modalDeleteRol<?php echo $dato->id; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
-                    
+
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -161,9 +161,9 @@ endif;
                                         </div>
 
                                         <div class="modal-body">
-                                            
+
                                             <p>Desea eliminar el rol <?php echo $dato->descripcion; ?> ? </p>
-                                        
+
                                         </div> <!-- End modal-body -->
 
                                         <div class="modal-footer">  <!-- Footer -->
@@ -182,6 +182,6 @@ endif;
             </tbody>
 
         </table>
-        
+
     </section><!-- /.content -->
 </div>
