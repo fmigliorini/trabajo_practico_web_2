@@ -69,7 +69,7 @@ class Empleado implements ModelInterface
     static public function getEmpleadoSinUsuario()
     {
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM Empleado e LEFT JOIN Usuario u ON u.id_empleado = e.id WHERE u.id_empleado IS NULL";
+        $query = "SELECT e.* FROM Empleado e LEFT JOIN Usuario u ON u.id_empleado = e.id WHERE u.id_empleado IS NULL";
         return $db->query($query);
     }
 

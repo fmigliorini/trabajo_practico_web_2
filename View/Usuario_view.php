@@ -1,27 +1,32 @@
+
 <?php
 
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
 
-    $idUsuario = Helper::isPost('idUser');
-    $usuario = Helper::isPost('usuario');
+    $idUsuario = Helper::isPost('idUsuario');
+    $nombreUsuario = Helper::isPost('usuario');
     $clave = Helper::isPost('clave');
     $idRol = Helper::isPost('idRol');
     $idEmpleado = Helper::isPost('idEmpleado');
-
     switch( $_POST["work"] ){
         case 'create':
-            $usuario = new Usuario($username,$password,$idEmployed,$idRol);
-            $usuario->setUsuario($usuario);
+            // FALTA VALIDAR SI EL USUARIO YA EXISTE O SI EL EMPLEADO YA TIENE UN USUARIO.
+            $usuario = new Usuario();
+            $usuario->setUsuario($nombreUsuario );
             $usuario->setClave($clave);
             $usuario->setIdEmpleado($idEmpleado);
             $usuario->setIdRol($idRol);
-            $user->save();
+            if($usuario->save()){
+
+            }
             break;
         case 'edit':
             $usuario = Usuario::getById($idUsuario);
-            $usuario->setUsuario($usuario);
-            $usuario->setIdRol($idRol);
-            $user->save();
+            if ( $usuario ){
+                $usuario->setUsuario($nombreUsuario);
+                $usuario->setIdRol($idRol);
+                $usuario->save();
+            }
             break;
         default:
             echo "EMPTY";
@@ -81,13 +86,18 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
                         <td><?php echo $usuario->empleado_apellido; ?></td>
                         <td><?php echo $usuario->empleado_numero_documento; ?></td>
                         <td>
-                            <a href="#" data-toggle="modal"
-                                data-target="#modalEdit">
+                            <a class="btn-modal-edit-usuario" href="#" data-toggle="modal"
+                                data-target="#modalEdit"
+                                data-usuario="<?php echo $usuario->usuario; ?>"
+                                data-id="<?php echo $usuario->id; ?>"
+                                data-rol="<?php echo $usuario->rol_id ; ?>">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>
                         <td>
-                            <a href="#" data-toggle="modal"
-                                data-target="#modalDelete">
+                            <a class="btn-modal-delete-usuario" href="#" data-toggle="modal"
+                                data-target="#modalDelete"
+                                data-usuario="<?php echo $usuario->usuario; ?>"
+                                data-id="<?php echo $usuario->id; ?>">
                                 <i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -111,7 +121,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Generar Usuario</h4>
-            </div
+            </div>
             <?php if (count($empleadoSinUsuario) > 0){?>
                 <form method="POST">
                     <input type="hidden" name="work" value="create">
@@ -147,7 +157,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
                         </div>
                         <div class="modal-footer">  <!-- Footer -->
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <input type="submit" name="guardar" class="btn btn-success">
+                            <input type="submit" name="guardar" class="btn btn-success" value="guardar">
                         </div>
                     </div> <!-- End modal-body -->
                 </form>
@@ -175,7 +185,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Usuario</h4>
             </div>
-            <form method="POST">
+            <form id="form-edit" method="POST">
                 <input type="hidden" name="work" value="edit">
                 <input type="hidden" name="idUsuario" id="idUsuario" value="">
                 <div class="modal-body">
@@ -186,7 +196,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
                     </div>
                     <div class="form-group">
                         <label for="rol">Rol</label>
-                        <select name="idRol" class="form-control" required>
+                        <select name="idRol" id="idRol" class="form-control" required>
                             <option value=""> Seleccione un Rol </<option>
                             <?php foreach( $listaRoles as $rol ) { ?>
                                 <option value="<?php echo $rol->id; ?>"><?php echo $rol->descripcion;?></option>
@@ -195,7 +205,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
                     </div>
                     <div class="modal-footer">  <!-- Footer -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <input type="submit" name="guardar" class="btn btn-success">
+                        <input type="submit" name="guardar" class="btn btn-success" value="Actualizar">
                     </div>
                 </div> <!-- End modal-body -->
             </form>

@@ -40,20 +40,19 @@ class Usuario implements ModelInterface
     public function save()
     {
         if(is_null($this->_id)) {
-            $query = sprintf("INSERT INTO Usuario (usuario, password, id_empleado, id_rol) VALUES ('%s','%s','%s','%s')",
+            $query = sprintf("INSERT INTO Usuario (usuario,password,id_empleado,id_rol) VALUES ('%s','%s','%s','%s')",
                             $this->_usuario,
-                            md5($this->_clave),
-                            $this->_idEmployed,
-                            $this->_idRol
+                            $this->_clave,
+                            $this->_idEmpleado,
+							$this->_idRol
                         );
         } else {
-            $query = sprintf("UPDATE Usuario SET usuario = '%s, idRol = '%s' WHERE id = '%s'",
+            $query = sprintf("UPDATE Usuario SET usuario = '%s', id_rol = '%s' WHERE id = '%s'",
                             $this->_usuario,
                             $this->_idRol,
                             $this->_id
                         );
         }
-        echo $query;
         return  $this->_db->query($query);
 
     }
@@ -99,10 +98,11 @@ class Usuario implements ModelInterface
         $res = $db->query($query);
         if ( count($res) === 1 ) {
             $usuario = new Usuario();
-            $usuario->setUsername($res[0]->usuario);
-            $usuario->setClave($res[0]->clave);
-            $usuario->setIdEmpleado($res[0]->idEmpleado);
-            $usuario->setIdRol($res[0]->idRol);
+            $usuario->setId($res[0]->id);
+            $usuario->setUsuario($res[0]->usuario);
+            $usuario->setClave($res[0]->password);
+            $usuario->setIdEmpleado($res[0]->id_empleado);
+            $usuario->setIdRol($res[0]->id_rol);
             return $usuario;
         }
         return false;;

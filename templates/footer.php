@@ -11,6 +11,7 @@
 
 <script src="public/js/funciones.js"></script>
 <script src="public/js/empleado.js"></script>
+<script src="public/js/usuario.js"></script>
 
 </body>
 </html>
