@@ -18,7 +18,7 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             require_once "models/Usuario_model.php";
             require_once "models/Empleado_model.php";
             require_once "models/Rol_model.php";
-            require_once 'View/Usuario.php';
+            require_once 'View/Usuario_view.php';
             break;
         case 'empleado':
             require_once "models/Empleado_model.php";
