@@ -31,23 +31,11 @@ CREATE TABLE Usuario (
 
 
 
-CREATE TABLE VehiculoEstado (
-    id INT NOT NULL AUTO_INCREMENT primary key ,
-    descripcion varchar(50)
-);
-
-CREATE TABLE VehiculoTipo (
-    id INT NOT NULL AUTO_INCREMENT primary key ,
-    descripcion varchar(50)
-);
-
 CREATE TABLE Vehiculo (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     patente varchar (15),
-    id_tipoVehiculo int,
-    id_estado int ,
-    foreign key(id_estado) references VehiculoEstado(id),
-    foreign key(id_tipoVehiculo) references VehiculoTipo(id)
+    tipo varchar(100),
+    estado varchar(100)
 );
 
 CREATE TABLE Cliente (
