@@ -12,6 +12,7 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             require_once 'home.php';
         break;
         case 'roles':
+            require_once "models/Rol_model.php";
             require_once 'view/Roles_view.php';
         break;
         case 'usuario':
