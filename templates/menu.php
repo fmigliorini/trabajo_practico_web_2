@@ -12,7 +12,7 @@
 
       <li><a href="index.php?page=empleado"><i class="fa fa-link"></i> <span>Empleados</span></a></li>
       <li <?php echo ( Helper::isPage('clientes') ) ? 'class="active"' : '' ?>><a href="index.php?page=clientes"><i class="fa fa-link"></i> <span>Clientes</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Viajes</span></a></li>
+      <li <?php echo ( Helper::isPage('viajes') ) ? 'class="active"' : '' ?>><a href="index.php?page=viajes"><i class="fa fa-link"></i> <span>Viajes</span></a></li>
       <li <?php echo ( Helper::isPage('vehiculos') ) ? 'class="active"' : '' ?>><a href="index.php?page=vehiculos"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
       <li><a href="#"><i class="fa fa-link"></i> <span>Mantenimiento de Vehiculos</span></a></li>
     </ul>

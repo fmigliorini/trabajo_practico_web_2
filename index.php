@@ -33,6 +33,10 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             require_once "models/Cliente_model.php";
             require_once 'view/Clientes_view.php';
         break;
+        case 'viajes':
+            require_once "models/Viaje_model.php";
+            require_once 'view/Viajes_view.php';
+        break;
 
         default:
             header('location: index.php?page=home');
