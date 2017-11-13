@@ -134,22 +134,24 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 <label for="combustible_estimado">Combustible estimado:</label>
                                 <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>
-                        
-                            <?php 
-                                $choferes = $viaje->getChoferes(); 
-                                $clientes = $viaje->getClientes(); 
-                                $vehiculos = $viaje->getVehiculos(); 
+
+                            <?php
+                                $choferes = $viaje->getChoferes();
+                                $clientes = $viaje->getClientes();
+                                $vehiculos = $viaje->getVehiculos();
                             ?>
-                            
+
                             <div class="form-group">
                                 <select name="idChofer" class="form-control" required="required">
                                     <option value="">Seleccione un Chofer</option>
-                                    <?php foreach( $choferes as $chofer ) { ?>
-                                        <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                                    <?php if (!empty ( $choferes )){ ?>
+                                        <?php foreach( $choferes as $chofer ) { ?>
+                                            <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                                        <?php } ?>
                                     <?php } ?>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <select name="idCliente" class="form-control" required="required">
                                     <option value=""> Seleccione un Cliente </option>
@@ -197,59 +199,59 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             ?>
 
             <tbody>
+                <?php if ( !empty($datos) ) { ?>
+                    <?php foreach($datos as $dato): ?>
 
-                <?php foreach($datos as $dato): ?>
-            
-                <tr>
-                    <td><?php echo $dato->descripcion; ?></td>
-                    <td>
-                        <a class="btn-modal-visualizar-viaje" href="#" data-toggle="modal"
-                            data-target="#modalVisualizar"
-                            data-id="<?php echo $dato->id; ?>"
-                            data-descripcion="<?php echo $dato->descripcion; ?>"
-                            data-origen="<?php echo $dato->origen ; ?>"
-                            data-destino="<?php echo $dato->destino ; ?>"
-                            data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
-                            data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
-                            data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
-                            data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
-                            data-desviacion="<?php echo $dato->desviacion ; ?>"
-                            data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
-                            data-nombre_cliente="<?php echo $dato->nombre_cliente ; ?>"
-                            data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
-                            data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
-                            data-apellido_chofer="<?php echo $dato->apellido_chofer ; ?>"
-                            data-patente="<?php echo $dato->patente ; ?>">
-                            <i class="fa fa-eye" aria-hidden="true"></i></a>
-                    </td>
-                    <td>
-                        <a class="btn-modal-edit-viaje" href="#" data-toggle="modal"
-                            data-target="#modalEdit"
-                            data-id="<?php echo $dato->id; ?>"
-                            data-descripcion="<?php echo $dato->descripcion; ?>"
-                            data-origen="<?php echo $dato->origen ; ?>"
-                            data-destino="<?php echo $dato->destino ; ?>"
-                            data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
-                            data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
-                            data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
-                            data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
-                            data-desviacion="<?php echo $dato->desviacion ; ?>"
-                            data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
-                            data-id_cliente="<?php echo $dato->id_cliente ; ?>"
-                            data-id_chofer="<?php echo $dato->id_chofer ; ?>"
-                            data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>">
-                            <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    </td>
-                    <td>
-                        <a class="btn-modal-delete-viaje" href="#" data-toggle="modal"
-                            data-target="#modalDelete"
-                            data-id="<?php echo $dato->id; ?>">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-                
-                <?php endforeach; ?>
+                    <tr>
+                        <td><?php echo $dato->descripcion; ?></td>
+                        <td>
+                            <a class="btn-modal-visualizar-viaje" href="#" data-toggle="modal"
+                                data-target="#modalVisualizar"
+                                data-id="<?php echo $dato->id; ?>"
+                                data-descripcion="<?php echo $dato->descripcion; ?>"
+                                data-origen="<?php echo $dato->origen ; ?>"
+                                data-destino="<?php echo $dato->destino ; ?>"
+                                data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
+                                data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
+                                data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
+                                data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
+                                data-desviacion="<?php echo $dato->desviacion ; ?>"
+                                data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                                data-nombre_cliente="<?php echo $dato->nombre_cliente ; ?>"
+                                data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
+                                data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
+                                data-apellido_chofer="<?php echo $dato->apellido_chofer ; ?>"
+                                data-patente="<?php echo $dato->patente ; ?>">
+                                <i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </td>
+                        <td>
+                            <a class="btn-modal-edit-viaje" href="#" data-toggle="modal"
+                                data-target="#modalEdit"
+                                data-id="<?php echo $dato->id; ?>"
+                                data-descripcion="<?php echo $dato->descripcion; ?>"
+                                data-origen="<?php echo $dato->origen ; ?>"
+                                data-destino="<?php echo $dato->destino ; ?>"
+                                data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
+                                data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
+                                data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
+                                data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
+                                data-desviacion="<?php echo $dato->desviacion ; ?>"
+                                data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                                data-id_cliente="<?php echo $dato->id_cliente ; ?>"
+                                data-id_chofer="<?php echo $dato->id_chofer ; ?>"
+                                data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>">
+                                <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
+                        <td>
+                            <a class="btn-modal-delete-viaje" href="#" data-toggle="modal"
+                                data-target="#modalDelete"
+                                data-id="<?php echo $dato->id; ?>">
+                                <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
 
+                    <?php endforeach; ?>
+                <?php } ?>
             </tbody>
 
         </table>
@@ -316,7 +318,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <label for="combustible_estimado">Combustible estimado:</label>
                         <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="id_cliente">Cliente:</label>
                         <input type="text" name="id_cliente" id="id_cliente" class="form-control" required autocomplete="off" readonly="readonly">
@@ -326,7 +328,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <label for="id_chofer">Chofer:</label>
                         <input type="text" name="id_chofer" id="id_chofer" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="id_vehiculo">Patente del Vehículo:</label>
                         <input type="text" name="id_vehiculo" id="id_vehiculo" class="form-control" required autocomplete="off" readonly="readonly">
@@ -402,13 +404,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <label for="combustible_estimado">Combustible estimado:</label>
                         <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                     </div>
-                
-                    <?php 
-                        $choferes = $viaje->getChoferes(); 
-                        $clientes = $viaje->getClientes(); 
-                        $vehiculos = $viaje->getVehiculos(); 
+
+                    <?php
+                        $choferes = $viaje->getChoferes();
+                        $clientes = $viaje->getClientes();
+                        $vehiculos = $viaje->getVehiculos();
                     ?>
-                    
+
                     <div class="form-group">
                         <select name="idChofer" id="idChofer" class="form-control" required="required">
                             <option value="">Seleccione un Chofer</option>
@@ -417,7 +419,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             <?php } ?>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <select name="idCliente" id="idCliente" class="form-control" required="required">
                             <option value=""> Seleccione un Cliente </option>

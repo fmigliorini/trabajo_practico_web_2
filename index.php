@@ -13,7 +13,7 @@ if(isset($_GET['page']) && !empty($_GET['page']))
         break;
         case 'roles':
             require_once "models/Rol_model.php";
-            require_once 'view/Roles_view.php';
+            require_once 'View/Roles_view.php';
             break;
         case 'usuario':
             require_once "models/Usuario_model.php";
@@ -27,11 +27,11 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             break;
         case 'vehiculos':
             require_once "models/Vehiculo_model.php";
-            require_once 'view/Vehiculos_view.php';
+            require_once 'View/Vehiculos_view.php';
             break;
         case 'clientes':
             require_once "models/Cliente_model.php";
-            require_once 'view/Clientes_view.php';
+            require_once 'View/Clientes_view.php';
             break;
         case 'vehiculos':
             require_once "models/Vehiculo_model.php";
@@ -39,7 +39,7 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             break;
         case 'viajes':
             require_once "models/Viaje_model.php";
-            require_once 'view/Viajes_view.php';
+            require_once 'View/Viajes_view.php';
             break;
         default:
             header('location: index.php?page=home');

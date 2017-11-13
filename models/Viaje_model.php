@@ -130,11 +130,11 @@ class Viaje_model implements ModelInterface
 
     public function getChoferes()
     {
-    	$query = "SELECT id,nombre,apellido FROM empleado WHERE id IN (SELECT id_empleado
-    																		FROM usuario
+    	$query = "SELECT id,nombre,apellido FROM Empleado WHERE id IN (SELECT id_empleado
+    																		FROM Usuario
     																		WHERE estado = 'activo'
     																		AND id_rol = (SELECT id
-    																						FROM rol
+    																						FROM Rol
     																						WHERE descripcion = 'Chofer'));";
     	$rows = $this->_db->query($query);
     	return $rows;
@@ -142,14 +142,14 @@ class Viaje_model implements ModelInterface
 
     public function getClientes()
     {
-    	$query = "SELECT id,nombre,apellido,compania FROM cliente";
+    	$query = "SELECT id,nombre,apellido,compania FROM Cliente";
     	$rows = $this->_db->query($query);
     	return $rows;
     }
 
     public function getVehiculos()
     {
-    	$query = "SELECT id,patente FROM vehiculo";
+    	$query = "SELECT id,patente FROM Vehiculo";
     	$rows = $this->_db->query($query);
     	return $rows;
     }

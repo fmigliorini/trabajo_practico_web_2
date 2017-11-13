@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 require_once 'ModelInterface.php';
 require_once 'DataBase.php';
 
-class Cliente_model implements ModelInterface 
+class Cliente_model implements ModelInterface
 {
 	private $_db;
 	private $_id;
@@ -56,16 +56,16 @@ class Cliente_model implements ModelInterface
 	}
 
 	public function save()
-	{	
+	{
 		if( is_null($this->_id) )
 		{
 			//insert
-			$query = sprintf("INSERT INTO cliente(nombre, apellido, compania) VALUES ('%s', '%s', '%s')", $this->_nombre, $this->_apellido, $this->_compania);
+			$query = sprintf("INSERT INTO Cliente(nombre, apellido, compania) VALUES ('%s', '%s', '%s')", $this->_nombre, $this->_apellido, $this->_compania);
 		}
 		else
 		{
 			//Update
-			$query = sprintf("UPDATE cliente SET nombre = '%s', apellido = '%s', compania = '%s' WHERE id = %s", $this->_nombre, $this->_apellido, $this->_compania, $this->_id);
+			$query = sprintf("UPDATE Cliente SET nombre = '%s', apellido = '%s', compania = '%s' WHERE id = %s", $this->_nombre, $this->_apellido, $this->_compania, $this->_id);
 		}
 
 		$rs = $this->_db->query($query);
@@ -74,14 +74,14 @@ class Cliente_model implements ModelInterface
 
 	public function getAll()
 	{
-		$query = "SELECT id,nombre,apellido,compania FROM cliente";
+		$query = "SELECT id,nombre,apellido,compania FROM Cliente";
 		$rows =  $this->_db->query($query);
 		return $rows;
 	}
 
 	public function delete()
 	{
-		$query = sprintf("DELETE FROM cliente WHERE id = %s", $this->_id);
+		$query = sprintf("DELETE FROM Cliente WHERE id = %s", $this->_id);
 		$rs =  $this->_db->query($query);
 		return $rs;
 	}
