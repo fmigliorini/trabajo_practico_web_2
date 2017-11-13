@@ -101,3 +101,6 @@ select * from Usuario;
 insert into Rol (descripcion) VALUES ('admin');
 insert into Empleado (nombre,apellido,numeroDocumento,telefono) values ('Facundo','Migliorini','35159952','1122334455');
 insert into Usuario (usuario,password,id_rol,id_empleado) values ('admin','202cb962ac59075b964b07152d234b70','1','1');
+INSERT INTO `tipovehiculo` (`id_tipo`, `tipo`) VALUES (NULL, 'Camion'), (NULL, 'Camioneta'), (NULL, 'Tractor'), (NULL, 'Rodado');
+INSERT INTO `estadovehiculo` (`id_estado`, `estado`) VALUES (NULL, 'activo'), (NULL, 'no activo');
+
