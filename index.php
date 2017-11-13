@@ -14,7 +14,7 @@ if(isset($_GET['page']) && !empty($_GET['page']))
         case 'roles':
             require_once "models/Rol_model.php";
             require_once 'view/Roles_view.php';
-        break;
+            break;
         case 'usuario':
             require_once "models/Usuario_model.php";
             require_once "models/Empleado_model.php";
@@ -28,12 +28,15 @@ if(isset($_GET['page']) && !empty($_GET['page']))
         case 'vehiculos':
             require_once "models/Vehiculo_model.php";
             require_once 'view/Vehiculos_view.php';
-        break;
+            break;
         case 'clientes':
             require_once "models/Cliente_model.php";
             require_once 'view/Clientes_view.php';
-        break;
-
+            break;
+        case 'vehiculos':
+            require_once "models/Vehiculo_model.php";
+            require_once 'View/Vehiculos_view.php';
+            break;
         default:
             header('location: index.php?page=home');
             die;

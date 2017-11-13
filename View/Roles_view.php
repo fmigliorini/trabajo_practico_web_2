@@ -21,7 +21,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST") :
 
     if($rs)
     {
-        header('location: index.php?page=roles');
+        echo '<script>
+            window.location.href = "index.php?page=roles"
+        </script>';
         die;
     }
 
@@ -31,7 +33,15 @@ endif;
 if(isset($_GET['delete'])) :
 
     $rol = new Rol($_GET['delete'], null);
-    $rol->removeRol();
+    $rs = $rol->removeRol();
+
+    if($rs)
+    {
+        echo '<script>
+            window.location.href = "index.php?page=roles"
+        </script>';
+        die;
+    }
 
 endif;
 

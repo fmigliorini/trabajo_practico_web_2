@@ -47,11 +47,7 @@ class Rol implements ModelInterface
     {
         $query = "DELETE FROM Rol WHERE id = $this->_id;";
         $rs = $this->_db->query($query);
-
-        if($rs) {
-            header('location: index.php?page=roles');
-            die;
-        }
+        return $rs;
     }
 
 
