@@ -13,6 +13,8 @@
 <script src="public/js/empleado.js"></script>
 <script src="public/js/usuario.js"></script>
 <script src="public/js/vehiculo.js"></script>
+<script src="public/js/cliente.js"></script>
+<script src="public/js/viaje.js"></script>
 
 </body>
 </html>

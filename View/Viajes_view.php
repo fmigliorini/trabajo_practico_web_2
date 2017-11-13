@@ -1,0 +1,480 @@
+
+<?php
+$viaje = new Viaje_model();
+
+if($_SERVER['REQUEST_METHOD'] === "POST")
+{
+    $descripcion = Helper::isPost('descripcion');
+    $origen = Helper::isPost('origen');
+    $destino = Helper::isPost('destino');
+    $fecha_inicio = Helper::isPost('fecha_inicio');
+    $fecha_fin = Helper::isPost('fecha_fin');
+    $tiempo_estimado = Helper::isPost('tiempo_estimado');
+    $tiempo_real = Helper::isPost('tiempo_real');
+    $desviacion = Helper::isPost('desviacion');
+    $combustible_estimado = Helper::isPost('combustible_estimado');
+    $idCliente = Helper::isPost('idCliente');
+    $idVehiculo = Helper::isPost('idVehiculo');
+    $idChofer = Helper::isPost('idChofer');
+
+    $guardar = Helper::isPost('guardar');
+    $editar = Helper::isPost('editar');
+    $eliminar = Helper::isPost('eliminar');
+
+    $viaje->set_descripcion($descripcion);
+    $viaje->set_origen($origen);
+    $viaje->set_destino($destino);
+    $viaje->set_fechaInicio($fecha_inicio);
+    $viaje->set_fechaFin($fecha_fin);
+    $viaje->set_tiempoEstimado($tiempo_estimado);
+    $viaje->set_tiempoReal($tiempo_real);
+    $viaje->set_desviacion($desviacion);
+    $viaje->set_combustibleEstimado($combustible_estimado);
+    $viaje->set_idCliente($idCliente);
+    $viaje->set_idVehiculo($idVehiculo);
+    $viaje->set_idChofer($idChofer);
+
+    if($guardar)
+    {
+        $rs = $viaje->save();
+    }
+
+    if($editar || $eliminar)
+    {
+        $id = Helper::isPost('idViaje');
+        $viaje->set_Id($id);
+
+        if($editar)
+            $rs = $viaje->save();
+        else
+            $rs = $viaje->delete();
+    }
+
+
+    if($rs)
+    {
+        echo "<script>
+            window.location.href = 'index.php?page=viajes';
+        </script>";
+        die;
+    }
+}
+
+?>
+<div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1> Bienvenido a Viajes </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Viajes</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalViaje">Agregar</button>
+
+        <div id="modalViaje" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Agregar Viaje</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form action="" method="POST">
+
+                            <div class="form-group">
+                                <label for="descripcion">Descripcion:</label>
+                                <input type="text" name="descripcion" id="descripcion" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="origen">Origen:</label>
+                                <input type="text" name="origen" id="origen" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="destino">Destino:</label>
+                                <input type="text" name="destino" id="destino" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fecha_inicio">Fecha de Inicio:</label>
+                                <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fecha_fin">Fecha de Destino:</label>
+                                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tiempo_estimado">Tiempo estimado:</label>
+                                <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tiempo_real">Tiempo real:</label>
+                                <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="desviacion">Desviación:</label>
+                                <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="combustible_estimado">Combustible estimado:</label>
+                                <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            </div>
+                        
+                            <?php 
+                                $choferes = $viaje->getChoferes(); 
+                                $clientes = $viaje->getClientes(); 
+                                $vehiculos = $viaje->getVehiculos(); 
+                            ?>
+                            
+                            <div class="form-group">
+                                <select name="idChofer" class="form-control" required="required">
+                                    <option value="">Seleccione un Chofer</option>
+                                    <?php foreach( $choferes as $chofer ) { ?>
+                                        <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select name="idCliente" class="form-control" required="required">
+                                    <option value=""> Seleccione un Cliente </option>
+                                    <?php foreach( $clientes as $cliente ) { ?>
+                                        <option value="<?php echo $cliente->id; ?>"><?php echo $cliente->apellido;?>, <?php echo $cliente->nombre; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select name="idVehiculo" class="form-control" required="required">
+                                    <option value=""> Seleccione un Vehículo </option>
+                                    <?php foreach( $vehiculos as $vehiculo ) { ?>
+                                        <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="modal-footer">  <!-- Footer -->
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <input type="submit" name="guardar" class="btn btn-success">
+                            </div>
+
+                        </form>
+
+                    </div> <!-- End modal-body -->
+
+                </div>
+            </div>
+        </div>
+
+        <table id="tablaViajes">
+
+            <thead>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Visualizar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+
+            <?php
+            $datos = $viaje->getAll();
+            ?>
+
+            <tbody>
+
+                <?php foreach($datos as $dato): ?>
+            
+                <tr>
+                    <td><?php echo $dato->descripcion; ?></td>
+                    <td>
+                        <a class="btn-modal-visualizar-viaje" href="#" data-toggle="modal"
+                            data-target="#modalVisualizar"
+                            data-id="<?php echo $dato->id; ?>"
+                            data-descripcion="<?php echo $dato->descripcion; ?>"
+                            data-origen="<?php echo $dato->origen ; ?>"
+                            data-destino="<?php echo $dato->destino ; ?>"
+                            data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
+                            data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
+                            data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
+                            data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
+                            data-desviacion="<?php echo $dato->desviacion ; ?>"
+                            data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                            data-nombre_cliente="<?php echo $dato->nombre_cliente ; ?>"
+                            data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
+                            data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
+                            data-apellido_chofer="<?php echo $dato->apellido_chofer ; ?>"
+                            data-patente="<?php echo $dato->patente ; ?>">
+                            <i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </td>
+                    <td>
+                        <a class="btn-modal-edit-viaje" href="#" data-toggle="modal"
+                            data-target="#modalEdit"
+                            data-id="<?php echo $dato->id; ?>"
+                            data-descripcion="<?php echo $dato->descripcion; ?>"
+                            data-origen="<?php echo $dato->origen ; ?>"
+                            data-destino="<?php echo $dato->destino ; ?>"
+                            data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
+                            data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
+                            data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
+                            data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
+                            data-desviacion="<?php echo $dato->desviacion ; ?>"
+                            data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                            data-id_cliente="<?php echo $dato->id_cliente ; ?>"
+                            data-id_chofer="<?php echo $dato->id_chofer ; ?>"
+                            data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>">
+                            <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </td>
+                    <td>
+                        <a class="btn-modal-delete-viaje" href="#" data-toggle="modal"
+                            data-target="#modalDelete"
+                            data-id="<?php echo $dato->id; ?>">
+                            <i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                
+                <?php endforeach; ?>
+
+            </tbody>
+
+        </table>
+
+    </section><!-- /.content -->
+</div>
+
+<!-- Moda-Visualizar-Viaje -->
+<div id="modalVisualizar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Viaje</h4>
+            </div>
+            <form id="form-visualizar" method="POST">
+
+                <div class="modal-body">
+                    <legend>Datos Viaje</legend>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <input type="text" name="descripcion" id="descripcion" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="origen">Origen:</label>
+                        <input type="text" name="origen" id="origen" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destino">Destino:</label>
+                        <input type="text" name="destino" id="destino" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_inicio">Fecha de Inicio:</label>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha de Destino:</label>
+                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tiempo_estimado">Tiempo estimado:</label>
+                        <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tiempo_real">Tiempo real:</label>
+                        <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desviacion">Desviación:</label>
+                        <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="combustible_estimado">Combustible estimado:</label>
+                        <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_cliente">Cliente:</label>
+                        <input type="text" name="id_cliente" id="id_cliente" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_chofer">Chofer:</label>
+                        <input type="text" name="id_chofer" id="id_chofer" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_vehiculo">Patente del Vehículo:</label>
+                        <input type="text" name="id_vehiculo" id="id_vehiculo" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="modal-footer">  <!-- Footer -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div> <!-- End modal-body -->
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End-Modal-Visualizar-Viaje -->
+
+<!-- Moda-Edit-Viaje -->
+<div id="modalEdit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Viaje</h4>
+            </div>
+            <form id="form-edit" method="POST">
+
+                <div class="modal-body">
+                    <legend>Datos Viaje</legend>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <input type="text" name="descripcion" id="descripcion" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="origen">Origen:</label>
+                        <input type="text" name="origen" id="origen" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destino">Destino:</label>
+                        <input type="text" name="destino" id="destino" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_inicio">Fecha de Inicio:</label>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha de Destino:</label>
+                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tiempo_estimado">Tiempo estimado:</label>
+                        <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tiempo_real">Tiempo real:</label>
+                        <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desviacion">Desviación:</label>
+                        <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="combustible_estimado">Combustible estimado:</label>
+                        <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    </div>
+                
+                    <?php 
+                        $choferes = $viaje->getChoferes(); 
+                        $clientes = $viaje->getClientes(); 
+                        $vehiculos = $viaje->getVehiculos(); 
+                    ?>
+                    
+                    <div class="form-group">
+                        <select name="idChofer" id="idChofer" class="form-control" required="required">
+                            <option value="">Seleccione un Chofer</option>
+                            <?php foreach( $choferes as $chofer ) { ?>
+                                <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select name="idCliente" id="idCliente" class="form-control" required="required">
+                            <option value=""> Seleccione un Cliente </option>
+                            <?php foreach( $clientes as $cliente ) { ?>
+                                <option value="<?php echo $cliente->id; ?>"><?php echo $cliente->apellido;?>, <?php echo $cliente->nombre; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="idVehiculo" id="idVehiculo" class="form-control" required="required">
+                            <option value=""> Seleccione un Vehículo </option>
+                            <?php foreach( $vehiculos as $vehiculo ) { ?>
+                                <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="idViaje" id="idViaje">
+
+                    <div class="modal-footer">  <!-- Footer -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" name="editar" class="btn btn-success" value="Actualizar">
+                    </div>
+
+                </div> <!-- End modal-body -->
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End-Modal-Edit-Viaje -->
+
+<!-- Modal-Delete-Viaje -->
+<div id="modalDelete" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar Viaje</h4>
+            </div>
+            <form id="form-delete" method="POST">
+
+                <input type="hidden" name="idViaje" id="idViaje">
+
+                <div class="modal-body">
+                    <p>Desea eliminar el viaje ?</p>
+                </div> <!-- End modal-body -->
+
+                <div class="modal-footer">  <!-- Footer -->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <input type="submit" name="eliminar" class="btn btn-danger" value="Eliminar">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End-Modal-Delete-Viaje -->
