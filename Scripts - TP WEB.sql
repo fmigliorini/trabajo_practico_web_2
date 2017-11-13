@@ -29,6 +29,10 @@ CREATE TABLE Usuario (
     foreign key(id_empleado) references Empleado(id)
 );
 
+create table estadoVehiculo(
+    id_estado INT PRIMARY KEY AUTO_INCREMENT,
+    estado VARCHAR(100)
+);
 
 create table tipoVehiculo(
     id_tipo INT PRIMARY KEY AUTO_INCREMENT,
