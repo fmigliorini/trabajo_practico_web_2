@@ -30,12 +30,18 @@ CREATE TABLE Usuario (
 );
 
 
+create table tipoVehiculo(
+    id_tipo INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(100)
+);
 
 CREATE TABLE Vehiculo (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     patente varchar (15),
-    tipo varchar(100),
-    estado varchar(100)
+    id_estadoVehiculo INT,
+    id_tipoVehiculo INT,
+    CONSTRAINT fk_estadoVehiculo_vehiculo_id_estadoVehiculo FOREIGN KEY (id_estadoVehiculo) REFERENCES estadoVehiculo(id_estado),
+    CONSTRAINT fk_estadoVehiculo_vehiculo_id_tipoVehiculo FOREIGN KEY (id_tipoVehiculo) REFERENCES tipoVehiculo(id_tipo)
 );
 
 CREATE TABLE Cliente (
