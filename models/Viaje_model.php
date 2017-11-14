@@ -159,7 +159,7 @@ class Viaje_model implements ModelInterface
     public function getVehiculos()
     {
     	$query = "SELECT id,patente FROM Vehiculo WHERE id_tipoVehiculo != (SELECT id_tipo
-    																		FROM tipovehiculo
+    																		FROM tipoVehiculo
     																		WHERE tipo = 'Acoplado')";
     	$rows = $this->_db->query($query);
     	return $rows;
@@ -168,7 +168,7 @@ class Viaje_model implements ModelInterface
     public function getVehiculosAcoplado()
     {
     	$query = "SELECT id,patente FROM Vehiculo WHERE id_tipoVehiculo IN (SELECT id_tipo
-    																		FROM tipovehiculo
+    																		FROM tipoVehiculo
     																		WHERE tipo = 'Acoplado')";
     	$rows = $this->_db->query($query);
     	return $rows;
@@ -183,7 +183,7 @@ class Viaje_model implements ModelInterface
 		}
 		else
 		{
-		  $query = sprintf("UPDATE Viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',fecha_fin= '%s',tiempo_estimado= '%s',tiempo_real= '%s',desviacion= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s' WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, $this->_id);	
+		  $query = sprintf("UPDATE Viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',fecha_fin= '%s',tiempo_estimado= '%s',tiempo_real= '%s',desviacion= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s' WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, $this->_id);
 		}
 
 		$rs = $this->_db->query($query);
@@ -197,7 +197,7 @@ class Viaje_model implements ModelInterface
 		JOIN Cliente c ON c.id = v.id_cliente
 		JOIN Empleado e ON e.id = v.id_chofer
 		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
-		LEFT JOIN vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado;";
+		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado;";
 
 		$rows = $this->_db->query($query);
 		return $rows;
