@@ -37,14 +37,14 @@ class LogViaje implements ModelInterface
                             $this->_idViaje,
                             $this->_idChofer
                 );
-        echo $query; return;
         return  $this->_db->query($query);
     }
 
     static public function getAllByViajeId($idViaje)
     {
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM ViajeLog where idViaje = $id";
+        $query = "SELECT * FROM LogViaje where id_viaje = $idViaje";
+        echo $query;
         return $db->query($query);
     }
 

@@ -209,6 +209,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             <thead>
                 <tr>
                     <th>Descripcion</th>
+                    <th>detalle</th>
                     <th>Visualizar</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
@@ -225,6 +226,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                     <tr>
                         <td><?php echo $dato->descripcion; ?></td>
+                        <td>
+                            <a href="index.php?page=detalle_viaje&idViaje=<?php echo $dato->id; ?>">
+                                Detalle</a>
+                        </td>
                         <td>
                             <a class="btn-modal-visualizar-viaje" href="#" data-toggle="modal"
                                 data-target="#modalVisualizar"

@@ -48,6 +48,11 @@ if(isset($_GET['page']) && !empty($_GET['page']))
                 require_once "models/Rol_model.php";
                 require_once 'View/Permisos_view.php';
                 break;
+        case 'detalle_viaje':
+            require_once "models/LogViaje_model.php";
+            require_once "models/Viaje_model.php";
+            require_once 'View/detalle_viaje_view.php';
+            break;
         default:
             header('location: index.php?page=home');
             die;

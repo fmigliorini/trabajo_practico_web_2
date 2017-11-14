@@ -210,4 +210,15 @@ class Viaje_model implements ModelInterface
 		return $rs;
 	}
 
+    static public function getById($id)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer ,c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer, vh.patente, vh2.patente as patente_acoplado
+		FROM Viaje v
+		JOIN Cliente c ON c.id = v.id_cliente
+		JOIN Empleado e ON e.id = v.id_chofer
+		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
+		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado where v.id = $id";
+        return $db->query($query);
+    }
 }
