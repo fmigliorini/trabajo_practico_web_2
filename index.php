@@ -1,12 +1,13 @@
 <?php
-require_once 'middleware/requiereLogin.php';
-require_once "Helper.php";
-require_once "templates/head.php";
-require_once "templates/header.php";
-require_once "templates/menu.php";
 
 if(isset($_GET['page']) && !empty($_GET['page']))
 {
+    require_once 'middleware/requiereLogin.php';
+    require_once "Helper.php";
+    require_once "templates/head.php";
+    require_once "templates/header.php";
+    require_once "templates/menu.php";
+
     switch ($_GET['page']) {
         case 'home':
             require_once 'home.php';
@@ -48,7 +49,6 @@ if(isset($_GET['page']) && !empty($_GET['page']))
     }
 } else {
     header('location: login.php');
-    die;
 }
 
 
