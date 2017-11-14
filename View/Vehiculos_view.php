@@ -39,10 +39,15 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
     if($rs)
     {
-        header('location: index.php?page=vehiculos');
+        echo '<script>
+            window.location.href= "index.php?page=vehiculos"
+        </script>';
         die;
     }
 }
+
+$tiposVehiculo = $vehiculo->getTipoVehiculo();
+$estadosVehiculo = $vehiculo->getEstadoVehiculo();
 
 ?>
 <div class="content-wrapper">
@@ -81,18 +86,28 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <form action="" method="POST">
 
                             <div class="form-group">
-                                <label for="patente">Patente del Vehículo:</label>
+                                <label for="patente">Patente</label>
                                 <input type="text" name="patente" id="patente" class="form-control" required autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label for="tipo">Tipo del Vehículo:</label>
-                                <input type="text" name="tipo" id="tipo" class="form-control" required autocomplete="off">
+                                <select name="tipo" id="tipo" class="form-control" required>
+                                    <option value="">Seleccione el tipo de Vehiculo</option>
+                                    <?php foreach($tiposVehiculo as $tipo) : ?>
+                                        <option value="<?php echo $tipo->id_tipo; ?>"><?php echo $tipo->tipo; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="estado">Estado del Vehículo:</label>
-                                <input type="text" name="estado" id="estado" class="form-control" required autocomplete="off">
+                                <select name="estado" id="estado" class="form-control" required>
+                                    <option value="">Seleccione el estado de Vehiculo</option>
+                                    <?php foreach($estadosVehiculo as $estado) : ?>
+                                        <option value="<?php echo $estado->id_estado; ?>"><?php echo $estado->estado; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
 
                             <div class="modal-footer">  <!-- Footer -->
@@ -138,7 +153,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             data-id="<?php echo $dato->id; ?>"
                             data-patente="<?php echo $dato->patente; ?>"
                             data-tipo="<?php echo $dato->tipo ; ?>"
-                            data-estado="<?php echo $dato->estado ; ?>">
+                            data-id_tipo="<?php echo $dato->id_tipoVehiculo ; ?>"
+                            data-estado="<?php echo $dato->estado ; ?>"
+                            data-id_estado="<?php echo $dato->id_estadoVehiculo ; ?>">
                             <i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                     <td>
@@ -181,12 +198,22 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                     <div class="form-group">
                         <label for="tipo">Tipo del Vehículo:</label>
-                        <input type="text" name="tipo" id="tipo" class="form-control" required autocomplete="off">
+                        <select name="tipo" id="tipo" class="form-control" required>
+                            <option value="">Seleccione el tipo de Vehiculo</option>
+                            <?php foreach($tiposVehiculo as $tipo) : ?>
+                                <option value="<?php echo $tipo->id_tipo; ?>"><?php echo $tipo->tipo; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="estado">Estado del Vehículo:</label>
-                        <input type="text" name="estado" id="estado" class="form-control" required autocomplete="off">
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="">Seleccione el estado de Vehiculo</option>
+                            <?php foreach($estadosVehiculo as $estado) : ?>
+                                <option value="<?php echo $estado->id_estado; ?>"><?php echo $estado->estado; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <input type="hidden" name="idVehiculo" id="idVehiculo">

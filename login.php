@@ -2,14 +2,25 @@
 
 session_start();
 if ( isset( $_SESSION['authenticate'] ) && $_SESSION['authenticate'] === true ) {
+
+    if( isset($_GET['callback']) && $_GET['callback'] != "" ){
+        header('Location:'.$_GET['callback']);
+        die();
+    }
     header('Location: index.php?page=home');
 }
 
 if($_SERVER['REQUEST_METHOD'] === "POST"){
     if( isset($_POST['user']) && isset($_POST['pass']) ) {
         require 'models/Usuario_model.php';
-        if ( Usuario::login($_POST['user'], $_POST['pass']) ){
+        if ( $res = Usuario::login($_POST['user'], $_POST['pass']) ){
             $_SESSION['authenticate'] = true;
+            var_dump($res);exit;
+            $_SESSION['id'] = $res[0]->id;
+            if( isset($_GET['callback']) && $_GET['callback'] != "" ){
+                header('Location:'.$_GET['callback']);
+                die();
+            }
             header('Location: index.php?page=home');
             exit;
         } else {

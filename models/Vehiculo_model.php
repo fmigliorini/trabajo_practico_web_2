@@ -73,12 +73,12 @@ class Vehiculo_model implements ModelInterface
 			if(isset($existPatente[0]->id) && $existPatente[0]->id != '')
 				return false;
 			else
-				$query = sprintf("INSERT INTO Vehiculo(patente, tipo, estado) VALUES ('%s', '%s', '%s')", $this->_patente, $this->_tipo, $this->_estado);
+				$query = sprintf("INSERT INTO Vehiculo(patente, id_tipoVehiculo, id_estadoVehiculo) VALUES ('%s', '%s', '%s')", $this->_patente, $this->_tipo, $this->_estado);
 		}
 		else
 		{
 			//Update
-			$query = sprintf("UPDATE Vehiculo SET patente = '%s', tipo = '%s', estado = '%s' WHERE id = %s", $this->_patente, $this->_tipo, $this->_estado, $this->_id);
+			$query = sprintf("UPDATE Vehiculo SET patente = '%s', id_tipoVehiculo = '%s', id_estadoVehiculo = '%s' WHERE id = %s", $this->_patente, $this->_tipo, $this->_estado, $this->_id);
 		}
 
 		$rs = $this->_db->query($query);
@@ -87,7 +87,10 @@ class Vehiculo_model implements ModelInterface
 
 	public function getAll()
 	{
-		$query = "SELECT id,patente,tipo,estado FROM Vehiculo";
+		$query = "SELECT v.id,v.patente,v.id_estadoVehiculo, v.id_tipoVehiculo,e.estado as estado, t.tipo as tipo
+				FROM Vehiculo v
+				JOIN estadoVehiculo e ON v.id_estadoVehiculo = e.id_estado
+				JOIN tipoVehiculo t ON v.id_tipoVehiculo = t.id_tipo";
 		$rows =  $this->_db->query($query);
 		return $rows;
 	}
@@ -97,6 +100,20 @@ class Vehiculo_model implements ModelInterface
 		$query = sprintf("DELETE FROM Vehiculo WHERE id = %s", $this->_id);
 		$rs =  $this->_db->query($query);
 		return $rs;
+	}
+
+	public function getTipoVehiculo()
+	{
+		$query = "SELECT id_tipo,tipo FROM tipoVehiculo";
+		$rows =  $this->_db->query($query);
+		return $rows;
+	}
+
+	public function getEstadoVehiculo()
+	{
+		$query = "SELECT id_estado,estado FROM estadoVehiculo";
+		$rows =  $this->_db->query($query);
+		return $rows;
 	}
 
 }
