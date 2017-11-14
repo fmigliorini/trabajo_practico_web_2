@@ -222,7 +222,7 @@ $empleadoSinUsuario = Empleado::getEmpleadoSinUsuario();
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Eliminar Empleaod</h4>
+                <h4 class="modal-title">Eliminar Empleado</h4>
             </div>
             <form id="form-delete" method="POST">
                 <input type="hidden" name="work" id="work" value="delete">
