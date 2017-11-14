@@ -60,4 +60,74 @@ class Modulo implements ModelInterface
 
 }
 
+/**
+ * Get the value of Db
+ *
+ * @return mixed
+ */
+public function getDb()
+{
+		return $this->_db;
+}
+
+/**
+ * Set the value of Db
+ *
+ * @param mixed _db
+ *
+ * @return self
+ */
+public function setDb($_db)
+{
+		$this->_db = $_db;
+
+		return $this;
+}
+/**
+ * Get the value of Id
+ *
+ * @return mixed
+ */
+public function getId()
+{
+    return $this->_id;
+}
+
+/**
+ * Set the value of Id
+ *
+ * @param mixed _id
+ *
+ * @return self
+ */
+public function setId($_id)
+{
+    $this->_id = $_id;
+
+    return $this;
+}
+
+/**
+ * Get the value of Nombre
+ *
+ * @return mixed
+ */
+public function getDescripcion()
+{
+    return $this->_descripcion;
+}
+
+/**
+ * Set the value of Nombre
+ *
+ * @param mixed _nombre
+ *
+ * @return self
+ */
+public function setDescripcion($_descripcion)
+{
+    $this->_descripcion = $_descripcion;
+
+    return $this;
+}
 ?>
