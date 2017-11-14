@@ -19,6 +19,7 @@ class Viaje_model implements ModelInterface
 	private $_idCliente;
 	private $_idChofer;
 	private $_idVehiculo;
+	private $_idVehiculoAcoplado = null;
 
 	public function __construct(){
 		$this->_db = DataBase::getInstance();
@@ -128,6 +129,14 @@ class Viaje_model implements ModelInterface
 		$this->_idVehiculo = $_idVehiculo;
 	}
 
+	public function get_idVehiculoAcoplado(){
+		return $this->_idVehiculoAcoplado;
+	}
+
+	public function set_idVehiculoAcoplado($_idVehiculoAcoplado){
+		$this->_idVehiculoAcoplado = $_idVehiculoAcoplado;
+	}
+
     public function getChoferes()
     {
     	$query = "SELECT id,nombre,apellido FROM Empleado WHERE id IN (SELECT id_empleado
@@ -149,7 +158,18 @@ class Viaje_model implements ModelInterface
 
     public function getVehiculos()
     {
-    	$query = "SELECT id,patente FROM Vehiculo";
+    	$query = "SELECT id,patente FROM Vehiculo WHERE id_tipoVehiculo != (SELECT id_tipo
+    																		FROM tipovehiculo
+    																		WHERE tipo = 'Acoplado')";
+    	$rows = $this->_db->query($query);
+    	return $rows;
+    }
+
+    public function getVehiculosAcoplado()
+    {
+    	$query = "SELECT id,patente FROM Vehiculo WHERE id_tipoVehiculo IN (SELECT id_tipo
+    																		FROM tipovehiculo
+    																		WHERE tipo = 'Acoplado')";
     	$rows = $this->_db->query($query);
     	return $rows;
     }
@@ -158,12 +178,12 @@ class Viaje_model implements ModelInterface
 		
 		if( is_null($this->_id) )
 		{
-			$query = sprintf("INSERT INTO viaje(descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_chofer) 
-							VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, $this->_idChofer);		
+			$query = sprintf("INSERT INTO viaje(descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer) 
+							VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,'%s')", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado), $this->_idChofer);		
 		}
 		else
 		{
-		  $query = sprintf("UPDATE viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',fecha_fin= '%s',tiempo_estimado= '%s',tiempo_real= '%s',desviacion= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_chofer= '%s' WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, $this->_idChofer, $this->_id);	
+		  $query = sprintf("UPDATE viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',fecha_fin= '%s',tiempo_estimado= '%s',tiempo_real= '%s',desviacion= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s' WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_fechaFin, $this->_tiempoEstimado, $this->_tiempoReal, $this->_desviacion, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, $this->_id);	
 		}
 
 		$rs = $this->_db->query($query);
@@ -172,11 +192,12 @@ class Viaje_model implements ModelInterface
 
 	public function getAll()
 	{
-		$query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_chofer, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer, vh.patente
+		$query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer ,c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer, vh.patente, vh2.patente as patente_acoplado
 		FROM viaje v
 		JOIN cliente c ON c.id = v.id_cliente
 		JOIN empleado e ON e.id = v.id_chofer
-		JOIN vehiculo vh ON vh.id = v.id_vehiculo;";
+		JOIN vehiculo vh ON vh.id = v.id_vehiculo
+		LEFT JOIN vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado;";
 
 		$rows = $this->_db->query($query);
 		return $rows;

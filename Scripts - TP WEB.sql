@@ -68,6 +68,7 @@ create table Viaje(
     combustible_estimado int,
     id_cliente int,
     id_vehiculo int,
+    id_vehiculoAcoplado int,
     id_chofer int,
     foreign key(id_cliente) references Cliente(id),
     foreign key(id_vehiculo) references Vehiculo(id),

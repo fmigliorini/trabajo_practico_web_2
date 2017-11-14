@@ -15,6 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $combustible_estimado = Helper::isPost('combustible_estimado');
     $idCliente = Helper::isPost('idCliente');
     $idVehiculo = Helper::isPost('idVehiculo');
+    $idVehiculoAcoplado = (isset($_POST['idVehiculoAcoplado']) ? $_POST['idVehiculoAcoplado'] : NULL);
     $idChofer = Helper::isPost('idChofer');
 
     $guardar = Helper::isPost('guardar');
@@ -32,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $viaje->set_combustibleEstimado($combustible_estimado);
     $viaje->set_idCliente($idCliente);
     $viaje->set_idVehiculo($idVehiculo);
+    $viaje->set_idVehiculoAcoplado($idVehiculoAcoplado);
     $viaje->set_idChofer($idChofer);
 
     if($guardar)
@@ -139,9 +141,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 $choferes = $viaje->getChoferes();
                                 $clientes = $viaje->getClientes();
                                 $vehiculos = $viaje->getVehiculos();
+                                $vehiculosAcoplado = $viaje->getVehiculosAcoplado();
                             ?>
 
                             <div class="form-group">
+                                <label for="idChofer">Chofer:</label>
                                 <select name="idChofer" class="form-control" required="required">
                                     <option value="">Seleccione un Chofer</option>
                                     <?php if (!empty ( $choferes )){ ?>
@@ -153,6 +157,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             </div>
 
                             <div class="form-group">
+                                <label for="idCliente">Cliente:</label>
                                 <select name="idCliente" class="form-control" required="required">
                                     <option value=""> Seleccione un Cliente </option>
                                     <?php foreach( $clientes as $cliente ) { ?>
@@ -162,9 +167,20 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             </div>
 
                             <div class="form-group">
+                                <label for="idVehiculo">Patente del Vehículo:</label>
                                 <select name="idVehiculo" class="form-control" required="required">
                                     <option value=""> Seleccione un Vehículo </option>
                                     <?php foreach( $vehiculos as $vehiculo ) { ?>
+                                        <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idVehiculoAcoplado">Patente del Vehículo Acoplado: </label><small> (Opcional)</small>
+                                <select name="idVehiculoAcoplado" class="form-control">
+                                    <option value=""> Seleccione un Vehículo Acoplado </option>
+                                    <?php foreach( $vehiculosAcoplado as $vehiculo ) { ?>
                                         <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
                                     <?php } ?>
                                 </select>
@@ -221,7 +237,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
                                 data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
                                 data-apellido_chofer="<?php echo $dato->apellido_chofer ; ?>"
-                                data-patente="<?php echo $dato->patente ; ?>">
+                                data-patente="<?php echo $dato->patente ; ?>"
+                                data-patente_acoplado="<?php echo $dato->patente_acoplado; ?>">
                                 <i class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                         <td>
@@ -239,7 +256,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
                                 data-id_cliente="<?php echo $dato->id_cliente ; ?>"
                                 data-id_chofer="<?php echo $dato->id_chofer ; ?>"
-                                data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>">
+                                data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>"
+                                data-id_vehiculo_acoplado="<?php echo $dato->id_vehiculoAcoplado ; ?>">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>
                         <td>
@@ -334,6 +352,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <input type="text" name="id_vehiculo" id="id_vehiculo" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
 
+                    <div class="form-group">
+                        <label for="id_vehiculoAcoplado">Patente del Vehículo Acoplado:</label>
+                        <input type="text" name="id_vehiculoAcoplado" id="id_vehiculoAcoplado" class="form-control" readonly="readonly">
+                    </div>
+
                     <div class="modal-footer">  <!-- Footer -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
@@ -409,9 +432,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         $choferes = $viaje->getChoferes();
                         $clientes = $viaje->getClientes();
                         $vehiculos = $viaje->getVehiculos();
+                        $vehiculosAcoplado = $viaje->getVehiculosAcoplado();
                     ?>
 
                     <div class="form-group">
+                        <label for="idChofer">Chofer:</label>
                         <select name="idChofer" id="idChofer" class="form-control" required="required">
                             <option value="">Seleccione un Chofer</option>
                             <?php foreach( $choferes as $chofer ) { ?>
@@ -421,6 +446,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     </div>
 
                     <div class="form-group">
+                        <label for="idCliente">Cliente:</label>
                         <select name="idCliente" id="idCliente" class="form-control" required="required">
                             <option value=""> Seleccione un Cliente </option>
                             <?php foreach( $clientes as $cliente ) { ?>
@@ -430,9 +456,20 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     </div>
 
                     <div class="form-group">
+                        <label for="idVehiculo">Patente del Vehículo:</label>
                         <select name="idVehiculo" id="idVehiculo" class="form-control" required="required">
                             <option value=""> Seleccione un Vehículo </option>
                             <?php foreach( $vehiculos as $vehiculo ) { ?>
+                                <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idVehiculoAcoplado">Patente del Vehículo Acoplado: </label><small> (Opcional)</small>
+                        <select name="idVehiculoAcoplado" id="idVehiculoAcoplado" class="form-control">
+                            <option value=""> Seleccione un Vehículo </option>
+                            <?php foreach( $vehiculosAcoplado as $vehiculo ) { ?>
                                 <option value="<?php echo $vehiculo->id; ?>">Patente: <?php echo $vehiculo->patente; ?></option>
                             <?php } ?>
                         </select>

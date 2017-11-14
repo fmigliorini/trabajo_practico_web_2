@@ -1,6 +1,7 @@
 $(function(){
 
     $('.btn-modal-visualizar-viaje').on('click',function(){
+
         // gett all data
         let descripcion = $(this).data('descripcion');
         let origen = $(this).data('origen');
@@ -16,6 +17,7 @@ $(function(){
         let nombre_chofer = $(this).data('nombre_chofer');
         let apellido_chofer = $(this).data('apellido_chofer');
         let patente = $(this).data('patente');
+        let patenteAcoplado = $(this).data('patente_acoplado');
 
         // set all data in form
         $('#form-visualizar #descripcion').val(descripcion);
@@ -30,6 +32,7 @@ $(function(){
         $('#form-visualizar #id_cliente').val(nombre_cliente+' '+apellido_cliente);
         $('#form-visualizar #id_chofer').val(nombre_chofer+' '+apellido_chofer);
         $('#form-visualizar #id_vehiculo').val(patente);
+        $('#form-visualizar #id_vehiculoAcoplado').val(patenteAcoplado);
     });
 
     
@@ -49,6 +52,7 @@ $(function(){
         let id_cliente = $(this).data('id_cliente');
         let id_chofer = $(this).data('id_chofer');
         let id_vehiculo = $(this).data('id_vehiculo');
+        let id_vehiculoAcoplado = $(this).data('id_vehiculo_acoplado');
 
         // set all data in form
         $('#form-edit #descripcion').val(descripcion);
@@ -65,6 +69,8 @@ $(function(){
         $('#form-edit #idChofer option[value='+id_chofer+']').attr('selected', 'selected');
         $('#form-edit #idCliente option[value='+id_cliente+']').attr('selected', 'selected');
         $('#form-edit #idVehiculo option[value='+id_vehiculo+']').attr('selected', 'selected');
+        $('#form-edit #idVehiculoAcoplado option[value='+id_vehiculoAcoplado+']').attr('selected', 'selected');
+        
     });
 
     
