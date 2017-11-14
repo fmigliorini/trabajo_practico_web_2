@@ -11,7 +11,8 @@ require_once "models/Viaje_model.php";
 $idViaje = Helper::isGet('idChofer');
 session_start();
 $idChofer = $_SESSION['id'];
-var_dump($idChofer);
+
+
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
     switch( $_POST["work"] ){
         case 'create':
@@ -26,7 +27,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $logViaje->setPrecio(Helper::isPost('precio'));
             $logViaje->setIdViaje(Helper::isPost('idViaje'));
             $logViaje->setIdChofer(Helper::isPost('idChofer'));
-            print_r($logViaje);
+            $logViaje->save();
             break;
     }
 }
