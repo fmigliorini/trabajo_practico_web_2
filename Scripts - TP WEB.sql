@@ -40,8 +40,12 @@ create table tipoVehiculo(
 );
 
 CREATE TABLE Vehiculo (
-    id INT NOT NULL AUTO_INCREMENT primary key ,
-    patente varchar (15),
+    id INT NOT NULL AUTO_INCREMENT primary key,
+    patente varchar(15) DEFAULT NULL,
+    marca varchar(100) DEFAULT NULL,
+    nro_chasis varchar(40) DEFAULT NULL,
+    nro_motor varchar(40) DEFAULT NULL,
+    fecha_fabricacion date DEFAULT NULL,
     id_estadoVehiculo INT,
     id_tipoVehiculo INT,
     CONSTRAINT fk_estadoVehiculo_vehiculo_id_estadoVehiculo FOREIGN KEY (id_estadoVehiculo) REFERENCES estadoVehiculo(id_estado),
