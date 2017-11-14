@@ -38,7 +38,12 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
     if($guardar)
     {
-        $rs = $viaje->save();
+        $idViaje = $viaje->save();
+        require_once 'libs/phpqrcode/qrlib.php';
+        var_dump($idViaje);
+        QRcode::png('http://localhost/TP-PW2/LogViaje?idViaje='.$idViaje ,
+                        'qrImages/qrViaje_' . $idViaje . '.png');
+
     }
 
     if($editar || $eliminar)
@@ -356,6 +361,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         <label for="id_vehiculoAcoplado">Patente del Vehículo Acoplado:</label>
                         <input type="text" name="id_vehiculoAcoplado" id="id_vehiculoAcoplado" class="form-control" readonly="readonly">
                     </div>
+                    <div class="form-group">
+                         <label> QR </label>
+                         <img id="qr" name="qr" src="">
+                     </div>
 
                     <div class="modal-footer">  <!-- Footer -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

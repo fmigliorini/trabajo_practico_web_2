@@ -3,6 +3,7 @@ $(function(){
     $('.btn-modal-visualizar-viaje').on('click',function(){
 
         // gett all data
+        let id = $(this).data('id');
         let descripcion = $(this).data('descripcion');
         let origen = $(this).data('origen');
         let destino = $(this).data('destino');
@@ -33,9 +34,11 @@ $(function(){
         $('#form-visualizar #id_chofer').val(nombre_chofer+' '+apellido_chofer);
         $('#form-visualizar #id_vehiculo').val(patente);
         $('#form-visualizar #id_vehiculoAcoplado').val(patenteAcoplado);
+        $('#form-visualizar #qr').attr('src','qrImages/qrViaje_' +id+'.png');
+
     });
 
-    
+
     $('.btn-modal-edit-viaje').on('click',function(){
 
         // gett all data
@@ -70,10 +73,10 @@ $(function(){
         $('#form-edit #idCliente option[value='+id_cliente+']').attr('selected', 'selected');
         $('#form-edit #idVehiculo option[value='+id_vehiculo+']').attr('selected', 'selected');
         $('#form-edit #idVehiculoAcoplado option[value='+id_vehiculoAcoplado+']').attr('selected', 'selected');
-        
+
     });
 
-    
+
     $('.btn-modal-delete-viaje').on('click',function(){
         // gett all data
         let id = $(this).data('id');
@@ -81,6 +84,6 @@ $(function(){
         $('#form-delete #idViaje').val(id);
 
     });
-    
+
 
 });
