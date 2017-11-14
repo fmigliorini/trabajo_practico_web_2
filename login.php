@@ -15,7 +15,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         require 'models/Usuario_model.php';
         if ( $res = Usuario::login($_POST['user'], $_POST['pass']) ){
             $_SESSION['authenticate'] = true;
-            var_dump($res);exit;
             $_SESSION['id'] = $res[0]->id;
             if( isset($_GET['callback']) && $_GET['callback'] != "" ){
                 header('Location:'.$_GET['callback']);
