@@ -5,13 +5,20 @@ require_once "Helper.php";
 
 require_once "models/LogViaje_model.php";
 require_once "models/Viaje_model.php";
-// if(!$idViaje = Helper::isGet('idViaje')){
-//     die("No hay id de viaje");// SACAR
-// }
-$idViaje = Helper::isGet('idChofer');
-session_start();
-$idChofer = $_SESSION['id'];
 
+$idViaje = Helper::isGet('idViaje');
+if ( empty($idViaje )){
+    ECHO "Viaje no disponible";exit;
+}
+
+session_start();
+if ( isset( $_SESSION['authenticate'] ) && $_SESSION['authenticate'] === true
+        && isset( $_SESSION['id'] ) && $_SESSION['id'] !== "" ) {
+            $idChofer = $_SESSION['id'];
+}else{
+    header('Location: login.php?callback=LogViaje.php?idViaje='.$idViaje);
+    exit;
+}
 
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
     switch( $_POST["work"] ){
