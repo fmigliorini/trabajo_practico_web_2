@@ -96,20 +96,27 @@ CREATE TABLE Mantenimiento (
 );
 
 
-CREATE TABLE ViajeLog (
+CREATE TABLE LogViaje (
 	id INT NOT NULL AUTO_INCREMENT primary key ,
+    razon varchar(255),
     fecha datetime,
-    descripción varchar(255),
-    precio DECIMAL(6,3),
+    latitud varchar(255),
+    longitud varchar(255),
+    detalle varchar(255),
+    combustible int,
+    kilometros int,
+    precio DECIMAL(6,2),
     id_viaje INT NOT NULL,
-    foreign key(id_viaje) references Viaje(id)
+    id_chofer INT NOT NULL,
+    foreign key(id_viaje) references Viaje(id),
+    foreign key(id_chofer) references Usuario(id)
 );
-
-select * from Empleado;
-select * from Usuario;
 insert into Rol (descripcion) VALUES ('admin');
 insert into Empleado (nombre,apellido,numeroDocumento,telefono) values ('Facundo','Migliorini','35159952','1122334455');
 insert into Usuario (usuario,password,id_rol,id_empleado) values ('admin','202cb962ac59075b964b07152d234b70','1','1');
-INSERT INTO `tipovehiculo` (`id_tipo`, `tipo`) VALUES (NULL, 'Camion'), (NULL, 'Camioneta'), (NULL, 'Tractor'), (NULL, 'Acoplado');
-INSERT INTO `estadovehiculo` (`id_estado`, `estado`) VALUES (NULL, 'activo'), (NULL, 'no activo');
+INSERT INTO `tipoVehiculo` (`id_tipo`, `tipo`) VALUES (NULL, 'Camion'), (NULL, 'Camioneta'), (NULL, 'Tractor'), (NULL, 'Acoplado');
+INSERT INTO `estadoVehiculo` (`id_estado`, `estado`) VALUES (NULL, 'activo'), (NULL, 'no activo');
 
+
+select * from Empleado;
+select * from Usuario;

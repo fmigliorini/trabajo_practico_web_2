@@ -27,11 +27,11 @@ class Usuario implements ModelInterface
     {
         // hash password to md5??
         $hashClave = md5($clave);
-        $buscarUsuario = "SELECT 1 FROM Usuario WHERE usuario = '$usuario' and password = '$hashClave'";
+        $buscarUsuario = "SELECT * FROM Usuario WHERE usuario = '$usuario' and password = '$hashClave'";
         $dataBase = DataBase::getInstance();
 
-        if ( $dataBase->query($buscarUsuario) )
-            return true;
+        if ( $res = $dataBase->query($buscarUsuario) )
+            return $res ;
 
         return false;
     }
