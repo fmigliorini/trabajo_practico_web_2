@@ -7,6 +7,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 {
     $patente = Helper::isPost('patente');
     $estado = Helper::isPost('estado');
+    $marca = Helper::isPost('marca');
+    $nro_chasis = Helper::isPost('nro_chasis');
+    $nro_motor = Helper::isPost('nro_motor');
+    $fecha_fabricacion = Helper::isPost('fecha_fabricacion');
     $tipo = Helper::isPost('tipo');
 
     $guardar = Helper::isPost('guardar');
@@ -16,6 +20,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $vehiculo->setPatente($patente);
     $vehiculo->setTipo($tipo);
     $vehiculo->setEstado($estado);
+    $vehiculo->setMarca($marca);
+    $vehiculo->setNroChasis($nro_chasis);
+    $vehiculo->setNroMotor($nro_motor);
+    $vehiculo->setFechaFabricacion($fecha_fabricacion);
 
     if($guardar)
     {
@@ -91,6 +99,26 @@ $estadosVehiculo = $vehiculo->getEstadoVehiculo();
                             </div>
 
                             <div class="form-group">
+                                <label for="marca">Marca</label>
+                                <input type="text" name="marca" id="marca" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nro_chasis">Nro. Chasis</label>
+                                <input type="text" name="nro_chasis" id="nro_chasis" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nro_motor">Nro. Motor</label>
+                                <input type="text" name="nro_motor" id="nro_motor" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fecha_fabricacion">Fecha de Fabricación</label>
+                                <input type="date" name="fecha_fabricacion" id="fecha_fabricacion" class="form-control" required autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="tipo">Tipo del Vehículo:</label>
                                 <select name="tipo" id="tipo" class="form-control" required>
                                     <option value="">Seleccione el tipo de Vehiculo</option>
@@ -155,7 +183,11 @@ $estadosVehiculo = $vehiculo->getEstadoVehiculo();
                             data-tipo="<?php echo $dato->tipo ; ?>"
                             data-id_tipo="<?php echo $dato->id_tipoVehiculo ; ?>"
                             data-estado="<?php echo $dato->estado ; ?>"
-                            data-id_estado="<?php echo $dato->id_estadoVehiculo ; ?>">
+                            data-id_estado="<?php echo $dato->id_estadoVehiculo ; ?>"
+                            data-marca="<?php echo $dato->marca ; ?>"
+                            data-nro_chasis="<?php echo $dato->nro_chasis ; ?>"
+                            data-nro_motor="<?php echo $dato->nro_motor ; ?>"
+                            data-fecha_fabricacion="<?php echo $dato->fecha_fabricacion ; ?>">
                             <i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                     <td>
@@ -194,6 +226,26 @@ $estadosVehiculo = $vehiculo->getEstadoVehiculo();
                     <div class="form-group">
                         <label for="patente">Patente</label>
                         <input type="text" name="patente" id="patente" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <input type="text" name="marca" id="marca" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nro_chasis">Nro. Chasis</label>
+                        <input type="text" name="nro_chasis" id="nro_chasis" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nro_motor">Nro. Motor</label>
+                        <input type="text" name="nro_motor" id="nro_motor" class="form-control" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_fabricacion">Fecha de Fabricación</label>
+                        <input type="date" name="fecha_fabricacion" id="fecha_fabricacion" class="form-control" required autocomplete="off">
                     </div>
 
                     <div class="form-group">

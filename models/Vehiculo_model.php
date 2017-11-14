@@ -9,6 +9,10 @@ class Vehiculo_model implements ModelInterface
 	private $_id = null;
 	private $_patente;
 	private $_estado;
+	private $_marca;
+	private $_nroChasis;
+	private $_nroMotor;
+	private $_fechaFabricacion;
 	private $_tipo;
 
 	public function __construct()
@@ -56,6 +60,46 @@ class Vehiculo_model implements ModelInterface
 		return $this->_tipo;
 	}
 
+	public function setMarca($_marca)
+	{
+		$this->_marca = $_marca;
+	}
+
+	public function getMarca()
+	{
+		return $this->_marca;
+	}
+
+	public function setNroChasis($_nroChasis)
+	{
+		$this->_nroChasis = $_nroChasis;
+	}
+
+	public function getNroChasis()
+	{
+		return $this->_nroChasis;
+	}
+
+	public function setNroMotor($_nroMotor)
+	{
+		$this->_nroMotor = $_nroMotor;
+	}
+
+	public function getNroMotor()
+	{
+		return $this->_nroMotor;
+	}
+
+	public function setFechaFabricacion($_fechaFabricacion)
+	{
+		$this->_fechaFabricacion = $_fechaFabricacion;
+	}
+
+	public function getFechaFabricacion()
+	{
+		return $this->_fechaFabricacion;
+	}
+
 	private function verifyPatente()
 	{
 		$query = sprintf("SELECT id FROM Vehiculo WHERE patente = '%s'", $this->_patente);
@@ -73,12 +117,12 @@ class Vehiculo_model implements ModelInterface
 			if(isset($existPatente[0]->id) && $existPatente[0]->id != '')
 				return false;
 			else
-				$query = sprintf("INSERT INTO Vehiculo(patente, id_tipoVehiculo, id_estadoVehiculo) VALUES ('%s', '%s', '%s')", $this->_patente, $this->_tipo, $this->_estado);
+				$query = sprintf("INSERT INTO Vehiculo(patente, marca, nro_chasis, nro_motor, fecha_fabricacion, id_tipoVehiculo, id_estadoVehiculo) VALUES ('%s','%s','%s','%s','%s','%s','%s')", $this->_patente, $this->_marca, $this->_nroChasis,$this->_nroMotor,$this->_fechaFabricacion, $this->_tipo, $this->_estado);
 		}
 		else
 		{
 			//Update
-			$query = sprintf("UPDATE Vehiculo SET patente = '%s', id_tipoVehiculo = '%s', id_estadoVehiculo = '%s' WHERE id = %s", $this->_patente, $this->_tipo, $this->_estado, $this->_id);
+			$query = sprintf("UPDATE Vehiculo SET patente = '%s', marca = '%s', nro_chasis = '%s', nro_motor = '%s', fecha_fabricacion = '%s', id_tipoVehiculo = '%s', id_estadoVehiculo = '%s' WHERE id = %s", $this->_patente, $this->_marca, $this->_nroChasis,$this->_nroMotor,$this->_fechaFabricacion, $this->_tipo, $this->_estado, $this->_id);
 		}
 
 		$rs = $this->_db->query($query);
@@ -87,7 +131,7 @@ class Vehiculo_model implements ModelInterface
 
 	public function getAll()
 	{
-		$query = "SELECT v.id,v.patente,v.id_estadoVehiculo, v.id_tipoVehiculo,e.estado as estado, t.tipo as tipo
+		$query = "SELECT v.id,v.patente,v.id_estadoVehiculo, v.id_tipoVehiculo,e.estado as estado, t.tipo as tipo, v.marca, v.nro_chasis, v.nro_motor, v.fecha_fabricacion
 				FROM Vehiculo v
 				JOIN estadoVehiculo e ON v.id_estadoVehiculo = e.id_estado
 				JOIN tipoVehiculo t ON v.id_tipoVehiculo = t.id_tipo";
