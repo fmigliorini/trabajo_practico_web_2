@@ -29,6 +29,10 @@ CREATE TABLE Usuario (
     foreign key(id_empleado) references Empleado(id)
 );
 
+create table estadoVehiculo(
+    id_estado INT PRIMARY KEY AUTO_INCREMENT,
+    estado VARCHAR(100)
+);
 
 create table tipoVehiculo(
     id_tipo INT PRIMARY KEY AUTO_INCREMENT,
@@ -95,12 +99,75 @@ CREATE TABLE ViajeLog (
     id_viaje INT NOT NULL,
     foreign key(id_viaje) references Viaje(id)
 );
+CREATE TABLE Modulo (
+    id INT NOT NULL AUTO_INCREMENT primary key ,
+    descripcion varchar(50)
+);
 
-select * from Empleado;
-select * from Usuario;
-insert into Rol (descripcion) VALUES ('admin');
-insert into Empleado (nombre,apellido,numeroDocumento,telefono) values ('Facundo','Migliorini','35159952','1122334455');
-insert into Usuario (usuario,password,id_rol,id_empleado) values ('admin','202cb962ac59075b964b07152d234b70','1','1');
-INSERT INTO `tipovehiculo` (`id_tipo`, `tipo`) VALUES (NULL, 'Camion'), (NULL, 'Camioneta'), (NULL, 'Tractor'), (NULL, 'Rodado');
-INSERT INTO `estadovehiculo` (`id_estado`, `estado`) VALUES (NULL, 'activo'), (NULL, 'no activo');
 
+CREATE TABLE Permiso (
+    id INT NOT NULL AUTO_INCREMENT primary key ,
+    id_Rol int ,
+    id_Modulo int,
+    foreign key(id_Rol) references Rol(id),
+    foreign key(id_Modulo) references Modulo(id)
+);
+
+select *
+from Empleado;
+
+select *
+from Usuario;
+
+insert into Cliente ( nombre , apellido, compania)
+VALUES ('Federico','Rastelli','Claro'),
+	   ('Andres','Oporto', 'Sancor'),
+	   ('Franco','Zuccarelli', 'Muffin');
+
+insert into Rol (descripcion)
+VALUES ('admin'),
+	   ('cliente'),
+	   ('chofer');
+
+insert into Modulo (descripcion)
+ VALUES ('Roles'),
+		('Usuarios'),
+		('Empleados'),
+		('Clientes'),
+		('Viajes'),
+		('Vehiculos'),
+		('Mantenimiento de Vehiculos'),
+		('Permisos');
+
+
+insert into Permiso(id_Rol,id_Modulo)
+ VALUES (1,1),
+		(1,2),
+		(1,3),
+		(1,4),
+		(1,5),
+		(1,6),
+		(1,7),
+		(1,8);
+
+insert into Empleado (nombre,apellido,numeroDocumento,telefono)
+values ('Facundo','Migliorini','35159952','1122334455'),
+	   ('Erika','Romanczuk','37481033','46512631'),
+	   ('Pedro','Rodriguez','25987123','44448888'),
+	   ('Marcela','Gonzalez','30789456','45612345'),
+	   ('Tamara','Perez','27456789','45678912'),
+	   ('Mauro','Mercado','33456789','41782356'),
+	   ('Brian','Burgos','38456789','44561237');
+
+insert into Usuario (usuario,password,id_rol,id_empleado)
+values ('admin','202cb962ac59075b964b07152d234b70','1','1');
+
+INSERT INTO tipoVehiculo(tipo)
+VALUES ('Camion'),
+	   ('Camioneta'),
+	   ('Tractor'),
+	   ('Acoplado');
+
+INSERT INTO estadoVehiculo (estado)
+VALUES ('activo'),
+	   ('inactivo');
