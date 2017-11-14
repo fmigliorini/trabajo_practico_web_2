@@ -1,10 +1,13 @@
 <?php
+
 require_once "templates/head.php";
 require_once "Helper.php";
 
 
 require_once "models/LogViaje_model.php";
 require_once "models/Viaje_model.php";
+
+
 
 $idViaje = Helper::isGet('idViaje');
 if ( empty($idViaje )){
@@ -52,7 +55,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
         <form method="POST">
             <input type="hidden" name="work" value="create">
             <input type="hidden" name="idViaje" value="<?php echo $idViaje; ?>">
-            <input type="hidden" name="idViaje" value="<?php echo $idChofer; ?>">
+            <input type="hidden" name="idChofer" value="<?php echo $idChofer; ?>">
             <input type="hidden" name="fecha" value="<?php echo date('Y-m-d H:i:s'); ?>">
             <input type="hidden" id="latitud" name="latitud" value=""> <!-- se carga con js -->
             <input type="hidden" id="longitud" name="longitud" value=""> <!-- se carga con js -->
@@ -64,7 +67,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
                 </div>
                 <div class="form-group">
                     <label for="surname">Razon</label>
-                    <select name="tipo" id="tipo" class="form-control">
+                    <select name="razon" id="razon" class="form-control">
                         <option value="Siniestro">Siniestro</option>
                         <option value="Desvio">Desvio</option>
                         <option value="averia">Problemas con el vehiculo</option>

@@ -25,22 +25,19 @@ class LogViaje implements ModelInterface
 
 	public function save()
     {
-        // Precio debería ser siempre > 0;
-        if(is_null($this->_id)) {
-            $query = sprintf("INSERT INTO ViajeLog (fecha,razon,latitud,longitud,detalle,combustible,precio,id_viaje,id_chofer)
-                                VALUES ('%s','%s','%s','%d'",
-                                $this->_fecha,
-                                $this->_razon,
-                                $this->_latitud,
-                                $this->_longitud,
-                                $this->_detalle,
-                                $this->_combustible,
-                                $this->_precio,
-                                $this->_idViaje,
-                                $this->_idChofer
-                    );
-        }
-        // No update.
+        $query = sprintf("INSERT INTO LogViaje (fecha,razon,latitud,longitud,detalle,combustible,precio,id_viaje,id_chofer)
+                            VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                            $this->_fecha,
+                            $this->_razon,
+                            $this->_latitud,
+                            $this->_longitud,
+                            $this->_detalle,
+                            $this->_combustible,
+                            $this->_precio,
+                            $this->_idViaje,
+                            $this->_idChofer
+                );
+        echo $query; return;
         return  $this->_db->query($query);
     }
 
