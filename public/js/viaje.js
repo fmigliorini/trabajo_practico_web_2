@@ -1,3 +1,29 @@
+function mostrar_chofer2(id_chofer, idform)
+{
+    $(idform+" #idChofer2").find('option').not(':first').remove();  
+
+    if(id_chofer != '')
+    {
+        $.ajax({
+            url: 'get_segundoChofer_ajax.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {id_chofer:id_chofer},
+        })
+        .done(function(data) {
+            
+            for(var i=0; i<data.length; i++)  // En editar no funciona porque tienen el mismo ID que agregar.
+            {
+                $(idform+" #idChofer2 option:first").after("<option value='"+data[i].id+"'>"+data[i].nombre+' '+data[i].apellido+"</option>");
+            }
+
+        })
+        .fail(function(xhr, status, error) {
+            console.log(xhr.responseText);
+        });
+    }
+}
+
 $(function(){
 
     $('.btn-modal-visualizar-viaje').on('click',function(){
@@ -8,15 +34,15 @@ $(function(){
         let origen = $(this).data('origen');
         let destino = $(this).data('destino');
         let fecha_inicio = $(this).data('fecha_inicio');
-        let fecha_fin = $(this).data('fecha_fin');
         let tiempo_estimado = $(this).data('tiempo_estimado');
         let tiempo_real = $(this).data('tiempo_real');
-        let desviacion = $(this).data('desviacion');
         let combustible_estimado = $(this).data('combustible_estimado');
         let nombre_cliente = $(this).data('nombre_cliente');
         let apellido_cliente = $(this).data('apellido_cliente');
         let nombre_chofer = $(this).data('nombre_chofer');
         let apellido_chofer = $(this).data('apellido_chofer');
+        let nombre_chofer2 = $(this).data('nombre_chofer2');
+        let apellido_chofer2 = $(this).data('apellido_chofer2');
         let patente = $(this).data('patente');
         let patenteAcoplado = $(this).data('patente_acoplado');
 
@@ -25,13 +51,12 @@ $(function(){
         $('#form-visualizar #origen').val(origen);
         $('#form-visualizar #destino').val(destino);
         $('#form-visualizar #fecha_inicio').val(fecha_inicio);
-        $('#form-visualizar #fecha_fin').val(fecha_fin);
         $('#form-visualizar #tiempo_estimado').val(tiempo_estimado);
         $('#form-visualizar #tiempo_real').val(tiempo_real);
-        $('#form-visualizar #desviacion').val(desviacion);
         $('#form-visualizar #combustible_estimado').val(combustible_estimado);
         $('#form-visualizar #id_cliente').val(nombre_cliente+' '+apellido_cliente);
         $('#form-visualizar #id_chofer').val(nombre_chofer+' '+apellido_chofer);
+        $('#form-visualizar #id_chofer2').val(nombre_chofer2+' '+apellido_chofer2);
         $('#form-visualizar #id_vehiculo').val(patente);
         $('#form-visualizar #id_vehiculoAcoplado').val(patenteAcoplado);
         $('#form-visualizar #qr').attr('src','qrImages/qrViaje_' +id+'.png');
@@ -41,19 +66,21 @@ $(function(){
 
     $('.btn-modal-edit-viaje').on('click',function(){
 
+        $("#form-edit #idChofer2").find('option').not(':first').remove();
         // gett all data
         let id = $(this).data('id');
         let descripcion = $(this).data('descripcion');
         let origen = $(this).data('origen');
         let destino = $(this).data('destino');
         let fecha_inicio = $(this).data('fecha_inicio');
-        let fecha_fin = $(this).data('fecha_fin');
         let tiempo_estimado = $(this).data('tiempo_estimado');
         let tiempo_real = $(this).data('tiempo_real');
-        let desviacion = $(this).data('desviacion');
         let combustible_estimado = $(this).data('combustible_estimado');
         let id_cliente = $(this).data('id_cliente');
         let id_chofer = $(this).data('id_chofer');
+        let id_chofer2 = $(this).data('id_chofer2');
+        let nombre_chofer2 = $(this).data('nombre_chofer2');
+        let apellido_chofer2 = $(this).data('apellido_chofer2');
         let id_vehiculo = $(this).data('id_vehiculo');
         let id_vehiculoAcoplado = $(this).data('id_vehiculo_acoplado');
 
@@ -62,18 +89,30 @@ $(function(){
         $('#form-edit #origen').val(origen);
         $('#form-edit #destino').val(destino);
         $('#form-edit #fecha_inicio').val(fecha_inicio);
-        $('#form-edit #fecha_fin').val(fecha_fin);
         $('#form-edit #tiempo_estimado').val(tiempo_estimado);
         $('#form-edit #tiempo_real').val(tiempo_real);
-        $('#form-edit #desviacion').val(desviacion);
         $('#form-edit #combustible_estimado').val(combustible_estimado);
         $('#form-edit #idViaje').val(id);
 
+<<<<<<< HEAD
         $('#form-edit #idChofer option[value='+id_chofer+']').attr('selected', 'selected');
         $('#form-edit #idCliente option[value='+id_cliente+']').attr('selected', 'selected');
         $('#form-edit #idVehiculo option[value='+id_vehiculo+']').attr('selected', 'selected');
         $('#form-edit #idVehiculoAcoplado option[value='+id_vehiculoAcoplado+']').attr('selected', 'selected');
 
+=======
+        $('#form-edit #idCliente option[value="'+id_cliente+'"]').attr('selected', 'selected');
+        $('#form-edit #idVehiculo option[value="'+id_vehiculo+'"]').attr('selected', 'selected');
+        $('#form-edit #idChofer option[value="'+id_chofer+'"]').attr('selected', 'selected');
+
+        if(id_chofer2 != '')
+        {
+            $('#form-edit #idChofer2 option').after('<option value="'+id_chofer2+'">'+nombre_chofer2+' '+apellido_chofer2+'</option>');
+            $('#form-edit #idChofer2 option[value="'+id_chofer2+'"]').attr('selected', 'selected');
+        }
+
+        $('#form-edit #idVehiculoAcoplado option[value="'+id_vehiculoAcoplado+'"]').attr('selected', 'selected');
+>>>>>>> fix_viajes
     });
 
 
@@ -85,5 +124,10 @@ $(function(){
 
     });
 
+<<<<<<< HEAD
 
 });
+=======
+});
+
+>>>>>>> fix_viajes

@@ -19,8 +19,8 @@ $(function(){
         $('#form-edit #nro_motor').val(nro_motor);
         $('#form-edit #fecha_fabricacion').val(fecha_fabricacion);
 
-        $('#form-edit #tipo option[value='+id_tipo+']').attr('selected', 'selected');
-        $('#form-edit #estado option[value='+id_estado+']').attr('selected', 'selected');
+        $('#form-edit #tipo option[value="'+id_tipo+'"]').attr('selected', 'selected');
+        $('#form-edit #estado option[value="'+id_estado+'"]').attr('selected', 'selected');
     });
 
     $('.btn-modal-delete-vehiculo').on('click',function(){
