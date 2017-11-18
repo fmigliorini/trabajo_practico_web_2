@@ -179,7 +179,7 @@ class Viaje_model implements ModelInterface
 		{
 		  $query = sprintf("UPDATE Viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',tiempo_estimado= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s',id_chofer2= %s WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_tiempoEstimado, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, ($this->_idChofer2 == '' ? 'NULL' : $this->_idChofer2), $this->_id);
 		}
-
+        echo $query;
 		$rs = $this->_db->query($query);
 		return $rs;
 	}

@@ -139,9 +139,7 @@ VALUES ('Federico','Rastelli','Claro'),
 	   ('Franco','Zuccarelli', 'Muffin');
 
 insert into Rol (descripcion)
-VALUES ('admin'),
-	   ('cliente'),
-	   ('chofer');
+VALUES ('admin'), ('chofer');
 
 insert into Modulo (descripcion)
  VALUES ('Roles'),

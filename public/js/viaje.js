@@ -1,6 +1,6 @@
 function mostrar_chofer2(id_chofer, idform)
 {
-    $(idform+" #idChofer2").find('option').not(':first').remove();  
+    $(idform+" #idChofer2").find('option').not(':first').remove();
 
     if(id_chofer != '')
     {
@@ -11,7 +11,7 @@ function mostrar_chofer2(id_chofer, idform)
             data: {id_chofer:id_chofer},
         })
         .done(function(data) {
-            
+
             for(var i=0; i<data.length; i++)  // En editar no funciona porque tienen el mismo ID que agregar.
             {
                 $(idform+" #idChofer2 option:first").after("<option value='"+data[i].id+"'>"+data[i].nombre+' '+data[i].apellido+"</option>");
@@ -94,13 +94,6 @@ $(function(){
         $('#form-edit #combustible_estimado').val(combustible_estimado);
         $('#form-edit #idViaje').val(id);
 
-<<<<<<< HEAD
-        $('#form-edit #idChofer option[value='+id_chofer+']').attr('selected', 'selected');
-        $('#form-edit #idCliente option[value='+id_cliente+']').attr('selected', 'selected');
-        $('#form-edit #idVehiculo option[value='+id_vehiculo+']').attr('selected', 'selected');
-        $('#form-edit #idVehiculoAcoplado option[value='+id_vehiculoAcoplado+']').attr('selected', 'selected');
-
-=======
         $('#form-edit #idCliente option[value="'+id_cliente+'"]').attr('selected', 'selected');
         $('#form-edit #idVehiculo option[value="'+id_vehiculo+'"]').attr('selected', 'selected');
         $('#form-edit #idChofer option[value="'+id_chofer+'"]').attr('selected', 'selected');
@@ -112,7 +105,6 @@ $(function(){
         }
 
         $('#form-edit #idVehiculoAcoplado option[value="'+id_vehiculoAcoplado+'"]').attr('selected', 'selected');
->>>>>>> fix_viajes
     });
 
 
@@ -124,10 +116,4 @@ $(function(){
 
     });
 
-<<<<<<< HEAD
-
 });
-=======
-});
-
->>>>>>> fix_viajes

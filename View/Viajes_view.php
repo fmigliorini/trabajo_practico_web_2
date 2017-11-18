@@ -34,17 +34,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
     if($guardar)
     {
-<<<<<<< HEAD
         $idViaje = $viaje->save();
         require_once 'libs/phpqrcode/qrlib.php';
-        var_dump($idViaje);
-=======
-        $rs = $viaje->save();
-
-        $idViaje = $viaje->save();
-        require_once 'libs/phpqrcode/qrlib.php';
-        //var_dump($idViaje);
->>>>>>> fix_viajes
         QRcode::png('http://localhost/TP-PW2/LogViaje?idViaje='.$idViaje ,
                         'qrImages/qrViaje_' . $idViaje . '.png');
 
