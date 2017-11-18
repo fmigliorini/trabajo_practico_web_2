@@ -62,16 +62,17 @@ create table Viaje(
     destino varchar(100),
     fecha_inicio date,
     fecha_fin date,
-    tiempo_estimado time,
-    tiempo_real time,
-    desviacion varchar(225),
+    tiempo_estimado varchar(50),
+    tiempo_real varchar(50),
     combustible_estimado int,
     id_cliente int,
     id_vehiculo int,
     id_chofer int,
+    id_chofer2 int,
     foreign key(id_cliente) references Cliente(id),
     foreign key(id_vehiculo) references Vehiculo(id),
-    foreign key(id_chofer) references Empleado(id)
+    foreign key(id_chofer) references Empleado(id),
+    foreign key(id_chofer2) references Empleado(id)
 );
 
 CREATE TABLE Servicio (

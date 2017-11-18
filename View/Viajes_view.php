@@ -8,15 +8,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $origen = Helper::isPost('origen');
     $destino = Helper::isPost('destino');
     $fecha_inicio = Helper::isPost('fecha_inicio');
-    $fecha_fin = Helper::isPost('fecha_fin');
     $tiempo_estimado = Helper::isPost('tiempo_estimado');
-    $tiempo_real = Helper::isPost('tiempo_real');
-    $desviacion = Helper::isPost('desviacion');
     $combustible_estimado = Helper::isPost('combustible_estimado');
     $idCliente = Helper::isPost('idCliente');
     $idVehiculo = Helper::isPost('idVehiculo');
     $idVehiculoAcoplado = (isset($_POST['idVehiculoAcoplado']) ? $_POST['idVehiculoAcoplado'] : NULL);
     $idChofer = Helper::isPost('idChofer');
+    $idChofer2 = Helper::isPost('idChofer2');
 
     $guardar = Helper::isPost('guardar');
     $editar = Helper::isPost('editar');
@@ -26,19 +24,24 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $viaje->set_origen($origen);
     $viaje->set_destino($destino);
     $viaje->set_fechaInicio($fecha_inicio);
-    $viaje->set_fechaFin($fecha_fin);
     $viaje->set_tiempoEstimado($tiempo_estimado);
-    $viaje->set_tiempoReal($tiempo_real);
-    $viaje->set_desviacion($desviacion);
     $viaje->set_combustibleEstimado($combustible_estimado);
     $viaje->set_idCliente($idCliente);
     $viaje->set_idVehiculo($idVehiculo);
     $viaje->set_idVehiculoAcoplado($idVehiculoAcoplado);
     $viaje->set_idChofer($idChofer);
+    $viaje->set_idChofer2($idChofer2);
 
     if($guardar)
     {
         $rs = $viaje->save();
+
+        $idViaje = $viaje->save();
+        require_once 'libs/phpqrcode/qrlib.php';
+        //var_dump($idViaje);
+        QRcode::png('http://localhost/TP-PW2/LogViaje?idViaje='.$idViaje ,
+                        'qrImages/qrViaje_' . $idViaje . '.png');
+
     }
 
     if($editar || $eliminar)
@@ -53,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     }
 
 
-    if($rs)
+    if( (isset($rs) AND $rs == true) OR (isset($idViaje) AND $idViaje == true) )
     {
         echo "<script>
             window.location.href = 'index.php?page=viajes';
@@ -90,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                     <div class="modal-body">
 
-                        <form action="" method="POST">
+                        <form id="form-add" action="" method="POST">
 
                             <div class="form-group">
                                 <label for="descripcion">Descripcion:</label>
@@ -113,23 +116,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             </div>
 
                             <div class="form-group">
-                                <label for="fecha_fin">Fecha de Destino:</label>
-                                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off">
-                            </div>
-
-                            <div class="form-group">
                                 <label for="tiempo_estimado">Tiempo estimado:</label>
-                                <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="tiempo_real">Tiempo real:</label>
-                                <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="desviacion">Desviación:</label>
-                                <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off">
+                                <input type="text" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
                             </div>
 
                             <div class="form-group">
@@ -146,13 +134,20 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                             <div class="form-group">
                                 <label for="idChofer">Chofer:</label>
-                                <select name="idChofer" class="form-control" required="required">
+                                <select name="idChofer" class="form-control" required="required" onchange="mostrar_chofer2(this.value, '#form-add')">
                                     <option value="">Seleccione un Chofer</option>
                                     <?php if (!empty ( $choferes )){ ?>
                                         <?php foreach( $choferes as $chofer ) { ?>
                                             <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
                                         <?php } ?>
                                     <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idChofer2">Segundo Chofer: </label> <small> (Opcional)</small>
+                                <select name="idChofer2" id="idChofer2" class="form-control">
+                                    <option value="">Seleccione un segundo chofer</option>  <!-- Hacer AJAX para obtener lista de choferes diferentes al que selecciona en el select de chofer (onchange) -->
                                 </select>
                             </div>
 
@@ -228,15 +223,14 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-origen="<?php echo $dato->origen ; ?>"
                                 data-destino="<?php echo $dato->destino ; ?>"
                                 data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
-                                data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
                                 data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
-                                data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
-                                data-desviacion="<?php echo $dato->desviacion ; ?>"
                                 data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
                                 data-nombre_cliente="<?php echo $dato->nombre_cliente ; ?>"
                                 data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
                                 data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
                                 data-apellido_chofer="<?php echo $dato->apellido_chofer ; ?>"
+                                data-nombre_chofer2="<?php echo $dato->nombre_chofer2 ; ?>"
+                                data-apellido_chofer2="<?php echo $dato->apellido_chofer2 ; ?>"
                                 data-patente="<?php echo $dato->patente ; ?>"
                                 data-patente_acoplado="<?php echo $dato->patente_acoplado; ?>">
                                 <i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -249,13 +243,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-origen="<?php echo $dato->origen ; ?>"
                                 data-destino="<?php echo $dato->destino ; ?>"
                                 data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
-                                data-fecha_fin="<?php echo $dato->fecha_fin ; ?>"
                                 data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
-                                data-tiempo_real="<?php echo $dato->tiempo_real ; ?>"
-                                data-desviacion="<?php echo $dato->desviacion ; ?>"
                                 data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
                                 data-id_cliente="<?php echo $dato->id_cliente ; ?>"
                                 data-id_chofer="<?php echo $dato->id_chofer ; ?>"
+                                data-id_chofer2="<?php echo $dato->id_chofer2 ; ?>"
+                                data-nombre_chofer2="<?php echo $dato->nombre_chofer2 ; ?>"
+                                data-apellido_chofer2="<?php echo $dato->apellido_chofer2 ; ?>"
                                 data-id_vehiculo="<?php echo $dato->id_vehiculo ; ?>"
                                 data-id_vehiculo_acoplado="<?php echo $dato->id_vehiculoAcoplado ; ?>">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -313,23 +307,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     </div>
 
                     <div class="form-group">
-                        <label for="fecha_fin">Fecha de Destino:</label>
-                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off" readonly="readonly">
-                    </div>
-
-                    <div class="form-group">
                         <label for="tiempo_estimado">Tiempo estimado:</label>
-                        <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off" readonly="readonly">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tiempo_real">Tiempo real:</label>
-                        <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off" readonly="readonly">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="desviacion">Desviación:</label>
-                        <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off" readonly="readonly">
+                        <input type="text" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
 
                     <div class="form-group">
@@ -345,6 +324,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     <div class="form-group">
                         <label for="id_chofer">Chofer:</label>
                         <input type="text" name="id_chofer" id="id_chofer" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_chofer2">Segundo Chofer:</label>
+                        <input type="text" name="id_chofer2" id="id_chofer2" class="form-control" autocomplete="off" readonly="readonly">
                     </div>
 
                     <div class="form-group">
@@ -404,23 +388,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     </div>
 
                     <div class="form-group">
-                        <label for="fecha_fin">Fecha de Destino:</label>
-                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
                         <label for="tiempo_estimado">Tiempo estimado:</label>
-                        <input type="time" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tiempo_real">Tiempo real:</label>
-                        <input type="time" name="tiempo_real" id="tiempo_real" class="form-control" required autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="desviacion">Desviación:</label>
-                        <input type="text" name="desviacion" id="desviacion" class="form-control" required autocomplete="off">
+                        <input type="text" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required autocomplete="off">
                     </div>
 
                     <div class="form-group">
@@ -435,13 +404,22 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                         $vehiculosAcoplado = $viaje->getVehiculosAcoplado();
                     ?>
 
-                    <div class="form-group">
+                   <div class="form-group">
                         <label for="idChofer">Chofer:</label>
-                        <select name="idChofer" id="idChofer" class="form-control" required="required">
+                        <select name="idChofer" id="idChofer" class="form-control" required="required" onchange="mostrar_chofer2(this.value, '#form-edit')">
                             <option value="">Seleccione un Chofer</option>
-                            <?php foreach( $choferes as $chofer ) { ?>
-                                <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                            <?php if (!empty ( $choferes )){ ?>
+                                <?php foreach( $choferes as $chofer ) { ?>
+                                    <option value="<?php echo $chofer->id; ?>"><?php echo $chofer->apellido;?>, <?php echo $chofer->nombre; ?></option>
+                                <?php } ?>
                             <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idChofer2">Segundo Chofer: </label> <small> (Opcional)</small>
+                        <select name="idChofer2" id="idChofer2" class="form-control">
+                            <option value="">Seleccione un segundo chofer</option>  <!-- Hacer AJAX para obtener lista de choferes diferentes al que selecciona en el select de chofer (onchange) -->
                         </select>
                     </div>
 
