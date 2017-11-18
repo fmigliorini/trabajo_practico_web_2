@@ -86,14 +86,19 @@ CREATE TABLE Servicio (
 );
 
 
-CREATE TABLE Mantenimiento (
+ CREATE TABLE Mantenimiento (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     fecha_inicio datetime,
     fecha_fin datetime,
-    kilometros int,
+    kilometros decimal,
     costo decimal ,
     id_servicio int,
-    foreign key(id_servicio) references Servicio(id)
+    id_vehiculo int,
+    mecanico VARCHAR(100),
+    repuestoCambiado VARCHAR(100),
+	externo bool,
+    foreign key(id_servicio) references Servicio(id),
+    foreign key(id_vehiculo) references Vehiculo(id)
 );
 
 
@@ -151,6 +156,14 @@ insert into Modulo (descripcion)
 		('Mantenimiento de Vehiculos'),
 		('Permisos');
 
+insert into Servicio (descripcion)
+ VALUES ('Cambio de cubiertas'),
+		('Alinear los ejes'),
+		('Cambio de aceite'),
+        ('Cambio de frenos'),
+		('Reparacion'),
+		('Chequeo'),
+		('otros');
 
 insert into Permiso(id_Rol,id_Modulo)
  VALUES (1,1),
@@ -180,6 +193,10 @@ VALUES ('Camion'),
 	   ('Tractor'),
 	   ('Acoplado');
 
+
 INSERT INTO estadoVehiculo (estado)
 VALUES ('activo'),
-	   ('inactivo');
+	   ('inactivo'),
+       ('Mantenimiento'),
+       ('Viaje')
+       ;

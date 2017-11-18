@@ -42,7 +42,7 @@ class Modulo implements ModelInterface
         $rows = $this->_db->query($query);
         return $rows;
     }
-//Query que Elimina todos los modulos
+    //Query que Elimina todos los modulos
     public function removeModulo()
     {
         $query = "DELETE FROM Modulo WHERE id = $this->_id;";
@@ -50,7 +50,7 @@ class Modulo implements ModelInterface
         return $rs;
     }
 
-//Query que Trae todos los modulos
+    //Query que Trae todos los modulos
     static public function getAll()
     {
         $db = DataBase::getInstance();
@@ -59,5 +59,4 @@ class Modulo implements ModelInterface
     }
 
 }
-
 ?>

@@ -27,7 +27,7 @@ $listPermisos = Permiso::getAll();
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1> Bienvenido a Permisos </h1>
+        <h1> Bienvenido a Permiso </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Permisos</a></li>
         </ol>
@@ -79,6 +79,7 @@ $listPermisos = Permiso::getAll();
 
                 <form action="" method="POST">
                     <input type="hidden" name="work" value="create">
+
                     <div class="form-group">
                       <label for="modulo">Modulo</label>
                       <select name="id_Modulo" class="form-control" required="required">
@@ -104,8 +105,6 @@ $listPermisos = Permiso::getAll();
                       </select>
 
                     </div>
-
-
 
                     <div class="modal-footer">  <!-- Footer -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -29,10 +29,8 @@ class Permiso implements ModelInterface
         return $row;
     }
 
-
     static public function removePerimiso($id)
     {
-        $query = "DELETE FROM Perimisos WHERE id = $id";
         $rs = $this->_db->query($query);
         return $rs;
     }
@@ -119,7 +117,6 @@ class Permiso implements ModelInterface
 
         return $this;
     }
-
 
 }
 
