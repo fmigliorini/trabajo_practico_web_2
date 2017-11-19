@@ -6,10 +6,20 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if ( $_GET['page'] !== 'requierePermiso'
-        && $_GET['page'] !== 'pageNotFound'
-        && $_GET['page'] !== 'home'){
-    if ( ! Permiso::tieneAcceso(Modulo::getIdByPage($_GET['page']), $_SESSION['idRol']) ){
+$page = $_GET['page'];
+$rol = $_SESSION['idRol'];
+if ( $page !== 'requierePermiso' && $page !== 'pageNotFound'){
+
+    // Fix para reportes
+    switch($page){
+        case 'reportes-dias':
+        case 'reportes-costo':
+        case 'reportes-kilometros':
+            $page = "reportes";
+            break;
+    }
+
+    if ( ! Permiso::tieneAcceso(Modulo::getIdByPage($page), $rol) ){
         header('Location: index.php?page=requierePermiso');
     }
 }

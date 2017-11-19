@@ -156,8 +156,11 @@ insert into Modulo (descripcion)
 		('Vehiculos'),
 		('permisos'),
         ('pageNotFound'),
+        ('mantenimiento'),
         ('reportes'),
-        ('mantenimiento');
+        ('reportes-kilometros'),
+        ('reportes-costo'),
+        ('reportes-dias');
 
 insert into Servicio (descripcion)
  VALUES ('Cambio de cubiertas'),
