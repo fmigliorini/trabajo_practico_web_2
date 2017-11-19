@@ -69,6 +69,8 @@ create table Viaje(
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
     combustible_estimado int,
+    combustible_real int,
+    estado varchar(50) default 'activo',
     id_cliente int,
     id_vehiculo int,
     id_vehiculoAcoplado int,
@@ -195,7 +197,8 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 	   ('Brian','Burgos','38456789','44561237');
 
 insert into Usuario (usuario,password,id_rol,id_empleado)
-values ('admin','202cb962ac59075b964b07152d234b70','1','1');
+values ('admin','202cb962ac59075b964b07152d234b70','1','1')
+    ('chofer','202cb962ac59075b964b07152d234b70','2','2');
 
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),
@@ -210,6 +213,11 @@ VALUES ('activo'),
        ('Mantenimiento'),
        ('Viaje');
 
+INSERT INTO Vehiculo (patente,marca,nro_chasis,nro_motor,fecha_fabricacion,id_estadoVehiculo,id_tipoVehiculo)
+    VALUES
+    ('AAA-123','Chevrolet','nbjr-123','12-432-321','2017-01-01','1','1'),
+    ('BBB-123','Norter','bdwef-123','334-1-3231','2017-01-01','1','4');
+    
 /*Vehiculo:Dias fuera de servicio*/
 
 SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'

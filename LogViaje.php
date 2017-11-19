@@ -10,7 +10,7 @@ require_once "models/Viaje_model.php";
 
 
 $idViaje = Helper::isGet('idViaje');
-if ( empty($idViaje )){
+if ( empty($idViaje ) || !Viaje_model::existe($idViaje)){
     ECHO "Viaje no disponible";exit;
 }
 

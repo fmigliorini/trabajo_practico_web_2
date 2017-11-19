@@ -61,6 +61,18 @@ $(function(){
         $('#form-visualizar #id_vehiculoAcoplado').val(patenteAcoplado);
         $('#form-visualizar #qr').attr('src','qrImages/qrViaje_' +id+'.png');
 
+        $.ajax({
+            url: 'buscarLogViaje.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {idViaje:id},
+        })
+        .done(function(data) {
+            console.log(data);
+        })
+        .fail(function(xhr, status, error) {
+            console.log(xhr.responseText);
+        });
     });
 
 

@@ -216,4 +216,11 @@ class Viaje_model implements ModelInterface
 		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado where v.id = $id";
         return $db->query($query);
     }
+
+    static public function existe($id)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT 1 FROM Viaje WHERE id = $id";
+        return $db->query($query);
+    }
 }
