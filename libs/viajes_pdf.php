@@ -33,6 +33,18 @@ $codigoHTML = '
 		<p><strong>Segundo Chofer:</strong> '.($dato->nombre_chofer2 != '' ? $dato->nombre_chofer2.' '.$dato->apellido_chofer2 : '-').'</p>
 		<p><strong>Patente del vehículo:</strong> '.$dato->patente.'</p>
 		<p><strong>Patente del vehículo acoplado:</strong> '.($dato->patente_acoplado != '' ? $dato->patente_acoplado : '-').'</p><br>';
+		if($dato->razon != '') : 
+			$codigoHTML.= 
+			'<h3><p><i>Logs viaje: </i></p></h3><br>
+			<p><strong>Razón:</strong> '.$dato->razon.'</p>
+			<p><strong>Fecha Log:</strong> '.$dato->fecha_log.'</p>
+			<p><strong>Latitud:</strong> '.$dato->latitud.'</p>
+			<p><strong>Longitud:</strong> '.$dato->longitud.'</p>
+			<p><strong>Detalle Log:</strong> '.$dato->detalle_log.'</p>
+			<p><strong>Combustible:</strong> '.$dato->combustible_log.'</p>
+			<p><strong>Kilometros:</strong> '.$dato->kilometros.'</p>
+			<p><strong>Precio:</strong> '.$dato->precio.'</p><br>';
+		endif; 
 
 		$i++;
 	endforeach; 
