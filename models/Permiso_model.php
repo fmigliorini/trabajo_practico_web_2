@@ -22,17 +22,13 @@ class Permiso implements ModelInterface
         return $this->_db->query($query);
     }
 
-    public function getPerimisoById ()
-    {
-        $query = "SELECT id_Rol,id_Modulo FROM Permiso WHERE id = $this->_id;";
-        $row = $this->_db->query($query);
-        return $row;
-    }
 
-    static public function removePerimiso($id)
+    static public function delete($id)
     {
-        $rs = $this->_db->query($query);
-        return $rs;
+        $db = DataBase::getInstance();
+        $query = "DELETE FROM Permiso where id=$id";
+        echo $query;
+        return $db->query($query);
     }
 
     static public function getAll()
