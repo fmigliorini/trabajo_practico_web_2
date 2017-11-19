@@ -78,6 +78,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalViaje">Agregar</button>
 
+        <a href="libs/viajes_pdf.php" class="btn btn-default">Exportar PDF</a>
+
         <div id="modalViaje" class="modal fade" role="dialog">
             <div class="modal-dialog">
 

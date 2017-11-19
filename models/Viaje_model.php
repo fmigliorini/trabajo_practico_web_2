@@ -186,13 +186,14 @@ class Viaje_model implements ModelInterface
 
 	public function getAll()
 	{
-		$query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer,id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado
+		$query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,v.id_chofer,v.id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado, lv.razon, lv.fecha as fecha_log, lv.latitud,lv.longitud,lv.detalle as detalle_log,lv.combustible as combustible_log,lv.kilometros, lv.precio
 		FROM Viaje v
 		JOIN Cliente c ON c.id = v.id_cliente
 		JOIN Empleado e ON e.id = v.id_chofer
 		LEFT JOIN Empleado e2 ON e2.id = v.id_chofer2
 		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
-		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado;";
+		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado
+        LEFT JOIN logViaje lv ON v.id = lv.id;";
 
 		$rows = $this->_db->query($query);
 		return $rows;
