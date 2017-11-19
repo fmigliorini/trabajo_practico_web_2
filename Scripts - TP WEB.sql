@@ -147,14 +147,17 @@ insert into Rol (descripcion)
 VALUES ('admin'), ('chofer');
 
 insert into Modulo (descripcion)
- VALUES ('Roles'),('Usuario'),('Empleado'),('home'),
+ VALUES ('Roles'),
+        ('Usuario'),
+        ('Empleado'),
+        ('home'),
 		('Clientes'),
 		('Viajes'),
 		('Vehiculos'),
-		('Mantenimiento de Vehiculos'),
 		('permisos'),
         ('pageNotFound'),
-        ('requierePermiso');
+        ('reportes'),
+        ('mantenimiento');
 
 insert into Servicio (descripcion)
  VALUES ('Cambio de cubiertas'),
@@ -173,7 +176,11 @@ insert into Permiso(id_Rol,id_Modulo)
 		(1,5),
 		(1,6),
 		(1,7),
-		(1,8);
+		(1,8),
+        (1,9),
+        (1,10),
+        (1,11),
+        (1,12);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
@@ -199,7 +206,7 @@ VALUES ('activo'),
 	   ('inactivo'),
        ('Mantenimiento'),
        ('Viaje');
-       
+
 /*Vehiculo:Dias fuera de servicio*/
 
 SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
@@ -218,4 +225,3 @@ Group BY v.id , v.marca, v.patente
 SELECT v.id, v.marca, v.patente,MAX(m.kilometros) AS 'KilometrosRecorridos'
 FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
 Group BY v.id , v.marca, v.patente
->>>>>>> Reportes
