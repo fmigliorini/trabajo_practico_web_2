@@ -53,12 +53,28 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             require_once "models/Viaje_model.php";
             require_once 'View/detalle_viaje_view.php';
             break;
-        case 'Mantenimiento':
+        case 'mantenimiento':
             require_once "models/Mantenimiento_model.php";
             require_once "models/Vehiculo_model.php";
             require_once "models/Servicio_model.php";
             require_once 'View/Mantenimiento_view.php';
             break;
+        case 'reportes':
+              require_once "models/Vehiculo_model.php";
+              require_once "View/Reporte_view.php";
+              break;
+        case 'reportes-kilometros':
+              require_once "models/Vehiculo_model.php";
+              require_once "View/Reporte-kilometros_view.php";
+              break;
+        case 'reportes-costo':
+              require_once "models/Vehiculo_model.php";
+              require_once "View/Reporte-costo_view.php";
+              break;
+        case 'reportes-dias':
+              require_once "models/Vehiculo_model.php";
+              require_once "View/Reporte-dias_view.php";
+              break;
         default:
             header('location: index.php?page=home');
             die;
