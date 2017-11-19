@@ -75,11 +75,11 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
                 </div>
                 <div class="form-group">
                     <label for="kilometros">Kilometros</label>
-                    <input type="text" name="kilometros" id="kilometros" class="form-control" required>
+                    <input type="text" name="kilometros" id="kilometros" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="combustible">Combustible</label>
-                    <input type="text" name="combustible" id="combustible" class="form-control" required>
+                    <input type="text" name="combustible" id="combustible" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio</label>
