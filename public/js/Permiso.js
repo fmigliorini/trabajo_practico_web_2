@@ -2,9 +2,10 @@
 
     $('.btn-modal-delete-permiso').on('click',function(){
         // gett all data
-        let idPermiso = $(this).data('idPermiso');
+        let idPermiso = $(this).data('id');
+        console.log(idPermiso);
         // set all data in form
-        $('#form-delete #idPermiso').val(id);
+        $('#form-delete #idPermiso').val(idPermiso);
     });
 
 })(jQuery);

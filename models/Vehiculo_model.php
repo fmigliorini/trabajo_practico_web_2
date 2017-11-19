@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'ModelInterface.php';
 require_once 'DataBase.php';
@@ -108,12 +108,12 @@ class Vehiculo_model implements ModelInterface
 	}
 
 	public function save()
-	{	
+	{
 		$existPatente = $this->verifyPatente();
 
 		if( is_null($this->_id) )
 		{
-			//Insert	
+			//Insert
 			if(isset($existPatente[0]->id) && $existPatente[0]->id != '')
 				return false;
 			else
@@ -139,6 +139,7 @@ class Vehiculo_model implements ModelInterface
 		return $rows;
 	}
 
+
 	public function delete()
 	{
 		$query = sprintf("DELETE FROM Vehiculo WHERE id = %s", $this->_id);
@@ -158,6 +159,43 @@ class Vehiculo_model implements ModelInterface
 		$query = "SELECT id_estado,estado FROM estadoVehiculo";
 		$rows =  $this->_db->query($query);
 		return $rows;
+	}
+
+		static	public function getReporteDiasFueraDeServicio()
+	{
+		 $db = DataBase::getInstance();
+		 $query = "SELECT v.id, v.marca, v.patente, v.fecha_fabricacion, sum(DATEDIFF(m.fecha_fin,m.fecha_inicio)) AS 'DiasInactivo'
+				 FROM Vehiculo v JOIN Mantenimiento m
+				 ON v.id=m.id_vehiculo
+				 Group BY v.id , v.marca, v.patente";
+		 return $db->query($query);
+	}
+
+		static	public function getReporteCostoMantenimiento()
+	{
+		 $db = DataBase::getInstance();
+		 $query = "SELECT v.id, v.marca, v.patente, v.fecha_fabricacion,sum(m.costo) AS 'CostoMantenimiento'
+				FROM Vehiculo v JOIN Mantenimiento m
+				ON v.id=m.id_vehiculo
+				Group BY v.id , v.marca, v.patente";
+	   return $db->query($query);
+	}
+
+		static public function getReporteKilometrosRecorridos()
+	{
+		   $db = DataBase::getInstance();
+			 $query = "SELECT v.id, v.marca, v.patente,v.fecha_fabricacion,MAX(m.kilometros) AS 'KilometrosRecorridos'
+									FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
+									Group BY v.id , v.marca, v.patente";
+	     return $db->query($query);
+	}
+
+	static public function getAllStatic()
+	{
+		  $db = DataBase::getInstance();
+			$query = "SELECT *
+					FROM Vehiculo ";
+  		return $db->query($query);
 	}
 
 }

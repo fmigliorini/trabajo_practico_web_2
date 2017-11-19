@@ -26,7 +26,7 @@
             <!-- The user image in the navbar-->
             <img src="public/img/user2-160x160.jpg" class="user-image" alt="User Image">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">Federico Rastelli</span>
+            <span class="hidden-xs"><?php echo $_SESSION['usuario']; ?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
@@ -34,15 +34,12 @@
               <img src="public/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
               <p>
-                Federico Rastelli
+                <?php echo $_SESSION['usuario']; ?>
               </p>
             </li>
 
             <!-- Menu Footer-->
             <li class="user-footer">
-              <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Perfíl</a>
-              </div>
               <div class="pull-right">
                 <a href="logout.php" class="btn btn-default btn-flat">Cerrar sesión</a>
               </div>
