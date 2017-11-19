@@ -164,7 +164,7 @@ class Vehiculo_model implements ModelInterface
 		static	public function getReporteDiasFueraDeServicio()
 	{
 		 $db = DataBase::getInstance();
-		 $query = "SELECT v.id, v.marca, v.patente,, v.fecha_fabricacion, sum(DATEDIFF(m.fecha_fin,m.fecha_inicio)) AS 'DiasInactivo'
+		 $query = "SELECT v.id, v.marca, v.patente, v.fecha_fabricacion, sum(DATEDIFF(m.fecha_fin,m.fecha_inicio)) AS 'DiasInactivo'
 				 FROM Vehiculo v JOIN Mantenimiento m
 				 ON v.id=m.id_vehiculo
 				 Group BY v.id , v.marca, v.patente";
@@ -184,7 +184,7 @@ class Vehiculo_model implements ModelInterface
 		static public function getReporteKilometrosRecorridos()
 	{
 		   $db = DataBase::getInstance();
-			 $query = "SELECT v.id, v.marca, v.patente,, v.fecha_fabricacion,MAX(m.kilometros) AS 'KilometrosRecorridos'
+			 $query = "SELECT v.id, v.marca, v.patente,v.fecha_fabricacion,MAX(m.kilometros) AS 'KilometrosRecorridos'
 									FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
 									Group BY v.id , v.marca, v.patente";
 	     return $db->query($query);

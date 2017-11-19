@@ -171,17 +171,13 @@ $listMantenimiento = Mantenimiento::getAll();
                     <legend>Iniciar Mantenimiento</legend>
                     <div class="form-group">
                         <label for="fechaInicio">Fecha de inicio</label>
-                        <input type="text" name="fechaInicio" id="fechaInicio" class="form-control" required>
+
+                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="kilometros">Kilometros</label>
                         <input type="text" name="kilometros" id="kilometros" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="externo">Servicio Externo</label>
-                        <input type="text" name="externo" id="externo" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -240,7 +236,7 @@ $listMantenimiento = Mantenimiento::getAll();
 
                         <div class="form-group">
                             <label for="fechaFin">Fecha de Finalizacion</label>
-                            <input type="text" name="fechaFin" id="fechaFin" class="form-control" required>
+                            <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="costo">Costo</label>
@@ -255,12 +251,16 @@ $listMantenimiento = Mantenimiento::getAll();
                             <label for="kilometros">Repuesto Cambiado</label>
                             <input type="text" name="kilometros" id="kilometros" class="form-control" required>
                         </div>
+
+                        <input type="hidden" name="idMantenimiento" id="idMantenimiento">
+
+                                      <div class="modal-footer">  <!-- Footer -->
+                                          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                          <input type="submit" name="Crear" class="btn btn-success">
+                                      </div>
                     </div>
                 </div>
-                <div class="modal-footer">  <!-- Footer -->
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <input type="submit" name="Crear" class="btn btn-success">
-                </div>
+
             </form>
         </div>
     </div>
