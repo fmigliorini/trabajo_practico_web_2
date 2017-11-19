@@ -69,6 +69,8 @@ create table Viaje(
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
     combustible_estimado int,
+    combustible_real int,
+    estado varchar(50) default 'activo',
     id_cliente int,
     id_vehiculo int,
     id_vehiculoAcoplado int,
@@ -190,8 +192,10 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 	   ('Brian','Burgos','38456789','44561237');
 
 insert into Usuario (usuario,password,id_rol,id_empleado)
-values ('admin','202cb962ac59075b964b07152d234b70','1','1');
-	   ('kiwi', '123',  '1', '2');
+values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
+    ('chofer','202cb962ac59075b964b07152d234b70','2','2'),
+    ('chofer2','202cb962ac59075b964b07152d234b70','2','3');
+
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),
 	   ('Camioneta'),
@@ -205,7 +209,7 @@ VALUES ('activo'),
        ('Mantenimiento'),
        ('Viaje');
 
-	   INSERT INTO vehiculo(patente, marca,nro_chasis, nro_motor,fecha_fabricacion, id_estadoVehiculo, id_tipoVehiculo) 
+INSERT INTO vehiculo(patente, marca,nro_chasis, nro_motor,fecha_fabricacion, id_estadoVehiculo, id_tipoVehiculo)
 VALUES ('HTR 128', 'Scania', '12346', '1254', '2010-09-16', '4', '1'),
 		('ASD 123', 'Man', '787', '654', '2010-07-24', '1', '1'),
 		('WQE 548', 'Volvo', '5587', '354', '2012-08-28', '1', '1'),
@@ -215,7 +219,7 @@ VALUES ('HTR 128', 'Scania', '12346', '1254', '2010-09-16', '4', '1'),
 		('ZXC 123', 'Hino', '7842', '6875', '2008-03-07', '4', '1'),
 		('YTR 789', 'Ford', '6985', '6453', '2010-01-06', '1', '1'),
 		('NBV 998', 'Hummer', '467', '6546', '2010-12-05', '4', '1'),
-		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '1');	
+		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '1');
 
 INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servicio, id_vehiculo, mecanico, repuestoCambiado)
  VALUES ('2017-11-01', '2017-11-30', '50000', '2300', '1', '1', 'Pedro', 'cubiertas'),
@@ -230,9 +234,10 @@ select *
 from Empleado;
 
 select *
-from Usuario;		
-		
-		/*Vehiculo:Dias fuera de servicio*/
+from Usuario;
+
+/*Vehiculo:Dias fuera de servicio*/
+
 
 SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
 FROM Vehiculo v JOIN Mantenimiento m

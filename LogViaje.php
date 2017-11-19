@@ -10,8 +10,8 @@ require_once "models/Viaje_model.php";
 
 
 $idViaje = Helper::isGet('idViaje');
-if ( empty($idViaje )){
-    ECHO "Viaje no disponible";exit;
+if ( empty($idViaje ) || !Viaje_model::existe($idViaje) || !Viaje_model::activo($idViaje) ){
+    ECHO "Viaje no disponible";
 }
 
 session_start();
@@ -39,6 +39,16 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $logViaje->setIdChofer(Helper::isPost('idChofer'));
             $logViaje->save();
             break;
+        case 'finalizar':
+            $logsViaje = LogViaje::getAllByIdViaje($idViaje);
+            $combustibleTotalLog = 0;
+            $kilometrosTotalLog = 0;
+            foreach($logsViaje as $log ){
+                $combustibleTotalLog += $log->combustible;
+                $kilometrosTotalLog += $log->kilometros;
+            }
+            Viaje_model::finalizar($idViaje,$combustibleTotalLog,$kilometrosTotalLog);
+
     }
 }
 ?>
@@ -75,11 +85,11 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
                 </div>
                 <div class="form-group">
                     <label for="kilometros">Kilometros</label>
-                    <input type="text" name="kilometros" id="kilometros" class="form-control" required>
+                    <input type="text" name="kilometros" id="kilometros" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="combustible">Combustible</label>
-                    <input type="text" name="combustible" id="combustible" class="form-control" required>
+                    <input type="text" name="combustible" id="combustible" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio</label>
@@ -91,12 +101,27 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
                 </div>
             </div>
             <div class="modal-footer">  <!-- Footer -->
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 <input type="submit" name="Crear" class="btn btn-success">
             </div>
         </form>
 
     </section><!-- /.content -->
+
+    <!-- Content Header (Page header) -->
+
+    <section class="content-header">
+        <h1> Finalizar Viaje </h1>
+
+        <div class="form-group">
+            <form method="POST">
+                <input type="hidden" name="work" value="finalizar">
+                <input type="hidden" name="idViaje" value="<?php echo $idViaje; ?>">
+                <input type="hidden" name="fecha" value="<?php echo date('Y-m-d H:i:s'); ?>">
+                <input type="submit" value="FINALIZAR VIAJE" class="btn btn-danger col-xs-12">
+            </form>
+        </div>
+        <p><strong> Advertencia: una vez finalizado el viaje, no podra volver a cargar datos </strong></p>
+    </section>
 
 <?php require_once "templates/footer.php"; ?>
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyAm142j63X1B_Dn7YZHM5cnHi5XpI4qYAY"></script>
