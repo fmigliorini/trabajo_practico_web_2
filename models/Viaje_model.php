@@ -193,7 +193,7 @@ class Viaje_model implements ModelInterface
 		LEFT JOIN Empleado e2 ON e2.id = v.id_chofer2
 		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
 		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado
-        LEFT JOIN logViaje lv ON v.id = lv.id;";
+        LEFT JOIN LogViaje lv ON v.id = lv.id;";
 
 		$rows = $this->_db->query($query);
 		return $rows;

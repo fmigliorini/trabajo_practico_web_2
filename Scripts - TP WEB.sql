@@ -197,8 +197,9 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 	   ('Brian','Burgos','38456789','44561237');
 
 insert into Usuario (usuario,password,id_rol,id_empleado)
-values ('admin','202cb962ac59075b964b07152d234b70','1','1')
-    ('chofer','202cb962ac59075b964b07152d234b70','2','2');
+values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
+    ('chofer','202cb962ac59075b964b07152d234b70','2','2'),
+    ('chofer','202cb962ac59075b964b07152d234b70','2','3');
 
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),
@@ -217,7 +218,7 @@ INSERT INTO Vehiculo (patente,marca,nro_chasis,nro_motor,fecha_fabricacion,id_es
     VALUES
     ('AAA-123','Chevrolet','nbjr-123','12-432-321','2017-01-01','1','1'),
     ('BBB-123','Norter','bdwef-123','334-1-3231','2017-01-01','1','4');
-    
+
 /*Vehiculo:Dias fuera de servicio*/
 
 SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
