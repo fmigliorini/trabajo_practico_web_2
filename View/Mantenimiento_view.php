@@ -62,7 +62,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
 
 
 // obtener mantenimientos
-$listVehiculos = Vehiculo::getAll();
+$listVehiculos = Vehiculo_model::getAllStatic();
 $listServicios = Servicio::getAll();
 $listMantenimiento = Mantenimiento::getAll();
 ?>
@@ -87,7 +87,7 @@ $listMantenimiento = Mantenimiento::getAll();
         <table id="tablaMantenimiento">
           <thead>
                 <tr>
-                  <th>Num. Mantenimiento</th>
+                  <th>Num.</th>
                   <th>Fecha Inicio</th>
                   <th>Fecha Fin</th>
                   <th>Costo</th>
@@ -106,28 +106,28 @@ $listMantenimiento = Mantenimiento::getAll();
                 if ( !empty($listMantenimiento) ){
                     foreach($listMantenimiento as $mantenimiento) {  ?>
                     <tr>
-                      <td><?php echo$mantenimiento->id            ?></td>
-                      <td><?php echo $mantenimiento->fechaInicio  ?></td>
-                      <td><?php echo $mantenimiento->fechaFin     ?></td>
-                      <td><?php echo $mantenimiento->costo        ?></td>
-                      <td><?php echo $mantenimiento->kilometros   ?></td>
-                      <td><?php echo $mantenimiento->id_servicio  ?></td>
-                      <td><?php echo $mantenimiento->id_vehiculo  ?></td>
-                      <td><?php echo $mantenimiento->mecanico     ?></td>
-                      <td><?php echo $mantenimiento->repuestoCambiado ?></td>
+                      <td><?php echo $mantenimiento->id?></td>
+                      <td><?php echo $mantenimiento->fecha_inicio?></td>
+                      <td><?php echo $mantenimiento->fecha_fin?></td>
+                      <td><?php echo $mantenimiento->costo?></td>
+                      <td><?php echo $mantenimiento->kilometros?></td>
+                      <td><?php echo $mantenimiento->id_servicio?></td>
+                      <td><?php echo $mantenimiento->id_vehiculo?></td>
+                      <td><?php echo $mantenimiento->mecanico?></td>
+                      <td><?php echo $mantenimiento->repuestoCambiado?></td>
                         <td>
                             <a class="btn-modal-edit-empleado" href="#"
                                 data-toggle="modal"
                                 data-target="#modalEdit"
-                                data-id  ="<?php echo$mantenimiento->id?> "
-                                data-fechaInicio  ="<?php echo $mantenimiento->fechaInicio  ?>    "
-                                data-fechaFin     ="<?php echo $mantenimiento->fechaFin     ?>    "
-                                data-costo        ="<?php echo $mantenimiento->costo        ?>    "
-                                data-kilometros   ="<?php echo $mantenimiento->kilometros   ?>    "
-                                data-id_servicio  ="<?php echo $mantenimiento->id_servicio  ?>    "
-                                data-id_vehiculo  ="<?php echo $mantenimiento->id_vehiculo  ?>    "
-                                data-mecanico     ="<?php echo $mantenimiento->mecanico     ?>    "
-                                data-repuestoCambiado  ="<?php echo $mantenimiento->repuestoCambiado ?>">
+                                data-id  =  "<?php echo $mantenimiento->id?> "
+                                data-fechaInicio  ="<?php echo $mantenimiento->fecha_inicio?> "
+                                data-fechaFin ="<?php echo $mantenimiento->fecha_fin?>   "
+                                data-costo  ="<?php echo $mantenimiento->costo?> "
+                                data-kilometros  ="<?php echo $mantenimiento->kilometros?> "
+                                data-id_servicio ="<?php echo $mantenimiento->id_servicio?> "
+                                data-id_vehiculo ="<?php echo $mantenimiento->id_vehiculo?> "
+                                data-mecanico  ="<?php echo $mantenimiento->mecanico?> "
+                                data-repuestoCambiado  ="<?php echo $mantenimiento->repuestoCambiado?>">
                                 <i class="fa fa-pencil"
                                 aria-hidden="true"
                                 ></i></a>
@@ -171,17 +171,13 @@ $listMantenimiento = Mantenimiento::getAll();
                     <legend>Iniciar Mantenimiento</legend>
                     <div class="form-group">
                         <label for="fechaInicio">Fecha de inicio</label>
-                        <input type="text" name="fechaInicio" id="fechaInicio" class="form-control" required>
+
+                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="kilometros">Kilometros</label>
                         <input type="text" name="kilometros" id="kilometros" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="externo">Servicio Externo</label>
-                        <input type="text" name="externo" id="externo" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -201,10 +197,10 @@ $listMantenimiento = Mantenimiento::getAll();
                     <div class="form-group">
                       <label for="modulo">Vehiculo</label>
                       <select name="id_Modulo" class="form-control" required="required">
-                          <option value=""> Seleccione un Vehiculo </<option>
+                          <option value=""> Seleccione un Vehiculo </option>
                           <?php foreach( $listVehiculos as $vehiculo ) { ?>
                               <option value="<?php echo $vehiculo->id; ?>">
-                                 <?php echo $vehiculo->id; ?> - <?php echo $vehiculo->marca;??> - <?php echo $vehiculo->patente;?>
+                                 <?php echo $vehiculo->id; ?> - <?php echo $vehiculo->marca;?> - <?php echo $vehiculo->patente;?>
                               </option>
                           <?php } ?>
                       </select>
@@ -240,7 +236,7 @@ $listMantenimiento = Mantenimiento::getAll();
 
                         <div class="form-group">
                             <label for="fechaFin">Fecha de Finalizacion</label>
-                            <input type="text" name="fechaFin" id="fechaFin" class="form-control" required>
+                            <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="costo">Costo</label>
@@ -255,12 +251,16 @@ $listMantenimiento = Mantenimiento::getAll();
                             <label for="kilometros">Repuesto Cambiado</label>
                             <input type="text" name="kilometros" id="kilometros" class="form-control" required>
                         </div>
+
+                        <input type="hidden" name="idMantenimiento" id="idMantenimiento">
+
+                                      <div class="modal-footer">  <!-- Footer -->
+                                          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                          <input type="submit" name="Crear" class="btn btn-success">
+                                      </div>
                     </div>
                 </div>
-                <div class="modal-footer">  <!-- Footer -->
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <input type="submit" name="Crear" class="btn btn-success">
-                </div>
+
             </form>
         </div>
     </div>

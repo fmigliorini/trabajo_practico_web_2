@@ -199,3 +199,23 @@ VALUES ('activo'),
 	   ('inactivo'),
        ('Mantenimiento'),
        ('Viaje');
+       
+/*Vehiculo:Dias fuera de servicio*/
+
+SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
+FROM Vehiculo v JOIN Mantenimiento m
+ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
+
+/*Vehiculo: Costo mantenimiento*/
+
+SELECT v.id, v.marca, v.patente, sum(m.costo) AS 'CostoMantenimiento'
+FROM Vehiculo v JOIN Mantenimiento m
+ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
+
+/*Vehiculo: Kilometros Recorridos - Mantenimiento*/
+SELECT v.id, v.marca, v.patente,MAX(m.kilometros) AS 'KilometrosRecorridos'
+FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
+>>>>>>> Reportes
