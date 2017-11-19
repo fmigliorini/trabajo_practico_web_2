@@ -38,7 +38,12 @@ class Permiso implements ModelInterface
         return $db->query($query);
     }
 
-
+    static public function tieneAcceso($idModulo,$idRol)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT 1 FROM Permiso WHERE id_Rol = '$idRol' AND id_Modulo = '$idModulo'";
+        return $db->query($query);
+    }
 
     // PERMISOS GETTERS Y SETTERS
 

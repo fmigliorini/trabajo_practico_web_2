@@ -147,14 +147,14 @@ insert into Rol (descripcion)
 VALUES ('admin'), ('chofer');
 
 insert into Modulo (descripcion)
- VALUES ('Roles'),
-		('Usuarios'),
-		('Empleados'),
+ VALUES ('Roles'),('Usuario'),('Empleado'),('home'),
 		('Clientes'),
 		('Viajes'),
 		('Vehiculos'),
 		('Mantenimiento de Vehiculos'),
-		('Permisos');
+		('permisos'),
+        ('pageNotFound'),
+        ('requierePermiso');
 
 insert into Servicio (descripcion)
  VALUES ('Cambio de cubiertas'),
@@ -198,5 +198,4 @@ INSERT INTO estadoVehiculo (estado)
 VALUES ('activo'),
 	   ('inactivo'),
        ('Mantenimiento'),
-       ('Viaje')
-       ;
+       ('Viaje');

@@ -58,5 +58,20 @@ class Modulo implements ModelInterface
         return $db->query($query);
     }
 
+    static public function getIdByPage($pageName)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT * FROM Modulo WHERE descripcion = '$pageName'";
+        $res = $db->query($query);
+        var_dump($res);
+        return $res[0]->id;
+    }
+
+    static public function existe($pageName)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT 1 FROM Modulo WHERE descripcion = '$pageName'";
+        return $db->query($query);
+    }
 }
 ?>

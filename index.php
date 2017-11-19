@@ -1,9 +1,13 @@
 <?php
 
+require_once "Helper.php";
+
+require_once 'middleware/requiereLogin.php';
+
 if(isset($_GET['page']) && !empty($_GET['page']))
 {
-    require_once 'middleware/requiereLogin.php';
-    require_once "Helper.php";
+    require_once 'middleware/requirePermiso.php';
+    require_once 'middleware/validarModulo.php';
     require_once "templates/head.php";
     require_once "templates/header.php";
     require_once "templates/menu.php";
@@ -59,10 +63,12 @@ if(isset($_GET['page']) && !empty($_GET['page']))
             require_once "models/Servicio_model.php";
             require_once 'View/Mantenimiento_view.php';
             break;
-        default:
-            header('location: index.php?page=home');
-            die;
-        break;
+        case 'requierePermiso':
+            require_once 'View/requierePermiso_View.php';
+            break;
+        case 'pageNotFound':
+            require_once 'View/pageNotFound_view.php';
+            break;
     }
 } else {
     header('location: login.php');
