@@ -63,8 +63,8 @@ create table Viaje(
     descripcion varchar(225),
     origen varchar(100),
     destino varchar(100),
-    fecha_inicio date,
-    fecha_fin date,
+    fecha_inicio datetime,
+    fecha_fin datetime,
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
     combustible_estimado int,
@@ -101,7 +101,7 @@ CREATE TABLE Servicio (
     id_vehiculo int,
     mecanico VARCHAR(100),
     repuestoCambiado VARCHAR(100),
-	  externo bool,
+	externo bool,
     foreign key(id_servicio) references Servicio(id),
     foreign key(id_vehiculo) references Vehiculo(id)
 );
@@ -185,7 +185,9 @@ insert into Permiso(id_Rol,id_Modulo)
         (1,10),
         (1,11),
         (1,12),
-		(1,13);
+		(1,13),
+		(1,14),
+		(1,15);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
