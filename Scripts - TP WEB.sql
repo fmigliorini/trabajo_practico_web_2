@@ -70,6 +70,8 @@ create table Viaje(
     tiempo_real varchar(50),
     combustible_estimado int,
     combustible_real int,
+    kilometro_estimado int,
+    kilometro_real int,
     estado varchar(50) default 'activo',
     id_cliente int,
     id_vehiculo int,

@@ -13,6 +13,7 @@ class Viaje_model implements ModelInterface
 	private $_fechaInicio;
 	private $_tiempoEstimado;
 	private $_combustibleEstimado;
+	private $_kilometroEstimado;
     private $_tiempoTotal;
     private $_combustibleTotal;
 	private $_idCliente;
@@ -79,6 +80,14 @@ class Viaje_model implements ModelInterface
 
 	public function set_combustibleEstimado($_combustibleEstimado){
 		$this->_combustibleEstimado = $_combustibleEstimado;
+	}
+
+	public function get_kilometroEstimado(){
+		return $this->_kilometroEstimado;
+	}
+
+	public function set_kilometroEstimado($_kilometroEstimado){
+		$this->_kilometroEstimado = $_kilometroEstimado;
 	}
 
 	public function get_idCliente(){
@@ -174,22 +183,20 @@ class Viaje_model implements ModelInterface
 
 		if( is_null($this->_id) )
 		{
-			$query = sprintf("INSERT INTO Viaje(descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer,id_chofer2)
-							VALUES ('%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,%s)", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio ,$this->_tiempoEstimado, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado), $this->_idChofer, ($this->_idChofer2 == '' ? 'NULL' : $this->_idChofer2));
+			$query = sprintf("INSERT INTO Viaje(descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,kilometro_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer,id_chofer2)
+							VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,%s)", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio ,$this->_tiempoEstimado, $this->_combustibleEstimado,$this->_kilometroEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado), $this->_idChofer, ($this->_idChofer2 == '' ? 'NULL' : $this->_idChofer2));
 		}
 		else
 		{
-		  $query = sprintf("UPDATE Viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',tiempo_estimado= '%s',combustible_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s',id_chofer2= %s WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_tiempoEstimado, $this->_combustibleEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, ($this->_idChofer2 == '' ? 'NULL' : $this->_idChofer2), $this->_id);
+		  $query = sprintf("UPDATE Viaje SET descripcion = '%s',origen= '%s',destino= '%s',fecha_inicio= '%s',tiempo_estimado= '%s',combustible_estimado= '%s',kilometro_estimado= '%s',id_cliente= '%s',id_vehiculo= '%s',id_vehiculoAcoplado= %s,id_chofer= '%s',id_chofer2= %s WHERE id = '%s'", $this->_descripcion, $this->_origen, $this->_destino, $this->_fechaInicio, $this->_tiempoEstimado, $this->_combustibleEstimado,$this->_kilometroEstimado,$this->_idCliente, $this->_idVehiculo, ($this->_idVehiculoAcoplado == '' ? 'NULL' : $this->_idVehiculoAcoplado) ,$this->_idChofer, ($this->_idChofer2 == '' ? 'NULL' : $this->_idChofer2), $this->_id);
 		}
-        echo $query;
+
 		$rs = $this->_db->query($query);
 		return $rs;
 	}
 
     static public function finalizar($idViaje,$combustibleTotalLog,$kilometrosTotalLog)
     {
-        $db = DataBase::getInstance();
-
         // TERMINAR ESTA QUERY.
         /*
             CALCULAR COMBUSTIBLE TOTAL
@@ -199,7 +206,7 @@ class Viaje_model implements ModelInterface
         $query = "UPDATE Viaje set estado = 'finalizado',
                         combustible_real = combustible_estimado + $combustibleTotalLog,
                         tiempo_real = NOW() - fecha_inicio,
-                        kilometros_real = kilometros_estimado + $kilometrosTotalLog
+                        kilometro_real = kilometro_estimado + $kilometrosTotalLog
                         ";
         return $db->query($query);
     }
@@ -227,9 +234,9 @@ class Viaje_model implements ModelInterface
 
 	public function getAll()
 	{
-        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,v.id_chofer,v.id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado, lv.razon, lv.fecha as fecha_log, lv.latitud,lv.longitud,lv.detalle as detalle_log,lv.combustible as
-            combustible_log,lv.kilometros, v.precio
-                FROM Viaje
+        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,kilometro_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,v.id_chofer,v.id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado, lv.razon, lv.fecha as fecha_log, lv.latitud,lv.longitud,lv.detalle as detalle_log,lv.combustible as
+            combustible_log,lv.kilometros, lv.precio, v.estado
+                FROM Viaje v
         		JOIN Cliente c ON c.id = v.id_cliente
         		JOIN Empleado e ON e.id = v.id_chofer
         		LEFT JOIN Empleado e2 ON e2.id = v.id_chofer2
@@ -245,7 +252,7 @@ class Viaje_model implements ModelInterface
     static public function getById($id)
     {
         $db = DataBase::getInstance();
-        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer ,c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer, vh.patente, vh2.patente as patente_acoplado
+        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,fecha_fin,tiempo_estimado,tiempo_real,desviacion,combustible_estimado,kilometro_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer ,c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer, vh.patente, vh2.patente as patente_acoplado
 		FROM Viaje v
 		JOIN Cliente c ON c.id = v.id_cliente
 		JOIN Empleado e ON e.id = v.id_chofer

@@ -37,6 +37,7 @@ $(function(){
         let tiempo_estimado = $(this).data('tiempo_estimado');
         let tiempo_real = $(this).data('tiempo_real');
         let combustible_estimado = $(this).data('combustible_estimado');
+        let kilometro_estimado = $(this).data('kilometro_estimado');
         let nombre_cliente = $(this).data('nombre_cliente');
         let apellido_cliente = $(this).data('apellido_cliente');
         let nombre_chofer = $(this).data('nombre_chofer');
@@ -54,6 +55,7 @@ $(function(){
         $('#form-visualizar #tiempo_estimado').val(tiempo_estimado);
         $('#form-visualizar #tiempo_real').val(tiempo_real);
         $('#form-visualizar #combustible_estimado').val(combustible_estimado);
+        $('#form-visualizar #kilometro_estimado').val(kilometro_estimado);
         $('#form-visualizar #id_cliente').val(nombre_cliente+' '+apellido_cliente);
         $('#form-visualizar #id_chofer').val(nombre_chofer+' '+apellido_chofer);
         $('#form-visualizar #id_chofer2').val(nombre_chofer2+' '+apellido_chofer2);
@@ -88,6 +90,7 @@ $(function(){
         let tiempo_estimado = $(this).data('tiempo_estimado');
         let tiempo_real = $(this).data('tiempo_real');
         let combustible_estimado = $(this).data('combustible_estimado');
+        let kilometro_estimado = $(this).data('kilometro_estimado');
         let id_cliente = $(this).data('id_cliente');
         let id_chofer = $(this).data('id_chofer');
         let id_chofer2 = $(this).data('id_chofer2');
@@ -104,6 +107,7 @@ $(function(){
         $('#form-edit #tiempo_estimado').val(tiempo_estimado);
         $('#form-edit #tiempo_real').val(tiempo_real);
         $('#form-edit #combustible_estimado').val(combustible_estimado);
+        $('#form-edit #kilometro_estimado').val(kilometro_estimado);
         $('#form-edit #idViaje').val(id);
 
         $('#form-edit #idCliente option[value="'+id_cliente+'"]').attr('selected', 'selected');

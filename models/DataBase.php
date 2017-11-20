@@ -5,7 +5,7 @@ class DataBase
 
     CONST DB_HOST = "localhost";  //192.168.10.10
     CONST DB_NAME = "ViajesPepe";  //ViajesPepe
-    CONST DB_USER = "Kiwi";  //fakux
+    CONST DB_USER = "kiwi";  //fakux   // Kiwi ?
     CONST DB_PASSWORD = "123";  //123
 
     private $_db;

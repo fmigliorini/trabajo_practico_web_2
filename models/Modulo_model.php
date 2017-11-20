@@ -63,7 +63,7 @@ class Modulo implements ModelInterface
         $db = DataBase::getInstance();
         $query = "SELECT * FROM Modulo WHERE descripcion = '$pageName'";
         $res = $db->query($query);
-        var_dump($res);
+        //var_dump($res);
         return $res[0]->id;
     }
 
