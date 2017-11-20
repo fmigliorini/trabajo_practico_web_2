@@ -24,30 +24,28 @@ public function __construct( ){
 public function save()
 {
 	if(is_null($this->_id)) {
-	$query = sprintf("INSERT INTO mantenimiento(fecha_inicio,fecha_fin, kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
-    										VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+	$query = sprintf("INSERT INTO mantenimiento(fecha_inicio, kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
+    										VALUES ('%s','%d','%d','%s','%s','%s','%s','%s')",
 
 		$this->_fechaInicio,
-		$this->_fechaFin,
-		$this->_costo,
 		$this->_kilometros,
+		$this->_costo,
 		$this->_id_servicio ,
 		$this->_id_vehiculo,
 		$this->_mecanico,
 		$this->_repuestoCambiado,
 		$this->_externo);
 		} else {
-				$query = sprintf("UPDATE mantenimiento SET fecha_fin= '%s' , kilometros= '%s' , costo= '%s' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s')",
-
+				$query = sprintf("UPDATE mantenimiento SET fecha_fin= '%s', costo= '%d' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s'",
 				$this->_fechaFin,
-				$this->_kilometros,
 				$this->_costo,
 				$this->_mecanico,
 				$this->_repuestoCambiado,
 				$this->_id
 			);
 		}
-		return  $this->_db->query($query);
+		$res = $this->_db->query($query);
+		return $res;
 
 }
 

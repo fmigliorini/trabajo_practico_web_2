@@ -16,6 +16,7 @@
 <script src="public/js/cliente.js"></script>
 <script src="public/js/viaje.js"></script>
 <script src="public/js/Permiso.js"></script>
+<script src="public/js/mantenimiento.js"></script>
 
 </body>
 </html>
