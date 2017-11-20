@@ -26,20 +26,19 @@ public function __construct( ){
 public function save()
 {
 	if(is_null($this->_id)) {
-	$query = sprintf("INSERT INTO mantenimiento(fecha_inicio, hora_inicio,kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
+	$query = sprintf("INSERT INTO Mantenimiento(fecha_inicio, hora_inicio,kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
     										VALUES ('%s','%s','%d','%d','%s','%s','%s','%s','%s')",
-
-		$this->_fechaInicio,
-		$this->_horaInicio,
-		$this->_kilometros,
-		$this->_costo,
-		$this->_id_servicio ,
-		$this->_id_vehiculo,
-		$this->_mecanico,
-		$this->_repuestoCambiado,
-		$this->_externo);
+    		$this->_fechaInicio,
+    		$this->_horaInicio,
+    		$this->_kilometros,
+    		$this->_costo,
+    		$this->_id_servicio ,
+    		$this->_id_vehiculo,
+    		$this->_mecanico,
+    		$this->_repuestoCambiado,
+    		$this->_externo);
 		} else {
-				$query = sprintf("UPDATE mantenimiento SET fecha_fin= '%s',hora_fin= '%s', costo= '%d' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s'",
+				$query = sprintf("UPDATE Mantenimiento SET fecha_fin= '%s',hora_fin= '%s', costo= '%d' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s'",
 				$this->_fechaFin,
 				$this->_horaFin,
 				$this->_costo,
@@ -48,6 +47,7 @@ public function save()
 				$this->_id
 			);
 		}
+        echo $query;
 		$res = $this->_db->query($query);
 		return $res;
 
@@ -57,7 +57,7 @@ static public function getById($id)
 {
 		// buscar en db;
 		$db = DataBase::getInstance();
-		$query = "SELECT * FROM mantenimiento WHERE id = '$id'";
+		$query = "SELECT * FROM Mantenimiento WHERE id = '$id'";
 		$res = $db->query($query);
 
 		return $res;
@@ -67,12 +67,12 @@ static public function getById($id)
     static public function getAll()
     {
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM mantenimiento";
+        $query = "SELECT * FROM Mantenimiento";
         return $db->query($query);
     }
 public function removeMantenimiento()
 {
-		$query = "DELETE FROM mantenimiento WHERE id = $this->_id;";
+		$query = "DELETE FROM Mantenimiento WHERE id = $this->_id;";
 		$rs = $this->_db->query($query);
 		return $rs;
 }
