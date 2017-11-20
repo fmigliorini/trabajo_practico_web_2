@@ -21,13 +21,15 @@ $codigoHTML = '
 	foreach ($datos as $key => $dato) : 
 		
 		$codigoHTML.= 
-		($i == 2 ? '<h3><u>Viaje '.$i.'</u></h3>' : '').'
+		($i >= 2 ? '<h3><u>Viaje '.$i.'</u></h3>' : '').'
 		<p><strong>Descripción:</strong> '.$dato->descripcion.'</p>
 		<p><strong>Origen:</strong> '.$dato->origen.'</p>
 		<p><strong>Destino:</strong> '.$dato->destino.'</p>
 		<p><strong>Fecha inicio:</strong> '.$dato->fecha_inicio.'</p>
 		<p><strong>Tiempo estimado:</strong> '.$dato->tiempo_estimado.'</p>
 		<p><strong>Combustible estimado:</strong> '.$dato->combustible_estimado.'</p>
+		<p><strong>Kilometros estimados:</strong> '.$dato->kilometro_estimado.'</p>
+		<p><strong>Estado:</strong> '.$dato->estado.'</p>
 		<p><strong>Cliente:</strong> '.$dato->nombre_cliente.' '.$dato->apellido_cliente.'</p>
 		<p><strong>Chofer:</strong> '.$dato->nombre_chofer.' '.$dato->apellido_chofer.'</p>
 		<p><strong>Segundo Chofer:</strong> '.($dato->nombre_chofer2 != '' ? $dato->nombre_chofer2.' '.$dato->apellido_chofer2 : '-').'</p>

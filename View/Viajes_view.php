@@ -10,6 +10,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $fecha_inicio = Helper::isPost('fecha_inicio');
     $tiempo_estimado = Helper::isPost('tiempo_estimado');
     $combustible_estimado = Helper::isPost('combustible_estimado');
+    $kilometro_estimado = Helper::isPost('kilometro_estimado');
     $idCliente = Helper::isPost('idCliente');
     $idVehiculo = Helper::isPost('idVehiculo');
     $idVehiculoAcoplado = (isset($_POST['idVehiculoAcoplado']) ? $_POST['idVehiculoAcoplado'] : NULL);
@@ -26,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $viaje->set_fechaInicio($fecha_inicio);
     $viaje->set_tiempoEstimado($tiempo_estimado);
     $viaje->set_combustibleEstimado($combustible_estimado);
+    $viaje->set_kilometroEstimado($kilometro_estimado);
     $viaje->set_idCliente($idCliente);
     $viaje->set_idVehiculo($idVehiculo);
     $viaje->set_idVehiculoAcoplado($idVehiculoAcoplado);
@@ -122,6 +124,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                             <div class="form-group">
                                 <label for="combustible_estimado">Combustible estimado:</label>
                                 <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="kilometro_estimado">Kilometros estimado:</label>
+                                <input type="text" name="kilometro_estimado" id="kilometro_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>
 
                             <?php
@@ -224,6 +231,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
                                 data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
                                 data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                                data-kilometro_estimado="<?php echo $dato->kilometro_estimado ; ?>"
                                 data-nombre_cliente="<?php echo $dato->nombre_cliente ; ?>"
                                 data-apellido_cliente="<?php echo $dato->apellido_cliente ; ?>"
                                 data-nombre_chofer="<?php echo $dato->nombre_chofer ; ?>"
@@ -244,6 +252,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                                 data-fecha_inicio="<?php echo $dato->fecha_inicio ; ?>"
                                 data-tiempo_estimado="<?php echo $dato->tiempo_estimado ; ?>"
                                 data-combustible_estimado="<?php echo $dato->combustible_estimado ; ?>"
+                                data-kilometro_estimado="<?php echo $dato->kilometro_estimado ; ?>"
                                 data-id_cliente="<?php echo $dato->id_cliente ; ?>"
                                 data-id_chofer="<?php echo $dato->id_chofer ; ?>"
                                 data-id_chofer2="<?php echo $dato->id_chofer2 ; ?>"
@@ -313,6 +322,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     <div class="form-group">
                         <label for="combustible_estimado">Combustible estimado:</label>
                         <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kilometro_estimado">Kilometros estimado:</label>
+                        <input type="text" name="kilometro_estimado" id="kilometro_estimado" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
 
                     <div class="form-group">
@@ -403,6 +417,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     <div class="form-group">
                         <label for="combustible_estimado">Combustible estimado:</label>
                         <input type="text" name="combustible_estimado" id="combustible_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kilometro_estimado">Kilometros estimado:</label>
+                        <input type="text" name="kilometro_estimado" id="kilometro_estimado" class="form-control" required autocomplete="off" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                     </div>
 
                     <?php

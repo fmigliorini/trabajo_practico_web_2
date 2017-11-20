@@ -3,9 +3,9 @@
 class DataBase
 {
 
-    CONST DB_HOST = "localhost";  //192.168.10.10
+    CONST DB_HOST = "192.168.10.10";  //192.168.10.10
     CONST DB_NAME = "ViajesPepe";  //ViajesPepe
-    CONST DB_USER = "Kiwi";  //fakux
+    CONST DB_USER = "fakux";  //fakux   // Kiwi ?
     CONST DB_PASSWORD = "123";  //123
 
     private $_db;
@@ -138,6 +138,7 @@ class DataBase
     private function _connect()
     {
         $this->_db = mysqli_connect( self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME );
+    	$this->_db->set_charset('utf8');
     }
 
     private function _close()
