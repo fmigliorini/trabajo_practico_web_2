@@ -42,7 +42,7 @@
              </div>
            </div>
          </div>
-</div>
+      </div>
 
 
        <div class="container">
@@ -57,7 +57,21 @@
              </div>
            </div>
          </div>
-</div>
+        </div>
+
+        <div class="container">
+            <div class="col-sm-10 no-gutter">
+              <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Vehiculo: Kilometros para el Mantenimiento</h3>
+              </div>
+              <div class="panel-body">
+                 <p>Este reporte sirve para ver la cantidad de kilomentros recorridos que hizo un vehiculo despues de su ultimo manteminiento y tambien podemos ver cuantos son los kilometros faltantes para su proximo mantenimiento</p>
+           <a class="btn btn-primary" href="index.php?page=reportes-kilometrosService"><i class="glyphicon glyphicon-eye-open"></i> Ver reporte</a>
+              </div>
+            </div>
+          </div>
+         </div>
 
             </div>
         </div>

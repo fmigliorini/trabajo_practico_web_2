@@ -198,4 +198,16 @@ class Vehiculo_model implements ModelInterface
   		return $db->query($query);
 	}
 
+static public function getReporteKilometrosService()
+{
+	$db= DataBase::getInstance();
+	$query ="SELECT v.id, v.patente , v.marca. v.fecha_fabricacion ,SUM(vi.kilometro_real) as 'KilometrosRecorridos', tv.kilometrosService - SUM(vi.kilometro_real) AS 'KilometrosService'
+				FROM vehiculo v join viaje vi ON (v.id = vi.id_vehiculo) JOIN tipovehiculo tv on v.id_tipoVehiculo=tv.id_tipo
+				WHERE vi.fecha_fin>(SELECT MAX(m.fecha_fin) as 'UltimoService'
+														FROM mantenimiento m where m.id_vehiculo=v.id
+														GROUP by m.id_vehiculo)
+				GROUP by v.id, v.patente , v.marca";
+	return $db->query($query);
+
+}
 }
