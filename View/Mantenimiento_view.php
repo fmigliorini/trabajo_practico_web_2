@@ -1,59 +1,48 @@
 <?php
 if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
+  $fechaInicio= Helper::isPost('fechaInicio');
+  $horaInicio= Helper::isPost('horaInicio');
+  $fechaFin= Helper::isPost('fechaFin');
+  $horaFin= Helper::isPost('horaFin');
+  $costo= Helper::isPost('costo');
+  $kilometros= Helper::isPost('kilometros');
+  $id_servicio = Helper::isPost('id_servicio');
+  $id_vehiculo= Helper::isPost('id_vehiculo');
+  $mecanico = Helper::isPost('mecanico');
+  $repuestoCambiado= Helper::isPost('repuestoCambiado');
+  $externo= Helper::isPost('externo');
+  $idMantenimiento = Helper::isPost('id');
+  $mantenimiento = Mantenimiento::getById($idMantenimiento);
+
+  $mantenimiento = new Mantenimiento();
+  $mantenimiento->setFechaFin($fechaFin);
+  $mantenimiento->setHoraFin($horaFin);
+  $mantenimiento->setCosto($costo);
+  $mantenimiento->setMecanico($mecanico);
+  $mantenimiento->setRepuestoCambiado($repuestoCambiado);
+  $mantenimiento->setId($idMantenimiento);
+
+
     switch( $_POST["work"] ){
         case 'create':
-
-        $fechaInicio= Helper::isPost('fechaInicio');
-        $fechaFin= Helper::isPost('fechaFin');
-        $costo= Helper::isPost('costo');
-        $kilometros= Helper::isPost('kilometros');
-        $id_servicio = Helper::isPost('id_servicio');
-        $id_vehiculo= Helper::isPost('id_vehiculo');
-        $mecanico = Helper::isPost('mecanico');
-        $repuestoCambiado= Helper::isPost('repuestoCambiado');
-        $externo= Helper::isPost('externo');
-
-          $mantenimiento = new Mantenimiento();
           $mantenimiento->setFechaInicio($fechaInicio);
-          $mantenimiento->setFechaFin($fechaFin);
-          $mantenimiento->setCosto($costo);
+          $mantenimiento->sethoraInicio($horaInicio);
           $mantenimiento->setKilometros($kilometros);
           $mantenimiento->setIdServicio($id_servicio );
           $mantenimiento->setIdVehiculo($id_vehiculo);
-          $mantenimiento->setMecanico($mecanico);
           $mantenimiento->setExterno((int)$externo);
           $mantenimiento->setRepuestoCambiado($repuestoCambiado);
             if ( $mantenimiento->save() ) {
             }
             break;
         case 'edit':
-            $idMantenimiento = Helper::isPost('id');
-            $mantenimiento = Mantenimiento::getById($idMantenimiento);
             if ( $mantenimiento ) {
-          //    $fechaInicio= Helper::isPost('fechaInicio');
-              $fechaFin= Helper::isPost('fechaFin');
-              $costo= Helper::isPost('costo');
-              $kilometros= Helper::isPost('kilometros');
-            //  $id_servicio = Helper::isPost('id_servicio');
-              //$id_vehiculo= Helper::isPost('id_vehiculo');
-              $mecanico = Helper::isPost('mecanico');
-              $repuestoCambiado= Helper::isPost('repuestoCambiado');
-
-                  $mantenimiento = new Mantenimiento();
-                $mantenimiento->setFechaFin($fechaFin);
-                $mantenimiento->setCosto($costo);
-                $mantenimiento->setKilometros($kilometros);
-                $mantenimiento->setMecanico($mecanico);
-                $mantenimiento->setRepuestoCambiado($repuestoCambiado);
-                $mantenimiento->setId($idMantenimiento);
-
                 if ( $mantenimiento->save() ) {
                     // all ok
                 }
             }
             break;
         case 'delete':
-          $idMantenimiento = Helper::isPost('id');
           $mantenimiento = new Mantenimiento();
           $mantenimiento->setId($idMantenimiento);
           $mantenimiento->removeMantenimiento();
@@ -92,11 +81,13 @@ $listMantenimiento = Mantenimiento::getAll();
         <table id="tablaMantenimiento">
           <thead>
                 <tr>
-                  <th>Num.</th>
+                  <th>Nº</th>
                   <th>Fecha Inicio</th>
+                  <th>Hora Inicio</th>
                   <th>Fecha Fin</th>
+                  <th>Hora Fin</th>
                   <th>Costo</th>
-                  <th>Kilometros</th>
+                  <th>Km.</th>
                   <th>Servicio</th>
                   <th>Vehiculo</th>
                   <th>Mecanico </th>
@@ -114,7 +105,9 @@ $listMantenimiento = Mantenimiento::getAll();
                     <tr>
                       <td><?php echo $mantenimiento->id?></td>
                       <td><?php echo $mantenimiento->fecha_inicio?></td>
+                      <td><?php echo $mantenimiento->hora_inicio?></td>
                       <td><?php echo $mantenimiento->fecha_fin?></td>
+                      <td><?php echo $mantenimiento->hora_fin?></td>
                       <td><?php echo $mantenimiento->costo?></td>
                       <td><?php echo $mantenimiento->kilometros?></td>
                       <td><?php echo $mantenimiento->id_servicio?></td>
@@ -128,7 +121,9 @@ $listMantenimiento = Mantenimiento::getAll();
                                 data-target="#modalEdit"
                                 data-id  =  "<?php echo $mantenimiento->id?>"
                                 data-fechaInicio  ="<?php echo $mantenimiento->fecha_inicio?>"
+                                data-horaInicio  ="<?php echo $mantenimiento->hora_inicio?>"
                                 data-fechaFin ="<?php echo $mantenimiento->fecha_fin?>"
+                                data-horaFin ="<?php echo $mantenimiento->hora_fin?>"
                                 data-costo  ="<?php echo $mantenimiento->costo?>"
                                 data-kilometros  ="<?php echo $mantenimiento->kilometros?>"
                                 data-id_servicio ="<?php echo $mantenimiento->id_servicio?>"
@@ -179,6 +174,10 @@ $listMantenimiento = Mantenimiento::getAll();
                     <div class="form-group">
                         <label for="fechaInicio">Fecha de inicio</label>
                         <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaInicio">Hora de inicio</label>
+                        <input type="time" name="horaInicio" id="horaInicio" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -252,6 +251,10 @@ $listMantenimiento = Mantenimiento::getAll();
                         <div class="form-group">
                             <label for="fechaFin">Fecha de Finalizacion</label>
                             <input type="date" name="fechaFin" id="fechaFinEdit" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaInicio">Hora de Finalizacion</label>
+                            <input type="time" name="horaFin" id="horaFinEdit" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="costo">Costo</label>
