@@ -16,6 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         if ( $res = Usuario::login($_POST['user'], $_POST['pass']) ){
             $_SESSION['authenticate'] = true;
             $_SESSION['id'] = $res[0]->id;
+            $_SESSION['idRol'] = $res[0]->id_rol;
+            $_SESSION['usuario'] = $res[0]->usuario;
             if( isset($_GET['callback']) && $_GET['callback'] != "" ){
                 header('Location:'.$_GET['callback']);
                 die();

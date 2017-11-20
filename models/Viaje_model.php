@@ -13,6 +13,8 @@ class Viaje_model implements ModelInterface
 	private $_fechaInicio;
 	private $_tiempoEstimado;
 	private $_combustibleEstimado;
+    private $_tiempoTotal;
+    private $_combustibleTotal;
 	private $_idCliente;
 	private $_idChofer;
 	private $_idChofer2;
@@ -184,19 +186,37 @@ class Viaje_model implements ModelInterface
 		return $rs;
 	}
 
-	public function getAll()
-	{
-		$query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,id_chofer,id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado
-		FROM Viaje v
-		JOIN Cliente c ON c.id = v.id_cliente
-		JOIN Empleado e ON e.id = v.id_chofer
-		LEFT JOIN Empleado e2 ON e2.id = v.id_chofer2
-		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
-		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado;";
+    static public function finalizar($idViaje,$combustibleTotalLog,$kilometrosTotalLog)
+    {
+        $db = DataBase::getInstance();
 
-		$rows = $this->_db->query($query);
-		return $rows;
-	}
+        // TERMINAR ESTA QUERY.
+        /*
+            CALCULAR COMBUSTIBLE TOTAL
+            CALCULAR TIEMPO REAL  (LA FECHA DE INICIO NO TIENE HORA-MINUTOS-SEGUNDOS )
+            CALCULAR KILOMETROS REAL ( FALTA EL CAMPO DE KILOMETROS )
+        */
+        $query = "UPDATE Viaje set estado = 'finalizado',
+                        combustible_real = combustible_estimado + $combustibleTotalLog,
+                        tiempo_real = NOW() - fecha_inicio,
+                        kilometros_real = kilometros_estimado + $kilometrosTotalLog
+                        ";
+        return $db->query($query);
+    }
+
+    static public function existe($id)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT 1 FROM Viaje WHERE id = $id";
+        return $db->query($query);
+    }
+
+    static public function activo($id)
+    {
+        $db = DataBase::getInstance();
+        $query = "SELECT 1 FROM Viaje WHERE id = $id AND estado='activo'";
+        return $db->query($query);
+    }
 
 	public function delete()
 	{
@@ -204,6 +224,23 @@ class Viaje_model implements ModelInterface
 		$rs =  $this->_db->query($query);
 		return $rs;
 	}
+
+	public function getAll()
+	{
+        $query = "SELECT v.id,descripcion,origen,destino,fecha_inicio,tiempo_estimado,combustible_estimado,id_cliente,id_vehiculo,id_vehiculoAcoplado,v.id_chofer,v.id_chofer2, c.nombre as nombre_cliente, c.apellido as apellido_cliente,e.nombre as nombre_chofer,e.apellido as apellido_chofer,e2.nombre as nombre_chofer2,e2.apellido as apellido_chofer2, vh.patente, vh2.patente as patente_acoplado, lv.razon, lv.fecha as fecha_log, lv.latitud,lv.longitud,lv.detalle as detalle_log,lv.combustible as
+            combustible_log,lv.kilometros, v.precio
+                FROM Viaje
+        		JOIN Cliente c ON c.id = v.id_cliente
+        		JOIN Empleado e ON e.id = v.id_chofer
+        		LEFT JOIN Empleado e2 ON e2.id = v.id_chofer2
+        		JOIN Vehiculo vh ON vh.id = v.id_vehiculo
+        		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado
+                LEFT JOIN LogViaje lv ON v.id = lv.id;";
+
+		$rows = $this->_db->query($query);
+		return $rows;
+	}
+
 
     static public function getById($id)
     {
@@ -216,4 +253,6 @@ class Viaje_model implements ModelInterface
 		LEFT JOIN Vehiculo vh2 ON vh2.id = v.id_vehiculoAcoplado where v.id = $id";
         return $db->query($query);
     }
+
+
 }

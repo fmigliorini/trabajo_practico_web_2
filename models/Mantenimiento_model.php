@@ -1,6 +1,7 @@
 <?php
-
-class Mantenimiento extends model
+require_once 'ModelInterface.php';
+require_once 'DataBase.php';
+class Mantenimiento implements ModelInterface
 {
 private $_db;
 private $_id;
@@ -311,5 +312,5 @@ public function setExterno($_externo)
 
 		return $this;
 }
-
+}
 ?>

@@ -1,7 +1,5 @@
 <?php
-print_r($_POST);
 if($_SERVER['REQUEST_METHOD'] === "POST") {
-    echo "ENTRE";
     switch( $_POST["work"] ){
         case 'create':
             $idModulo = Helper::isPost('id_Modulo');
@@ -12,7 +10,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
             $permiso->save();
             break;
         case 'delete':
-            $idPermiso = Helper::isPost('id_permiso');
+            $idPermiso = Helper::isPost('idPermiso');
+            echo "PERMISO" . $idPermiso;
+            print_r($_POST);
             Permiso::delete($idPermiso);
             break;
     }
@@ -46,21 +46,21 @@ $listPermisos = Permiso::getAll();
                     <th>borrar</th>
                 </tr>
             </thead>
-        <tbody>
-            <?php foreach($listPermisos as $permiso) { ?>
-                <tr>
-                    <td><?php echo $permiso->rolDescripcion ; ?></td>
-                    <td><?php echo $permiso->moduloDescripcion ; ?></td>
-                    <td>
-                        <a class="btn-modal-delete-permiso" href="#" data-toggle="modal"
-                            data-target="#modalDelete"
-                            data-id="<?php echo $permiso->id; ?>">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-
+            <tbody>
+                <?php foreach($listPermisos as $permiso) { ?>
+                    <tr>
+                        <td><?php echo $permiso->rolDescripcion ; ?></td>
+                        <td><?php echo $permiso->moduloDescripcion ; ?></td>
+                        <td>
+                            <a class="btn-modal-delete-permiso" href="#" data-toggle="modal"
+                                data-target="#modalDelete"
+                                data-id="<?php echo $permiso->id; ?>">
+                                <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </section><!-- /.content -->
 </div>
 
@@ -129,17 +129,17 @@ $listPermisos = Permiso::getAll();
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Eliminar Empleaod</h4>
             </div>
-            <form id="form-delete" method="POST">
-                <input type="hidden" name="work" id="work" value="delete">
-                <input type="hidden" name="idPermiso" id="idPermiso" value="">
-                <div class="modal-body">
-                    <p>Esta seguro que desea eliminar este permiso??</p>
-                </div> <!-- End modal-body -->
-                <div class="modal-footer">  <!-- Footer -->
+            <div class="modal-body">
+                <p>Esta seguro que desea eliminar este permiso??</p>
+            </div> <!-- End modal-body -->
+            <div class="modal-footer">  <!-- Footer -->
+                <form name="form-delete" id="form-delete" method="POST">
+                    <input type="hidden" name="work" id="work" value="delete">
+                    <input type="hidden" name="idPermiso" id="idPermiso" value="">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <input type="button" class="btn btn-danger" value="Eliminar">
-                </div>
-            </form>
+                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -69,6 +69,8 @@ create table Viaje(
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
     combustible_estimado int,
+    combustible_real int,
+    estado varchar(50) default 'activo',
     id_cliente int,
     id_vehiculo int,
     id_vehiculoAcoplado int,
@@ -132,11 +134,6 @@ CREATE TABLE Permiso (
     foreign key(id_Modulo) references Modulo(id)
 );
 
-select *
-from Empleado;
-
-select *
-from Usuario;
 
 insert into Cliente ( nombre , apellido, compania)
 VALUES ('Federico','Rastelli','Claro'),
@@ -148,13 +145,19 @@ VALUES ('admin'), ('chofer');
 
 insert into Modulo (descripcion)
  VALUES ('Roles'),
-		('Usuarios'),
-		('Empleados'),
+        ('Usuario'),
+        ('Empleado'),
+        ('home'),
 		('Clientes'),
 		('Viajes'),
 		('Vehiculos'),
-		('Mantenimiento de Vehiculos'),
-		('Permisos');
+		('permisos'),
+        ('pageNotFound'),
+        ('mantenimiento'),
+        ('reportes'),
+        ('reportes-kilometros'),
+        ('reportes-costo'),
+        ('reportes-dias');
 
 insert into Servicio (descripcion)
  VALUES ('Cambio de cubiertas'),
@@ -173,7 +176,11 @@ insert into Permiso(id_Rol,id_Modulo)
 		(1,5),
 		(1,6),
 		(1,7),
-		(1,8);
+		(1,8),
+        (1,9),
+        (1,10),
+        (1,11),
+        (1,12);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
@@ -185,7 +192,9 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 	   ('Brian','Burgos','38456789','44561237');
 
 insert into Usuario (usuario,password,id_rol,id_empleado)
-values ('admin','202cb962ac59075b964b07152d234b70','1','1');
+values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
+    ('chofer','202cb962ac59075b964b07152d234b70','2','2'),
+    ('chofer2','202cb962ac59075b964b07152d234b70','2','3');
 
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),
@@ -198,5 +207,51 @@ INSERT INTO estadoVehiculo (estado)
 VALUES ('activo'),
 	   ('inactivo'),
        ('Mantenimiento'),
-       ('Viaje')
-       ;
+       ('Viaje');
+
+INSERT INTO vehiculo(patente, marca,nro_chasis, nro_motor,fecha_fabricacion, id_estadoVehiculo, id_tipoVehiculo)
+VALUES ('HTR 128', 'Scania', '12346', '1254', '2010-09-16', '4', '1'),
+		('ASD 123', 'Man', '787', '654', '2010-07-24', '1', '1'),
+		('WQE 548', 'Volvo', '5587', '354', '2012-08-28', '1', '1'),
+		('POI 741', 'Mercedes', '3214', '7785', '2016-06-12', '2', '1'),
+		('QWE 789', 'Isuzu', '7854', '654', '2015-05-11', '2', '1'),
+		('RET 715', 'GMC', '3214', '65463', '2017-11-03', '3', '1'),
+		('ZXC 123', 'Hino', '7842', '6875', '2008-03-07', '4', '1'),
+		('YTR 789', 'Ford', '6985', '6453', '2010-01-06', '1', '1'),
+		('NBV 998', 'Hummer', '467', '6546', '2010-12-05', '4', '1'),
+		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '1');
+
+INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servicio, id_vehiculo, mecanico, repuestoCambiado)
+ VALUES ('2017-11-01', '2017-11-30', '50000', '2300', '1', '1', 'Pedro', 'cubiertas'),
+		('2017-10-01', '2017-11-30', '30000', '2300', '3', '2', 'Cecilia', 'aceite, agua'),
+		('2017-01-01', '2017-11-30', '20000', '2300', '4', '3', 'Luis', 'disco de frenos'),
+		('2017-02-01', '2017-02-11', '10000', '2300', '5', '4', 'Juan', 'motor'),
+		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo'),
+		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros');
+
+
+select *
+from Empleado;
+
+select *
+from Usuario;
+
+/*Vehiculo:Dias fuera de servicio*/
+
+
+SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
+FROM Vehiculo v JOIN Mantenimiento m
+ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
+
+/*Vehiculo: Costo mantenimiento*/
+
+SELECT v.id, v.marca, v.patente, sum(m.costo) AS 'CostoMantenimiento'
+FROM Vehiculo v JOIN Mantenimiento m
+ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
+
+/*Vehiculo: Kilometros Recorridos - Mantenimiento*/
+SELECT v.id, v.marca, v.patente,MAX(m.kilometros) AS 'KilometrosRecorridos'
+FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
+Group BY v.id , v.marca, v.patente
