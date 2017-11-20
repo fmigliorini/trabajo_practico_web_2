@@ -100,7 +100,7 @@ CREATE TABLE Servicio (
     id_vehiculo int,
     mecanico VARCHAR(100),
     repuestoCambiado VARCHAR(100),
-	  externo VARCHAR(10),
+	  externo bool,
     foreign key(id_servicio) references Servicio(id),
     foreign key(id_vehiculo) references Vehiculo(id)
 );
