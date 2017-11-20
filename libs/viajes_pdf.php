@@ -21,7 +21,7 @@ $codigoHTML = '
 	foreach ($datos as $key => $dato) : 
 		
 		$codigoHTML.= 
-		($i == 2 ? '<h3><u>Viaje '.$i.'</u></h3>' : '').'
+		($i >= 2 ? '<h3><u>Viaje '.$i.'</u></h3>' : '').'
 		<p><strong>Descripción:</strong> '.$dato->descripcion.'</p>
 		<p><strong>Origen:</strong> '.$dato->origen.'</p>
 		<p><strong>Destino:</strong> '.$dato->destino.'</p>
