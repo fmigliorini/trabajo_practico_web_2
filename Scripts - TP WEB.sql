@@ -63,7 +63,7 @@ create table Viaje(
     descripcion varchar(225),
     origen varchar(100),
     destino varchar(100),
-    fecha_inicio date,
+    fecha_inicio datetime,
     fecha_fin date,
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
