@@ -63,7 +63,7 @@ create table Viaje(
     descripcion varchar(225),
     origen varchar(100),
     destino varchar(100),
-    fecha_inicio datetime,
+    fecha_inicio date,
     fecha_fin date,
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
@@ -101,7 +101,7 @@ CREATE TABLE Servicio (
     id_vehiculo int,
     mecanico VARCHAR(100),
     repuestoCambiado VARCHAR(100),
-	  externo VARCHAR(10),
+	  externo bool,
     foreign key(id_servicio) references Servicio(id),
     foreign key(id_vehiculo) references Vehiculo(id)
 );
@@ -160,7 +160,8 @@ insert into Modulo (descripcion)
         ('reportes'),
         ('reportes-kilometros'),
         ('reportes-costo'),
-        ('reportes-dias');
+        ('reportes-dias'),
+		('reportes-kilometrosService');
 
 insert into Servicio (descripcion)
  VALUES ('Cambio de cubiertas'),
@@ -183,7 +184,8 @@ insert into Permiso(id_Rol,id_Modulo)
         (1,9),
         (1,10),
         (1,11),
-        (1,12);
+        (1,12),
+		(1,13);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
@@ -232,7 +234,11 @@ INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servici
 		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo',0),
 		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros',1);
 
-
+INSERT INTO viaje ( descripcion, origen, destino, fecha_inicio, fecha_fin, tiempo_estimado, tiempo_real, combustible_estimado, combustible_real,kilometro_estimado,kilometro_real,estado,id_cliente,id_vehiculo, id_vehiculoAcoplado, id_chofer, id_chofer2) 
+VALUES ( 'transporte', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '1', NULL),
+('transporte', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '150', 'activo', '1', '1', NULL, '1', NULL);
+		
+		
 /*Vehiculo:Dias fuera de servicio*/
 
 
@@ -252,3 +258,5 @@ Group BY v.id , v.marca, v.patente
 SELECT v.id, v.marca, v.patente,MAX(m.kilometros) AS 'KilometrosRecorridos'
 FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
 Group BY v.id , v.marca, v.patente
+
+
