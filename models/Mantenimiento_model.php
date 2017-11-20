@@ -6,6 +6,8 @@ class Mantenimiento implements ModelInterface
 private $_db;
 private $_id;
 private $_fechaInicio;
+private $_horaInicio;
+private $_horaFin;
 private $_fechaFin;
 private $_costo;
 private $_kilometros;
@@ -23,33 +25,31 @@ public function __construct( ){
 
 public function save()
 {
-		if(is_null($this->_id)) {
-	$query = sprintf("INSERT INTO Mantenimiento(fecha_inicio,fecha_fin, kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
-    										VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+	if(is_null($this->_id)) {
+	$query = sprintf("INSERT INTO mantenimiento(fecha_inicio, hora_inicio,kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
+    										VALUES ('%s','%s','%d','%d','%s','%s','%s','%s','%s')",
 
 		$this->_fechaInicio,
-		$this->_fechaFin,
-		$this->_costo,
+		$this->_horaInicio,
 		$this->_kilometros,
+		$this->_costo,
 		$this->_id_servicio ,
 		$this->_id_vehiculo,
 		$this->_mecanico,
 		$this->_repuestoCambiado,
-		$this->_externo
-										);
+		$this->_externo);
 		} else {
-				$query = sprintf("UPDATE Mantenimiento SET fecha_fin= '%s' AND kilometros= '%s' AND costo= '%s' AND mecanico= '%s' AND repuestoCambiado = '%s' AND externo ='%s'  WHERE id = '%s')",
-
+				$query = sprintf("UPDATE mantenimiento SET fecha_fin= '%s',hora_fin= '%s', costo= '%d' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s'",
 				$this->_fechaFin,
+				$this->_horaFin,
 				$this->_costo,
-				$this->_kilometros,
 				$this->_mecanico,
 				$this->_repuestoCambiado,
-				$this->_externo,
 				$this->_id
 			);
 		}
-		return  $this->_db->query($query);
+		$res = $this->_db->query($query);
+		return $res;
 
 }
 
@@ -57,7 +57,7 @@ static public function getById($id)
 {
 		// buscar en db;
 		$db = DataBase::getInstance();
-		$query = "SELECT * FROM Mantenimiento WHERE id = '$id'";
+		$query = "SELECT * FROM mantenimiento WHERE id = '$id'";
 		$res = $db->query($query);
 
 		return $res;
@@ -67,12 +67,12 @@ static public function getById($id)
     static public function getAll()
     {
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM Mantenimiento";
+        $query = "SELECT * FROM mantenimiento";
         return $db->query($query);
     }
 public function removeMantenimiento()
 {
-		$query = "DELETE FROM Mantenimiento WHERE id = $this->_id;";
+		$query = "DELETE FROM mantenimiento WHERE id = $this->_id;";
 		$rs = $this->_db->query($query);
 		return $rs;
 }
@@ -146,6 +146,25 @@ public function setFechaInicio($_fechaInicio)
 }
 
 
+public function getHoraInicio()
+{
+		return $this->_horaInicio;
+}
+
+/**
+ * Set the value of Id
+ *
+ * @param mixed _id
+ *
+ * @return self
+ */
+public function setHoraInicio($_horaInicio)
+{
+		$this->_horaInicio = $_horaInicio;
+
+		return $this;
+}
+
 
 public function getFechaFin()
 {
@@ -165,7 +184,23 @@ public function setFechaFin($_fechaFin)
 
 		return $this;
 }
+public function getHoraFin()
+{
+		return $this->_horaFin;
+}
 
+/**
+ * Set the value of Id
+ *
+ * @param mixed _id
+ *
+ * @return self
+ */
+public function setHoraFin($_horaFin)
+{
+		$this->_horaFin = $_horaFin;
+		return $this;
+}
 
 
 

@@ -91,15 +91,17 @@ CREATE TABLE Servicio (
 
  CREATE TABLE Mantenimiento (
     id INT NOT NULL AUTO_INCREMENT primary key ,
-    fecha_inicio datetime,
-    fecha_fin datetime,
+    fecha_inicio date,
+    hora_inicio time,
+    hora_fin time,
+    fecha_fin date,
     kilometros decimal,
     costo decimal ,
     id_servicio int,
     id_vehiculo int,
     mecanico VARCHAR(100),
     repuestoCambiado VARCHAR(100),
-	externo bool,
+	  externo VARCHAR(10),
     foreign key(id_servicio) references Servicio(id),
     foreign key(id_vehiculo) references Vehiculo(id)
 );
@@ -222,13 +224,13 @@ VALUES ('HTR 128', 'Scania', '12346', '1254', '2010-09-16', '4', '1'),
 		('NBV 998', 'Hummer', '467', '6546', '2010-12-05', '4', '1'),
 		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '1');
 
-INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servicio, id_vehiculo, mecanico, repuestoCambiado)
- VALUES ('2017-11-01', '2017-11-30', '50000', '2300', '1', '1', 'Pedro', 'cubiertas'),
-		('2017-10-01', '2017-11-30', '30000', '2300', '3', '2', 'Cecilia', 'aceite, agua'),
-		('2017-01-01', '2017-11-30', '20000', '2300', '4', '3', 'Luis', 'disco de frenos'),
-		('2017-02-01', '2017-02-11', '10000', '2300', '5', '4', 'Juan', 'motor'),
-		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo'),
-		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros');
+INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servicio, id_vehiculo, mecanico, repuestoCambiado,externo)
+ VALUES ('2017-11-01', '2017-11-30', '50000', '2300', '1', '1', 'Pedro', 'cubiertas',0),
+		('2017-10-01', '2017-11-30', '30000', '2300', '3', '2', 'Cecilia', 'aceite, agua',1),
+		('2017-01-01', '2017-11-30', '20000', '2300', '4', '3', 'Luis', 'disco de frenos',1),
+		('2017-02-01', '2017-02-11', '10000', '2300', '5', '4', 'Juan', 'motor',0),
+		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo',0),
+		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros',1);
 
 
 /*Vehiculo:Dias fuera de servicio*/
