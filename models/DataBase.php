@@ -138,6 +138,7 @@ class DataBase
     private function _connect()
     {
         $this->_db = mysqli_connect( self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME );
+    	$this->_db->set_charset('utf8');
     }
 
     private function _close()
