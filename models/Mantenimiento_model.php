@@ -23,8 +23,8 @@ public function __construct( ){
 
 public function save()
 {
-		if(is_null($this->_id)) {
-	$query = sprintf("INSERT INTO Mantenimiento(fecha_inicio,fecha_fin, kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
+	if(is_null($this->_id)) {
+	$query = sprintf("INSERT INTO mantenimiento(fecha_inicio,fecha_fin, kilometros, costo , id_servicio,id_vehiculo, mecanico, repuestoCambiado, externo)
     										VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
 
 		$this->_fechaInicio,
@@ -35,17 +35,15 @@ public function save()
 		$this->_id_vehiculo,
 		$this->_mecanico,
 		$this->_repuestoCambiado,
-		$this->_externo
-										);
+		$this->_externo);
 		} else {
-				$query = sprintf("UPDATE Mantenimiento SET fecha_fin= '%s' AND kilometros= '%s' AND costo= '%s' AND mecanico= '%s' AND repuestoCambiado = '%s' AND externo ='%s'  WHERE id = '%s')",
+				$query = sprintf("UPDATE mantenimiento SET fecha_fin= '%s' , kilometros= '%s' , costo= '%s' , mecanico= '%s', repuestoCambiado = '%s' WHERE id = '%s')",
 
 				$this->_fechaFin,
-				$this->_costo,
 				$this->_kilometros,
+				$this->_costo,
 				$this->_mecanico,
 				$this->_repuestoCambiado,
-				$this->_externo,
 				$this->_id
 			);
 		}
@@ -57,7 +55,7 @@ static public function getById($id)
 {
 		// buscar en db;
 		$db = DataBase::getInstance();
-		$query = "SELECT * FROM Mantenimiento WHERE id = '$id'";
+		$query = "SELECT * FROM mantenimiento WHERE id = '$id'";
 		$res = $db->query($query);
 
 		return $res;
@@ -67,12 +65,12 @@ static public function getById($id)
     static public function getAll()
     {
         $db = DataBase::getInstance();
-        $query = "SELECT * FROM Mantenimiento";
+        $query = "SELECT * FROM mantenimiento";
         return $db->query($query);
     }
 public function removeMantenimiento()
 {
-		$query = "DELETE FROM Mantenimiento WHERE id = $this->_id;";
+		$query = "DELETE FROM mantenimiento WHERE id = $this->_id;";
 		$rs = $this->_db->query($query);
 		return $rs;
 }

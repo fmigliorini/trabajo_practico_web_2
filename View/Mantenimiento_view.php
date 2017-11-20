@@ -3,7 +3,6 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
     switch( $_POST["work"] ){
         case 'create':
 
-
         $fechaInicio= Helper::isPost('fechaInicio');
         $fechaFin= Helper::isPost('fechaFin');
         $costo= Helper::isPost('costo');
@@ -12,6 +11,7 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
         $id_vehiculo= Helper::isPost('id_vehiculo');
         $mecanico = Helper::isPost('mecanico');
         $repuestoCambiado= Helper::isPost('repuestoCambiado');
+        $externo= Helper::isPost('externo');
 
           $mantenimiento = new Mantenimiento();
           $mantenimiento->setFechaInicio($fechaInicio);
@@ -21,13 +21,14 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
           $mantenimiento->setIdServicio($id_servicio );
           $mantenimiento->setIdVehiculo($id_vehiculo);
           $mantenimiento->setMecanico($mecanico);
+          $mantenimiento->setExterno($externo);
           $mantenimiento->setRepuestoCambiado($repuestoCambiado);
             if ( $mantenimiento->save() ) {
-                // ALL OK
+                var_dump($mantenimiento);
             }
             break;
         case 'edit':
-            $idMantenimiento = Helper::isPost('idMantenimiento ');
+            $idMantenimiento = Helper::isPost('id');
             $mantenimiento = Mantenimiento::getById($idMantenimiento);
             if ( $mantenimiento ) {
           //    $fechaInicio= Helper::isPost('fechaInicio');
@@ -96,7 +97,8 @@ $listMantenimiento = Mantenimiento::getAll();
                   <th>Vehiculo</th>
                   <th>Mecanico </th>
                   <th>Repuesto Cambiado</th>
-                  <th>Actualizar </th>
+                  <th>Externo</th>
+                  <th>Actualizar</th>
                   <th>Eliminar</th>
                 </tr>
             </thead>
@@ -104,7 +106,7 @@ $listMantenimiento = Mantenimiento::getAll();
             <tbody>
             <?php
                 if ( !empty($listMantenimiento) ){
-                    foreach($listMantenimiento as $mantenimiento) {  ?>
+                    foreach($listMantenimiento as $mantenimiento) :  ?>
                     <tr>
                       <td><?php echo $mantenimiento->id?></td>
                       <td><?php echo $mantenimiento->fecha_inicio?></td>
@@ -115,38 +117,38 @@ $listMantenimiento = Mantenimiento::getAll();
                       <td><?php echo $mantenimiento->id_vehiculo?></td>
                       <td><?php echo $mantenimiento->mecanico?></td>
                       <td><?php echo $mantenimiento->repuestoCambiado?></td>
+                      <td><?php echo $mantenimiento->externo?></td>
                         <td>
-                            <a class="btn-modal-edit-empleado" href="#"
+                            <a class="btn-modal-edit-mantenimiento" href="#"
                                 data-toggle="modal"
                                 data-target="#modalEdit"
-                                data-id  =  "<?php echo $mantenimiento->id?> "
-                                data-fechaInicio  ="<?php echo $mantenimiento->fecha_inicio?> "
-                                data-fechaFin ="<?php echo $mantenimiento->fecha_fin?>   "
-                                data-costo  ="<?php echo $mantenimiento->costo?> "
-                                data-kilometros  ="<?php echo $mantenimiento->kilometros?> "
-                                data-id_servicio ="<?php echo $mantenimiento->id_servicio?> "
-                                data-id_vehiculo ="<?php echo $mantenimiento->id_vehiculo?> "
-                                data-mecanico  ="<?php echo $mantenimiento->mecanico?> "
-                                data-repuestoCambiado  ="<?php echo $mantenimiento->repuestoCambiado?>">
+                                data-id  =  "<?php echo $mantenimiento->id?>"
+                                data-fechaInicio  ="<?php echo $mantenimiento->fecha_inicio?>"
+                                data-fechaFin ="<?php echo $mantenimiento->fecha_fin?>"
+                                data-costo  ="<?php echo $mantenimiento->costo?>"
+                                data-kilometros  ="<?php echo $mantenimiento->kilometros?>"
+                                data-id_servicio ="<?php echo $mantenimiento->id_servicio?>"
+                                data-id_vehiculo ="<?php echo $mantenimiento->id_vehiculo?>"
+                                data-mecanico  ="<?php echo $mantenimiento->mecanico?>"
+                                data-repuestoCambiado  ="<?php echo $mantenimiento->repuestoCambiado?>"
+                                data-externo  ="<?php echo $mantenimiento->externo?>">
                                 <i class="fa fa-pencil"
                                 aria-hidden="true"
                                 ></i></a>
                         </td>
                         <td>
-                            <a class="btn-modal-delete-empleado" href="#"
+                            <a class="btn-modal-delete-mantenimiento" href="#"
                                 data-toggle="modal"
                                 data-target="#modalDelete"
-                                data-id  ="<?php echo$mantenimiento->id?> "
+                                data-id  ="<?php echo$mantenimiento->id?>"
                                 >
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a><!-- modal delete -->
                         </td>
                     </tr>
 
-            <?php
-                    }
-                }
-            ?>
+              <?php endforeach; ?>
+              <?php  }  ?>
 
             </tbody>
 
@@ -171,7 +173,6 @@ $listMantenimiento = Mantenimiento::getAll();
                     <legend>Iniciar Mantenimiento</legend>
                     <div class="form-group">
                         <label for="fechaInicio">Fecha de inicio</label>
-
                         <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
                     </div>
 
@@ -181,8 +182,17 @@ $listMantenimiento = Mantenimiento::getAll();
                     </div>
 
                     <div class="form-group">
-                      <label for="modulo">Servicio</label>
-                      <select name="id_Modulo" class="form-control" required="required">
+                        <label for="externo">Externo</label>
+                        <select id="externo" name="externo" class="form-control" required="required">
+                          <option value=""> Seleccione si el servicio es externo </option>
+                          <option value="1"> Si </option>
+                          <option value="0"> No </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="servicio">Servicio</label>
+                      <select name="id_servicio" id="id_servicio" class="form-control" required="required">
                           <option value=""> Seleccione un Servicio </<option>
                           <?php foreach( $listServicios as $servicio ) { ?>
                               <option value="<?php echo $servicio->id; ?>">
@@ -195,8 +205,8 @@ $listMantenimiento = Mantenimiento::getAll();
 
 
                     <div class="form-group">
-                      <label for="modulo">Vehiculo</label>
-                      <select name="id_Modulo" class="form-control" required="required">
+                      <label for="vehiculo">Vehiculo</label>
+                      <select name="id_vehiculo" id="id_vehiculo" class="form-control" required="required">
                           <option value=""> Seleccione un Vehiculo </option>
                           <?php foreach( $listVehiculos as $vehiculo ) { ?>
                               <option value="<?php echo $vehiculo->id; ?>">
@@ -226,11 +236,11 @@ $listMantenimiento = Mantenimiento::getAll();
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Usuario</h4>
+                <h4 class="modal-title">Mantenimiento</h4>
             </div>
             <form id="form-edit" method="POST">
                 <input type="hidden" name="work" value="edit">
-                <input type="hidden" name="idMantenimiento" id="idMantenimiento" value="">
+                <input type="hidden" name="id" id="id" value="">
                 <div class="modal-body">
                     <legend>Actualizar Mantenimiento</legend>
 
@@ -244,15 +254,15 @@ $listMantenimiento = Mantenimiento::getAll();
                         </div>
 
                         <div class="form-group">
-                            <label for="costo">Mecanico</label>
-                            <input type="text" name="costo" id="costo" class="form-control" required>
+                            <label for="mecanico">Mecanico</label>
+                            <input type="text" name="mecanico" id="mecanico" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="kilometros">Repuesto Cambiado</label>
-                            <input type="text" name="kilometros" id="kilometros" class="form-control" required>
+                            <label for="repuestoCambiado">Repuesto Cambiado</label>
+                            <input type="text" name="repuestoCambiado" id="repuestoCambiado" class="form-control" required>
                         </div>
 
-                        <input type="hidden" name="idMantenimiento" id="idMantenimiento">
+                        <input type="hidden" name="id" id="id">
 
                                       <div class="modal-footer">  <!-- Footer -->
                                           <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -279,7 +289,7 @@ $listMantenimiento = Mantenimiento::getAll();
             </div>
             <form id="form-delete" method="POST">
                 <input type="hidden" name="work" id="work" value="delete">
-                <input type="hidden" name="idMantenimiento" id="idMantenimiento" value="">
+                <input type="hidden" name="id" id="id" value="">
                 <div class="modal-body">
                     <p>Desea eliminar el Mantenimiento : <span id="id"></span></p>
                 </div> <!-- End modal-body -->
