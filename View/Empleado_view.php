@@ -46,7 +46,7 @@ $listEmpleado = Empleado::getAll();
 ?>
 
 <div class="content-wrapper">
-    
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1> Bienvenido a Usuarios </h1>
@@ -71,8 +71,6 @@ $listEmpleado = Empleado::getAll();
                     <th>Número Documento</th>
                     <th>teléfono</th>
                     <th>editar</th>
-                    <th>Borrar</th>
-
                 </tr>
             </thead>
 
@@ -97,16 +95,6 @@ $listEmpleado = Empleado::getAll();
                                 <i class="fa fa-pencil"
                                 aria-hidden="true"
                                 ></i></a>
-                        </td>
-                        <td>
-                            <a class="btn-modal-delete-empleado" href="#"
-                                data-toggle="modal"
-                                data-target="#modalDelete"
-                                data-id="<?php echo $empleado->id; ?>"
-                                data-dni="<?php echo $empleado->numeroDocumento; ?>"
-                                >
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a><!-- modal delete -->
                         </td>
                     </tr>
 
