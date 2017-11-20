@@ -113,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                             <div class="form-group">
                                 <label for="fecha_inicio">Fecha de Inicio:</label>
-                                <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
+                                <input type="datetime-local" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
                             </div>
 
                             <div class="form-group">
@@ -311,7 +311,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                     <div class="form-group">
                         <label for="fecha_inicio">Fecha de Inicio:</label>
-                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off" readonly="readonly">
+                        <input type="text" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off" readonly="readonly">
                     </div>
 
                     <div class="form-group">
@@ -406,7 +406,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
                     <div class="form-group">
                         <label for="fecha_inicio">Fecha de Inicio:</label>
-                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
+                        <input type="text" name="fecha_inicio" id="fecha_inicio" class="form-control" required autocomplete="off">
                     </div>
 
                     <div class="form-group">
