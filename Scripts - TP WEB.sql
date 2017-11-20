@@ -17,7 +17,6 @@ CREATE TABLE Empleado(
     telefono varchar(50)
 );
 
-select * from Empleado;
 CREATE TABLE Usuario (
     id INT NOT NULL AUTO_INCREMENT primary key ,
     usuario varchar (64),
@@ -231,12 +230,6 @@ INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servici
 		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo'),
 		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros');
 
-
-select *
-from Empleado;
-
-select *
-from Usuario;
 
 /*Vehiculo:Dias fuera de servicio*/
 
