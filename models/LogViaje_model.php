@@ -25,10 +25,11 @@ class LogViaje implements ModelInterface
 
 	public function save()
     {
-        $query = sprintf("INSERT INTO LogViaje (fecha,razon,latitud,longitud,detalle,combustible,precio,id_viaje,id_chofer)
-                            VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+        $query = sprintf("INSERT INTO LogViaje (fecha,razon,kilometros,latitud,longitud,detalle,combustible,precio,id_viaje,id_chofer)
+                            VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                             $this->_fecha,
                             $this->_razon,
+                            $this->_kilometros,
                             $this->_latitud,
                             $this->_longitud,
                             $this->_detalle,

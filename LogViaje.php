@@ -40,14 +40,8 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $logViaje->save();
             break;
         case 'finalizar':
-            $logsViaje = LogViaje::getAllByIdViaje($idViaje);
-            $combustibleTotalLog = 0;
-            $kilometrosTotalLog = 0;
-            foreach($logsViaje as $log ){
-                $combustibleTotalLog += $log->combustible;
-                $kilometrosTotalLog += $log->kilometros;
-            }
-            Viaje_model::finalizar($idViaje,$combustibleTotalLog,$kilometrosTotalLog);
+            Viaje_model::finalizar($idViaje);
+            break;
 
     }
 }

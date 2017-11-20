@@ -195,19 +195,25 @@ class Viaje_model implements ModelInterface
 		return $rs;
 	}
 
-    static public function finalizar($idViaje,$combustibleTotalLog,$kilometrosTotalLog)
+    static public function finalizar($idViaje)
     {
-        // TERMINAR ESTA QUERY.
-        /*
-            CALCULAR COMBUSTIBLE TOTAL
-            CALCULAR TIEMPO REAL  (LA FECHA DE INICIO NO TIENE HORA-MINUTOS-SEGUNDOS )
-            CALCULAR KILOMETROS REAL ( FALTA EL CAMPO DE KILOMETROS )
-        */
-        $query = "UPDATE Viaje set estado = 'finalizado',
-                        combustible_real = combustible_estimado + $combustibleTotalLog,
-                        tiempo_real = NOW() - fecha_inicio,
-                        kilometro_real = kilometro_estimado + $kilometrosTotalLog
-                        ";
+        $db = DataBase::getInstance();
+        $query = "select SUM(lv.combustible) + combustible_estimado as combustible_total, SUM(lv.kilometros) + v.kilometro_estimado as kilometros_total,SEC_TO_TIME( NOW() - v.fecha_inicio ) as tiempo_total from Viaje v INNER JOIN LogViaje lv ON  lv.id_viaje = v.id WHERE v.id = '$idViaje' GROUP BY v.id ";
+        $res = $db->query($query);
+
+        $combustibleTotal = 0 + $res[0]->combustible_total;
+        $tiempoTotal = $res[0]->tiempo_total;
+        $kilometrosTotal = $res[0]->kilometros_total;
+
+        $query = "UPDATE Viaje v
+                    INNER JOIN LogViaje lv ON v.id = lv.id_viaje
+                    SET v.estado = 'finalizado',
+                        v.combustible_real = '$combustibleTotal',
+                        v.tiempo_real = '$tiempoTotal',
+                        v.kilometro_real = '$kilometrosTotal',
+                        v.fecha_fin = NOW()
+                    WHERE v.id = $idViaje";
+
         return $db->query($query);
     }
 
