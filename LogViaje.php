@@ -7,11 +7,9 @@ require_once "Helper.php";
 require_once "models/LogViaje_model.php";
 require_once "models/Viaje_model.php";
 
-
-
 $idViaje = Helper::isGet('idViaje');
 if ( empty($idViaje ) || !Viaje_model::existe($idViaje) || !Viaje_model::activo($idViaje) ){
-    ECHO "Viaje no disponible";
+        echo "<span style='text-align:center;'> Viaje no disponible o finalizado </span>"; exit;
 }
 
 session_start();
@@ -40,7 +38,10 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
             $logViaje->save();
             break;
         case 'finalizar':
-            Viaje_model::finalizar($idViaje);
+            if ( Viaje_model::finalizar($idViaje) ) {
+                echo "Viaje Finalizado"; exit;
+            }
+
             break;
 
     }
