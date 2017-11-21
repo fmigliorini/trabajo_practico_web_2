@@ -119,6 +119,5 @@ if( $_SERVER['REQUEST_METHOD'] === "POST" ) {
     </section>
 
 <?php require_once "templates/footer.php"; ?>
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyAm142j63X1B_Dn7YZHM5cnHi5XpI4qYAY"></script>
 <style> #mapa { width: 100%; height: 250px; } </style>
 <script src="public/js/logViaje.js"></script>

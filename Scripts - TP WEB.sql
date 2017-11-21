@@ -144,7 +144,7 @@ VALUES ('Federico','Rastelli','Claro'),
 	   ('Franco','Zuccarelli', 'Muffin');
 
 insert into Rol (descripcion)
-VALUES ('admin'), ('chofer');
+VALUES ('admin'), ('chofer'), ('mantenimiento');
 
 insert into Modulo (descripcion)
  VALUES ('Roles'),
@@ -187,10 +187,11 @@ insert into Permiso(id_Rol,id_Modulo)
         (1,10),
         (1,11),
         (1,12),
-		(1,13),
+		(1,13);
 		(1,14),
-		(1,15),
-		(1,16);
+        (1,15),
+		(1,16),
+        (3,10);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
@@ -204,7 +205,8 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 insert into Usuario (usuario,password,id_rol,id_empleado)
 values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
     ('chofer','202cb962ac59075b964b07152d234b70','2','2'),
-    ('chofer2','202cb962ac59075b964b07152d234b70','2','3');
+    ('chofer2','202cb962ac59075b964b07152d234b70','2','3'),
+    ('mantenimiento','202cb962ac59075b964b07152d234b70','3','4');
 
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),

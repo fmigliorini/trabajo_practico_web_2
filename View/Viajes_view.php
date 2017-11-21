@@ -357,11 +357,25 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
                     <div class="form-group">
                          <label> QR </label>
                          <img id="qr" name="qr" src="">
-                     </div>
+                    </div>
 
-                     <legend>Datos Viaje</legend>
-                     <div class="form-group log-viajes-list">
-                     </div>
+                    <legend>Datos Viaje</legend>
+                    <div class="form-group log-viajes-list">
+                        <table class="table-log">
+                            <thead>
+                                <th>Razon</th>
+                                <th>Fecha</th>
+                                <th>kilometro</th>
+                                <th>Precio</th>
+                            </thead>
+                            <tbody id="body-log-viajes">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="form-group log-viajes-mapa">
+                    </div>
 
                     <div class="modal-footer">  <!-- Footer -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
