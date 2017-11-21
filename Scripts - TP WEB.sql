@@ -36,8 +36,8 @@ create table estadoVehiculo(
 create table tipoVehiculo(
     id_tipo INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(100),
-	kilometrosService VARCHAR(100),
-	
+	kilometrosService VARCHAR(100)
+
 );
 
 CREATE TABLE Vehiculo (
@@ -189,7 +189,7 @@ insert into Permiso(id_Rol,id_Modulo)
         (1,10),
         (1,11),
         (1,12),
-		(1,13);
+		(1,13),
 		(1,14),
         (1,15),
 		(1,16),
@@ -252,7 +252,7 @@ INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servici
 		('2017-07-01', '2017-07-07', '8000', '2300', '6', '5', 'Marcos', 'service completo',0),
 		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros',1);
 
-INSERT INTO viaje ( descripcion, origen, destino, fecha_inicio, fecha_fin, tiempo_estimado, tiempo_real, combustible_estimado, combustible_real,kilometro_estimado,kilometro_real,estado,id_cliente,id_vehiculo, id_vehiculoAcoplado, id_chofer, id_chofer2) 
+INSERT INTO viaje ( descripcion, origen, destino, fecha_inicio, fecha_fin, tiempo_estimado, tiempo_real, combustible_estimado, combustible_real,kilometro_estimado,kilometro_real,estado,id_cliente,id_vehiculo, id_vehiculoAcoplado, id_chofer, id_chofer2)
 VALUES ( 'transporte 01', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '1', NULL),
 	    ('transporte 02', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '20', '15', '150', 'activo', '2', '2', NULL, '1', NULL),
 	    ('transporte 03', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '15', '15', '30', 'activo', '3', '3', NULL, '1', NULL),
@@ -268,29 +268,3 @@ VALUES ( 'transporte 01', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '3
 	    ('transporte 13', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '40', '15', '150', 'activo', '2', '13', NULL, '1', NULL),
 	    ('transporte 14', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '18', '15', '30', 'activo', '1', '14', NULL, '1', NULL),
 	    ('transporte 15', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '98', '15', '150', 'activo', '3', '15', NULL, '1', NULL);
-		
-		
-/*Vehiculo:Dias fuera de servicio*/
-
-
-SELECT v.id, v.marca, v.patente, sum(DATEDIFF(m.fecha_inicio, m.fecha_fin)) AS 'DiasInactivo'
-FROM Vehiculo v JOIN Mantenimiento m
-ON v.id=m.id_vehiculo
-Group BY v.id , v.marca, v.patente
-
-/*Vehiculo: Costo mantenimiento*/
-
-SELECT v.id, v.marca, v.patente, sum(m.costo) AS 'CostoMantenimiento'
-FROM Vehiculo v JOIN Mantenimiento m
-ON v.id=m.id_vehiculo
-Group BY v.id , v.marca, v.patente
-
-/*Vehiculo: Kilometros Recorridos - Mantenimiento*/
-SELECT v.id, v.marca, v.patente,MAX(m.kilometros) AS 'KilometrosRecorridos'
-FROM Vehiculo v JOIN Mantenimiento m ON v.id=m.id_vehiculo
-Group BY v.id , v.marca, v.patente
-
-/*Grafico - tipo vehiculo combustible*/
-SELECT t.tipo , avg(v.combustible_real)
-FROM viaje v join  vehiculo ve on ve.id=v.id_vehiculo JOIN tipovehiculo t on t.id_tipo=ve.id_tipoVehiculo
-GROUP by t.id_tipo , t.tipo

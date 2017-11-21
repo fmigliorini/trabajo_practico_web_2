@@ -2,6 +2,7 @@
 $listConsumo = Vehiculo_model::getConsumo();
 $listViajes = Vehiculo_model::getCantidadViajes();
 ?><!--Load the AJAX API-->
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
 
       google.charts.load('current', {'packages':['corechart']});
