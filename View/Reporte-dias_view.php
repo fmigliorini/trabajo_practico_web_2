@@ -17,8 +17,7 @@ $listMantenimiento = Vehiculo_model::getReporteDiasFueraDeServicio();
     <section class="content container-fluid">
 
       <a href="libs/reportes-dias_pdf.php" class="btn btn-default">Exportar PDF</a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate"><i class="glyphicon glyphicon-tasks"></i> Ver graficos</button>
-
+    
 
         <table id="tablaMantenimiento">
           <thead>

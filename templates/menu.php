@@ -16,6 +16,7 @@
       <li <?php echo ( Helper::isPage('mantenimiento') ) ? 'class="active"' : '' ?>><a href="index.php?page=mantenimiento"><i class="fa fa-link"></i> <span>Mantenimiento de vehiculos</span></a></li>
       <li <?php echo ( Helper::isPage('permisos') ) ? 'class="active"' : '' ?>><a href="index.php?page=permisos"><i class="fa fa-link"></i> <span>Permisos</span></a></li>
       <li <?php echo ( Helper::isPage('reportes') ) ? 'class="active"' : '' ?>><a href="index.php?page=reportes"><i class="fa fa-link"></i> <span>Reportes</span></a></li>
+      <li <?php echo ( Helper::isPage('graficos') ) ? 'class="active"' : '' ?>><a href="index.php?page=graficos"><i class="fa fa-link"></i> <span>Graficos</span></a></li>
 
     </ul>
     <!-- /.sidebar-menu -->

@@ -201,13 +201,37 @@ class Vehiculo_model implements ModelInterface
 static public function getReporteKilometrosService()
 {
 	$db= DataBase::getInstance();
-	$query ="SELECT v.id, v.patente , v.marca. v.fecha_fabricacion ,SUM(vi.kilometro_real) as 'KilometrosRecorridos', tv.kilometrosService - SUM(vi.kilometro_real) AS 'KilometrosService'
+	$query ="SELECT v.id, v.patente , v.marca, v.fecha_fabricacion ,SUM(vi.kilometro_real) as 'KilometrosRecorridos', tv.kilometrosService - SUM(vi.kilometro_real) AS 'KilometrosService'
 				FROM vehiculo v join viaje vi ON (v.id = vi.id_vehiculo) JOIN tipovehiculo tv on v.id_tipoVehiculo=tv.id_tipo
-				WHERE vi.fecha_fin>(SELECT MAX(m.fecha_fin) as 'UltimoService'
+				WHERE vi.fecha_fin>=(SELECT MAX(m.fecha_fin) as 'UltimoService'
 														FROM mantenimiento m where m.id_vehiculo=v.id
 														GROUP by m.id_vehiculo)
 				GROUP by v.id, v.patente , v.marca";
 	return $db->query($query);
 
 }
+
+static public function getConsumo()
+{$db= DataBase::getInstance();
+$query ="SELECT t.tipo as'vehiculo',  sum(v.kilometro_real)/ sum(v.combustible_real) as 'consumo'
+FROM viaje v join  vehiculo ve on ve.id=v.id_vehiculo JOIN tipovehiculo t on t.id_tipo=ve.id_tipoVehiculo
+WHERE t.id_tipo <>4
+GROUP by t.id_tipo , t.tipo";
+return $db->query($query);
+
+}
+static public function getCantidadViajes(){
+
+	$db= DataBase::getInstance();
+	$query =	"SELECT tp.tipo as 'vehiculo' , COUNT(vi.id) as 'viajes'
+FROM vehiculo ve JOIN tipovehiculo tp on ve.id_tipoVehiculo=tp.id_tipo  JOIN viaje vi ON vi.id_vehiculo=ve.id
+where tp.id_tipo <>4
+GROUP by tp.id_tipo";
+return $db->query($query);
+}
+
+
+
+
+
 }

@@ -15,6 +15,7 @@ if ( $page !== 'requierePermiso' && $page !== 'pageNotFound'){
         case 'reportes-dias':
         case 'reportes-costo':
         case 'reportes-kilometros':
+        case 'reportes-kilometrosService':
             $page = "reportes";
             break;
     }
