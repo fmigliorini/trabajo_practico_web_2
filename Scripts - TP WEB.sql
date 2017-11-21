@@ -35,7 +35,9 @@ create table estadoVehiculo(
 
 create table tipoVehiculo(
     id_tipo INT PRIMARY KEY AUTO_INCREMENT,
-    tipo VARCHAR(100)
+    tipo VARCHAR(100),
+	kilometrosService VARCHAR(100),
+	
 );
 
 CREATE TABLE Vehiculo (
@@ -208,11 +210,11 @@ values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
     ('chofer2','202cb962ac59075b964b07152d234b70','2','3'),
     ('mantenimiento','202cb962ac59075b964b07152d234b70','3','4');
 
-INSERT INTO tipoVehiculo(tipo)
-VALUES ('Camion'),
-	   ('Camioneta'),
-	   ('Tractor'),
-	   ('Acoplado');
+INSERT INTO tipoVehiculo(tipo,kilometrosService)
+VALUES ('Camion', 1000),
+	   ('Camioneta',750),
+	   ('Tractor',800),
+	   ('Acoplado',1500);
 
 
 INSERT INTO estadoVehiculo (estado)
