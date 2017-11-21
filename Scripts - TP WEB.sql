@@ -253,18 +253,18 @@ INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servici
 		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros',1);
 
 INSERT INTO viaje ( descripcion, origen, destino, fecha_inicio, fecha_fin, tiempo_estimado, tiempo_real, combustible_estimado, combustible_real,kilometro_estimado,kilometro_real,estado,id_cliente,id_vehiculo, id_vehiculoAcoplado, id_chofer, id_chofer2)
-VALUES ( 'transporte 01', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '1', NULL),
-	    ('transporte 02', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '20', '15', '150', 'activo', '2', '2', NULL, '1', NULL),
-	    ('transporte 03', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '15', '15', '30', 'activo', '3', '3', NULL, '1', NULL),
-	    ('transporte 04', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '30', '15', '150', 'activo', '1', '4', NULL, '1', NULL),
-	    ('transporte 05', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '35', '15', '30', 'activo', '2', '5', NULL, '1', NULL),
-	    ('transporte 06', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '40', '15', '150', 'activo', '1', '6', NULL, '1', NULL),
-	    ('transporte 07', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '18', '15', '30', 'activo', '3', '7', NULL, '1', NULL),
-	    ('transporte 08', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '98', '15', '150', 'activo', '1', '8', NULL, '1', NULL),
-		('transporte 09', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '20', '15', '150', 'activo', '3', '9', NULL, '1', NULL),
-	    ('transporte 10', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '15', '15', '30', 'activo', '3', '10', NULL, '1', NULL),
-	    ('transporte 11', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '30', '15', '150', 'activo', '1', '11', NULL, '1', NULL),
-	    ('transporte 12', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '35', '15', '30', 'activo', '2', '12', NULL, '1', NULL),
-	    ('transporte 13', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '40', '15', '150', 'activo', '2', '13', NULL, '1', NULL),
-	    ('transporte 14', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '18', '15', '30', 'activo', '1', '14', NULL, '1', NULL),
-	    ('transporte 15', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '98', '15', '150', 'activo', '3', '15', NULL, '1', NULL);
+VALUES ( 'transporte 01', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '2', NULL),
+	    ('transporte 02', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '20', '15', '150', 'activo', '2', '2', NULL, '2', NULL),
+	    ('transporte 03', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '15', '15', '30', 'activo', '3', '3', NULL, '2', NULL),
+	    ('transporte 04', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '30', '15', '150', 'activo', '1', '4', NULL, '2', NULL),
+	    ('transporte 05', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '35', '15', '30', 'activo', '2', '5', NULL, '3', NULL),
+	    ('transporte 06', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '40', '15', '150', 'activo', '1', '6', NULL, '3', NULL),
+	    ('transporte 07', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '18', '15', '30', 'activo', '3', '7', NULL, '3', NULL),
+	    ('transporte 08', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '98', '15', '150', 'activo', '1', '8', NULL, '3', NULL),
+		('transporte 09', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '20', '15', '150', 'activo', '3', '9', NULL, '2', NULL),
+	    ('transporte 10', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '15', '15', '30', 'activo', '3', '10', NULL, '2', NULL),
+	    ('transporte 11', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '30', '15', '150', 'activo', '1', '11', NULL, '2', NULL),
+	    ('transporte 12', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '35', '15', '30', 'activo', '2', '12', NULL, '2', NULL),
+	    ('transporte 13', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '40', '15', '150', 'activo', '2', '13', NULL, '3', NULL),
+	    ('transporte 14', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '18', '15', '30', 'activo', '1', '14', NULL, '2', NULL),
+	    ('transporte 15', 'calle 1 ', 'calle 1 ', '2017-11-30 02:00:00', '2017-11-30', '30', '30', '10', '98', '15', '150', 'activo', '3', '15', NULL, '3', NULL);
