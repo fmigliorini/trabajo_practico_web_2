@@ -89,6 +89,10 @@ if(isset($_GET['page']) && !empty($_GET['page']))
               require_once "models/Vehiculo_model.php";
               require_once "View/Reporte-kilometrosService_view.php";
               break;
+        case 'graficos':
+              require_once "models/Vehiculo_model.php";
+              require_once "View/Graficos_view.php";
+              break;
     }
 }
 

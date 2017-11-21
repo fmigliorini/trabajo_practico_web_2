@@ -210,4 +210,14 @@ static public function getReporteKilometrosService()
 	return $db->query($query);
 
 }
+
+static public function getConsumo()
+{$db= DataBase::getInstance();
+$query ="SELECT t.tipo as'vehiculo',  sum(v.kilometro_real)/ sum(v.combustible_real) as 'consumo'
+FROM viaje v join  vehiculo ve on ve.id=v.id_vehiculo JOIN tipovehiculo t on t.id_tipo=ve.id_tipoVehiculo
+WHERE t.id_tipo <>4
+GROUP by t.id_tipo , t.tipo";
+return $db->query($query);
+
+}
 }
