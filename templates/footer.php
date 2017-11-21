@@ -8,6 +8,7 @@
 <script src="public/js/adminlte.min.js"></script>
 
 <script src="public/js/jquery.dataTables.min.js"></script>
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyAm142j63X1B_Dn7YZHM5cnHi5XpI4qYAY"></script>
 
 <script src="public/js/funciones.js"></script>
 <script src="public/js/empleado.js"></script>
@@ -17,6 +18,7 @@
 <script src="public/js/viaje.js"></script>
 <script src="public/js/Permiso.js"></script>
 <script src="public/js/mantenimiento.js"></script>
+
 
 </body>
 </html>

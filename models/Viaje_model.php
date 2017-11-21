@@ -198,7 +198,7 @@ class Viaje_model implements ModelInterface
     static public function finalizar($idViaje)
     {
         $db = DataBase::getInstance();
-        $query = "select SUM(lv.combustible) + combustible_estimado as combustible_total, SUM(lv.kilometros) + v.kilometro_estimado as kilometros_total,SEC_TO_TIME( NOW() - v.fecha_inicio ) as tiempo_total from Viaje v INNER JOIN LogViaje lv ON  lv.id_viaje = v.id WHERE v.id = '$idViaje' GROUP BY v.id ";
+        $query = "select SUM(lv.combustible) + combustible_estimado as combustible_total, SUM(lv.kilometros) + v.kilometro_estimado as kilometros_total,TIMEDIFF( NOW() - v.fecha_inicio ) as tiempo_total from Viaje v INNER JOIN LogViaje lv ON  lv.id_viaje = v.id WHERE v.id = '$idViaje' GROUP BY v.id ";
         $res = $db->query($query);
 
         $combustibleTotal = 0 + $res[0]->combustible_total;

@@ -64,13 +64,30 @@ $(function(){
         $('#form-visualizar #qr').attr('src','qrImages/qrViaje_' +id+'.png');
 
         $.ajax({
-            url: 'buscarLogViaje.php',
+            url: 'buscarLogViajes_ajax.php',
             type: 'GET',
             dataType: 'json',
             data: {idViaje:id},
         })
         .done(function(data) {
-            console.log(data);
+            $('#body-log-viajes').html("");
+            if (data.length == 0 ){
+                console.log("no data");
+            }else{
+                var html;
+                console.log(data);
+                $.each(data, function( index, value ) {
+                    console.log(value);
+                    html += "<tr>";
+                    html += "<td>" + value.razon + "</td>";
+                    html += "<td>" + value.fecha + "</td>";
+                    html += "<td>" + value.kilometros + "</td>";
+                    html += "<td>" + value.precio + "</td>";
+                    html += "</tr>";
+                });
+
+                $('#body-log-viajes').html(html);
+            }
         })
         .fail(function(xhr, status, error) {
             console.log(xhr.responseText);
