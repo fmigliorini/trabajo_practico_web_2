@@ -40,7 +40,7 @@ $dompdf=new DOMPDF();
 $dompdf->load_html($codigoHTML);
 ini_set("memory_limit","128M");
 $dompdf->render();
-$dompdf->stream("reporte_VehiculosKilometrosRecorridos.pdf");
+$dompdf->stream("reporte_VehiculosKilometrosService.pdf");
 
 ?>
 
