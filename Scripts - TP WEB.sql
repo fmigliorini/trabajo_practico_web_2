@@ -63,7 +63,7 @@ create table Viaje(
     descripcion varchar(225),
     origen varchar(100),
     destino varchar(100),
-    fecha_inicio date,
+    fecha_inicio datetime,
     fecha_fin date,
     tiempo_estimado varchar(50),
     tiempo_real varchar(50),
@@ -144,7 +144,7 @@ VALUES ('Federico','Rastelli','Claro'),
 	   ('Franco','Zuccarelli', 'Muffin');
 
 insert into Rol (descripcion)
-VALUES ('admin'), ('chofer');
+VALUES ('admin'), ('chofer'), ('mantenimiento');
 
 insert into Modulo (descripcion)
  VALUES ('Roles'),
@@ -185,7 +185,10 @@ insert into Permiso(id_Rol,id_Modulo)
         (1,10),
         (1,11),
         (1,12),
-		(1,13);
+		(1,13),
+        (1,14),
+        (1,15),
+        (3,10);
 
 insert into Empleado (nombre,apellido,numeroDocumento,telefono)
 values ('Facundo','Migliorini','35159952','1122334455'),
@@ -199,7 +202,8 @@ values ('Facundo','Migliorini','35159952','1122334455'),
 insert into Usuario (usuario,password,id_rol,id_empleado)
 values ('admin','202cb962ac59075b964b07152d234b70','1','1'),
     ('chofer','202cb962ac59075b964b07152d234b70','2','2'),
-    ('chofer2','202cb962ac59075b964b07152d234b70','2','3');
+    ('chofer2','202cb962ac59075b964b07152d234b70','2','3'),
+    ('mantenimiento','202cb962ac59075b964b07152d234b70','3','4');
 
 INSERT INTO tipoVehiculo(tipo)
 VALUES ('Camion'),
@@ -222,9 +226,9 @@ VALUES ('HTR 128', 'Scania', '12346', '1254', '2010-09-16', '4', '1'),
 		('QWE 789', 'Isuzu', '7854', '654', '2015-05-11', '2', '1'),
 		('RET 715', 'GMC', '3214', '65463', '2017-11-03', '3', '1'),
 		('ZXC 123', 'Hino', '7842', '6875', '2008-03-07', '4', '1'),
-		('YTR 789', 'Ford', '6985', '6453', '2010-01-06', '1', '1'),
-		('NBV 998', 'Hummer', '467', '6546', '2010-12-05', '4', '1'),
-		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '1');
+		('YTR 789', 'Ford', '6985', '6453', '2010-01-06', '1', '4'),
+		('NBV 998', 'Hummer', '467', '6546', '2010-12-05', '4', '4'),
+		('OPU 125', 'Mack Trucks', '4567', '654', '2009-10-07', '1', '4');
 
 INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servicio, id_vehiculo, mecanico, repuestoCambiado,externo)
  VALUES ('2017-11-01', '2017-11-30', '50000', '2300', '1', '1', 'Pedro', 'cubiertas',0),
@@ -235,8 +239,8 @@ INSERT INTO mantenimiento(fecha_inicio, fecha_fin, kilometros, costo, id_servici
 		('2017-03-01', '2017-04-01', '8900', '2300', '7', '1', 'Pedro', 'Cambio de faros',1);
 
 INSERT INTO viaje ( descripcion, origen, destino, fecha_inicio, fecha_fin, tiempo_estimado, tiempo_real, combustible_estimado, combustible_real,kilometro_estimado,kilometro_real,estado,id_cliente,id_vehiculo, id_vehiculoAcoplado, id_chofer, id_chofer2) 
-VALUES ( 'transporte', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '1', NULL),
-('transporte', 'calle 1 ', 'calle 1 ', '2017-11-30', '2017-11-30', '30', '30', '10', '10', '15', '150', 'activo', '1', '1', NULL, '1', NULL);
+VALUES ( 'transporte', 'calle 1 ', 'calle 1 ', '2017-11-30 03:20:15', '2017-12-01', '30', '30', '10', '10', '15', '30', 'activo', '1', '1', NULL, '2', NULL),
+('transporte', 'calle 2 ', 'calle 2 ', '2017-11-30 04:30:22', '2017-12-01', '30', '30', '10', '10', '15', '150', 'activo', '1', '1', NULL, '3', NULL);
 		
 		
 /*Vehiculo:Dias fuera de servicio*/
