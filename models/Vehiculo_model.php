@@ -220,4 +220,18 @@ GROUP by t.id_tipo , t.tipo";
 return $db->query($query);
 
 }
+static public function getCantidadViajes(){
+
+	$db= DataBase::getInstance();
+	$query =	"SELECT tp.tipo as 'vehiculo' , COUNT(vi.id) as 'viajes'
+FROM vehiculo ve JOIN tipovehiculo tp on ve.id_tipoVehiculo=tp.id_tipo  JOIN viaje vi ON vi.id_vehiculo=ve.id
+where tp.id_tipo <>4
+GROUP by tp.id_tipo";
+return $db->query($query);
+}
+
+
+
+
+
 }

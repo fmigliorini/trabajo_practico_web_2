@@ -18,7 +18,7 @@
 <script src="public/js/viaje.js"></script>
 <script src="public/js/Permiso.js"></script>
 <script src="public/js/mantenimiento.js"></script>
-
+<script src="public/js/loader.js"></script>
 
 </body>
 </html>
